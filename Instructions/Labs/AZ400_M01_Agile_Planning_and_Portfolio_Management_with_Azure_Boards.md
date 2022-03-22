@@ -1,13 +1,13 @@
 ---
 lab:
   title: 实验室 01：使用 Azure Boards 进行敏捷规划和项目组合管理
-  module: 'Module 1: Planning for DevOps'
-ms.openlocfilehash: 956e50fb6075e9dec5d5b72e2bb18698eef07b2e
-ms.sourcegitcommit: d8f0a6eb53689d119ce8cf3a4416ad2c80cf919d
+  module: 'Module 1: Get started on a DevOps transformation journey'
+ms.openlocfilehash: b67811c9d2397ad082be78bb30d87955f4cba455
+ms.sourcegitcommit: f72fcf5ee578f465b3495f3cf789b06c530e88a4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/27/2022
-ms.locfileid: "137894623"
+ms.lasthandoff: 03/04/2022
+ms.locfileid: "139262442"
 ---
 # <a name="lab-01-agile-planning-and-portfolio-management-with-azure-boards"></a>实验室 01：使用 Azure Boards 进行敏捷规划和项目组合管理
 # <a name="student-lab-manual"></a>学生实验室手册
