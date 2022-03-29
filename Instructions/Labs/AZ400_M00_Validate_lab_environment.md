@@ -2,12 +2,12 @@
 lab:
   title: 实验室 00：验证实验室环境
   module: 'Module 0: Welcome'
-ms.openlocfilehash: d5886a54ef4531d68bfa5da28ba2542ddb0cd463
-ms.sourcegitcommit: 08d43004a29343fed5b35bf6819ba38b074201f3
+ms.openlocfilehash: 082d0853be7780d0a49c949d9c60851a7f30b7a8
+ms.sourcegitcommit: 7001996e0238a23639a4d9ce16e68a201393abfb
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/09/2022
-ms.locfileid: "139687272"
+ms.lasthandoff: 03/22/2022
+ms.locfileid: "140748968"
 ---
 # <a name="lab-00-validate-lab-environment"></a>实验室 00：验证实验室环境
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -32,5 +32,7 @@ ms.locfileid: "139687272"
 16. 至少等待 3 个小时再使用 CI/CD 功能，以便在后端反映新的设置。 否则，仍会显示消息“此代理未运行，因为已达到最大请求数…”。
 17. 在“组织设置”中，转到“安全性”->“策略”
 18. 启用“通过 OAuth 进行第三方应用程序访问”
+    > 注意：OAuth 设置有助于使工具（如 DemoDevOpsGenerator）注册扩展。 如果没有此设置，几个实验室可能会因为缺少所需的扩展而失败。
 19. 启用“允许公共项目”
+    > 注意：公共项目设置将允许一些实验室使用部分扩展的免费版本。
 20. 可选操作：可以通过创建和触发生成管道来验证新设置是否已成功应用。 为此，请与讲师交谈或使用 [Azure DevOps 演示生成器](https://azuredevopsdemogenerator.azurewebsites.net)在新创建的组织中创建一个演示项目并启用计费。
