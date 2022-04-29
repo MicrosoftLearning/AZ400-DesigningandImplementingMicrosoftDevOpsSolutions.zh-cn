@@ -2,12 +2,12 @@
 lab:
   title: 实验室 12：将 Azure Key Vault 与 Azure DevOps 集成
   module: 'Module 05: Implement a secure continuous deployment using Azure Pipelines'
-ms.openlocfilehash: ee482422f21a674e4a91b7cd7af048fbd2bfbfbb
-ms.sourcegitcommit: f72fcf5ee578f465b3495f3cf789b06c530e88a4
+ms.openlocfilehash: ecd8c74d1dc1c9b96c3d61e59fb2abc646bd8741
+ms.sourcegitcommit: ea152638f54c729974e5cc91ef3dc7414d853ab5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/04/2022
-ms.locfileid: "139262544"
+ms.lasthandoff: 04/26/2022
+ms.locfileid: "144012356"
 ---
 # <a name="lab-12-integrating-azure-key-vault-with-azure-devops"></a>实验室 12：将 Azure Key Vault 与 Azure DevOps 集成
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -109,7 +109,8 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 1.  在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体（将 `<service-principal-name>` 替换为任意由字母和数字组成的唯一字符串） ：
 
     ```
-    az ad sp create-for-rbac --name <service-principal-name> --role Contributor
+    SUB_ID=$(az account show --query id --output tsv)
+    az ad sp create-for-rbac --name <service-principal-name> --role contributor --scope /subscriptions/$SUB_ID
     ```
 
     > **注意**：此命令将生成 JSON 输出。 将输出复制到文本文件中。 本实验室中稍后会用到它。

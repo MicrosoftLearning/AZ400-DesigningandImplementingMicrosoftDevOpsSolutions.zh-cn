@@ -2,12 +2,12 @@
 lab:
   title: 实验室 11：使用 YAML 将管道配置为代码
   module: 'Module 05: Implement a secure continuous deployment using Azure Pipelines'
-ms.openlocfilehash: 6f6c4d98338022a305fb3fd05f0d1efc7a4b9c00
-ms.sourcegitcommit: f72fcf5ee578f465b3495f3cf789b06c530e88a4
+ms.openlocfilehash: 8de8c2a736004288fe37e971771b02ca7b8afd7e
+ms.sourcegitcommit: 47f04db60403c98a8fd46def1794f46594bfd1f8
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/04/2022
-ms.locfileid: "139262512"
+ms.lasthandoff: 04/27/2022
+ms.locfileid: "144341227"
 ---
 # <a name="lab-11-configuring-pipelines-as-code-with-yaml"></a>实验室 11：使用 YAML 将管道配置为代码
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -26,7 +26,7 @@ ms.locfileid: "139262512"
 
 -   估计时间：60 分钟
 
-## <a name="instructions"></a>说明
+## <a name="instructions"></a>Instructions
 
 ### <a name="before-you-start"></a>开始之前
 
@@ -62,7 +62,7 @@ ms.locfileid: "139262512"
 
 1.  在实验室计算机上，启动 Web 浏览器并导航到 [Azure DevOps 演示生成器](https://azuredevopsdemogenerator.azurewebsites.net)。 此实用工具将对以下过程进行自动化：在你的帐户中创建预填充了实验室所需内容（工作项、存储库等）的 Azure DevOps 项目。 
 
-    > **注意**：有关该站点的详细信息，请参阅[什么是 Azure DevOps 服务演示生成器？](https://docs.microsoft.com/en-us/azure/devops/demo-gen)。
+    > **注意**：有关该站点的详细信息，请参阅 [什么是 Azure DevOps 服务演示生成器？](https://docs.microsoft.com/en-us/azure/devops/demo-gen)。
 
 1.  单击“登录”，并使用与你的 Azure DevOps 订阅相关联的 Microsoft 帐户登录。
 1.  如果需要，在“Azure DevOps 演示生成器”页面上，单击“接受”以接受访问 Azure DevOps 订阅的权限请求 。
@@ -100,22 +100,16 @@ ms.locfileid: "139262512"
     SERVICEPLANNAME='az400l11a-sp1'
     az appservice plan create --resource-group $RESOURCEGROUPNAME --name $SERVICEPLANNAME --sku B3
     ```
-    
-    > **注意**：如果 `az appservice plan create` 命令失败并显示以 `ModuleNotFoundError: No module named 'vsts_cd_manager'` 开头的错误消息，请运行以下命令，然后重新运行失败的命令。
+        
 
-    ```bash
-    az extension remove -n appservice-kube
-    az extension add --yes --source "https://aka.ms/appsvc/appservice_kube-latest-py2.py3-none-any.whl"
-    ```
-
-1.  创建具有唯一名称的 Web 应用程序。
+1.  创建具有唯一名称的 Web 应用。
 
     ```bash
     WEBAPPNAME=partsunlimited$RANDOM$RANDOM
     az webapp create --resource-group $RESOURCEGROUPNAME --plan $SERVICEPLANNAME --name $WEBAPPNAME
     ```
 
-    > **注意**：记录 Web 应用程序的名称。 本实验室中稍后会用到它。
+    > **注意**：记录 Web 应用的名称。 本实验室中稍后会用到它。
 
 1.  接下来，创建一个 Azure SQL Server。
 
