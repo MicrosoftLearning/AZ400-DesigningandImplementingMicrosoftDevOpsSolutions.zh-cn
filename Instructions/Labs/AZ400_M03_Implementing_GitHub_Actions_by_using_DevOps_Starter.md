@@ -2,12 +2,12 @@
 lab:
   title: 实验室 6：使用 DevOps Starter 实现 GitHub Actions
   module: 'Module 3: Implement CI with Azure Pipelines and GitHub Actions'
-ms.openlocfilehash: 9a57b5948b959773dcda04d48f802bcf5a516a9f
-ms.sourcegitcommit: f72fcf5ee578f465b3495f3cf789b06c530e88a4
+ms.openlocfilehash: ab4f600b83b4808caff309fa49e2dcab19a32c00
+ms.sourcegitcommit: ea152638f54c729974e5cc91ef3dc7414d853ab5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/04/2022
-ms.locfileid: "139262492"
+ms.lasthandoff: 04/26/2022
+ms.locfileid: "144012350"
 ---
 # <a name="lab-06-implementing-github-actions-by-using-devops-starter"></a>实验室 6：使用 DevOps Starter 实现 GitHub Actions
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -96,9 +96,10 @@ ms.locfileid: "139262492"
     | 存储库 | **az400m08l01** |
     | 订阅 | 在本实验室中使用的 Azure 订阅的名称 |
     | Web 应用名称 | azurewebsites.net DNS 命名空间中任何有效的、全局唯一的主机名 |
-    | 位置 | 可以预配 Azure Web 应用的任何 Azure 区域的名称 |
+    | 位置 | 可以预配 Azure Web 应用的任何 Azure 区域的名称。 建议预配“美国东部” |
 
-    > **注意**：等待预配完成。 这大约需要 1 分钟。
+   > **注意**：某些“位置”可能因资源不可用而失败。 建议预配“美国东部”。
+   > **注意**：等待预配完成。 这大约需要 1 分钟。
 
 1.  在“Deploy_DevOps_Project_az400m08l01\| 概述”边栏选项卡上，单击“转到资源” 。
 1.  在“az400m08l01”边栏选项卡的“GitHub 工作流”磁贴上单击“授权”  。 

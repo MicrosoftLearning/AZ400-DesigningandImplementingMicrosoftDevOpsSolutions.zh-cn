@@ -2,12 +2,12 @@
 lab:
   title: 实验室 07：将外部源代码管理与 Azure Pipelines 集成
   module: 'Module 3: Implement CI with Azure Pipelines and GitHub Actions'
-ms.openlocfilehash: d48cf2a03d5d9408dcd95db5004563bc95066856
-ms.sourcegitcommit: f72fcf5ee578f465b3495f3cf789b06c530e88a4
+ms.openlocfilehash: cfe5a93dc06bf6799f0b877a13185b1abe18c266
+ms.sourcegitcommit: ea152638f54c729974e5cc91ef3dc7414d853ab5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/04/2022
-ms.locfileid: "139262511"
+ms.lasthandoff: 04/26/2022
+ms.locfileid: "144012353"
 ---
 # <a name="lab-07-integrating-external-source-control-with-azure-pipelines"></a>实验室 07：将外部源代码管理与 Azure Pipelines 集成
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -32,7 +32,7 @@ Azure Pipelines 为每个 GitHub 开源项目免费提供无限的 CI/CD 分钟�
 
 -   估计时间：60 分钟
 
-## <a name="instructions"></a>说明
+## <a name="instructions"></a>Instructions
 
 ### <a name="before-you-start"></a>开始之前
 
@@ -84,7 +84,7 @@ Azure Pipelines 为每个 GitHub 开源项目免费提供无限的 CI/CD 分钟�
     > **注意**：可以选择指定要包含的存储库，但出于本实验室的目的，只需包括所有存储库即可。 请注意，Azure DevOps 需要列出的权限集才能实现其服务。 
 
 7.  如果出现提示，请使用 GitHub 密码进行身份验证以继续操作。
-8.  出现提示时，在“设置 Azure Pipelines 项目”页面上的“选择 Azure DevOps 组织”下拉列表中，选择 Azure DevOps 帐户，然后单击“新建项目”  。
+8.  出现提示时，在“设置 Azure Pipelines 项目”页上，首先单击“切换目录”并确保选中“默认目录” 。 然后，在“选择你的 Azure DevOps 组织”下拉列表中，选择你的 Azure DevOps 帐户，并单击“创建新项目” 。
 9.  出现提示时，在“设置 Azure Pipelines 项目”页面上的“项目名称”文本框中，键入“将外部源代码管理与 Azure Pipelines 集成”，将“项目可见性”设置为“私有”，然后单击“继续”     。
 10. 在“Microsoft 希望 Azure Pipelines 获得的权限”页面上，单击“授权 Azure Pipelines” 。
 

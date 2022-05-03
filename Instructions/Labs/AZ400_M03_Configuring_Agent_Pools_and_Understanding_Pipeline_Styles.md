@@ -2,12 +2,12 @@
 lab:
   title: 实验室 04：配置代理池并了解管道样式
   module: 'Module 3: Implement CI with Azure Pipelines and GitHub Actions'
-ms.openlocfilehash: 2aff45194cb8c16e1d19be44af175bb937873f60
-ms.sourcegitcommit: f72fcf5ee578f465b3495f3cf789b06c530e88a4
+ms.openlocfilehash: b25f462520c5a6932abf9a2f0647e53e2e171adb
+ms.sourcegitcommit: 03e098f960d137ab5862f4cc9a8d762cc6740c48
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/04/2022
-ms.locfileid: "139262497"
+ms.lasthandoff: 04/27/2022
+ms.locfileid: "144339529"
 ---
 # <a name="lab-04-configuring-agent-pools-and-understanding-pipeline-styles"></a>实验室 04：配置代理池并了解管道样式
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -29,7 +29,7 @@ ms.locfileid: "139262497"
 
 ## <a name="lab-duration"></a>实验室时长
 
--   预计用时：**45 分钟**
+-   预计用时：45 分钟
 
 ## <a name="instructions"></a>说明
 
@@ -148,7 +148,7 @@ ms.locfileid: "139262497"
     | 输入代理池（对于默认内容，按 enter） | **az400m05l05a-pool** |
     | 输入代理名称 | **az400m05-vm0** |
     | 输入工作文件夹（对于 _work，按 enter） | Enter |
-    | 输入“为每个步骤的任务执行 unzip”。 （按 enter 表示 N） | Enter |
+    | （仅在显示时）输入“为每个步骤的任务执行解压缩”。 （按 enter 表示 N） | Enter |
     | 输入“将代理作为服务运行?” (Y/N)（按 enter 表示 N） | **是** |
     | 输入要用于服务的用户帐户（按 enter 表示 NT AUTHORITY\NETWORK SERVICE） | Enter |
     | 输入是否阻止在配置完成后立即启动服务？ (Y/N)（按 enter 表示 N） | Enter |
@@ -168,7 +168,7 @@ ms.locfileid: "139262497"
     demands:
     - agent.name -equals az400m05-vm0
     ```
-1. 对于 `Task: NugetInstaller@0`，单击设置（以灰色显示在任务上方的链接），修改“要安装的 NuGet.exe 版本” >  4.0.0 并单击“添加”   。 
+1. 对于 `Task: NugetToolInstaller@0`，单击设置（以灰色显示在任务上方的链接），修改“要安装的 NuGet.exe 版本” >  4.0.0 并单击“添加”   。 
 1.  在“PartsUnlimited”编辑窗格上，单击窗格右上角的“保存”，然后在“保存”窗格上，再次单击“保存”   。 这将自动触发基于此管道的生成。 
 1.  在 Azure DevOps 门户中，在垂直导航窗格左侧，单击“管道”部分的“管道” 。
 1.  在“管道”窗格的“最近”选项卡上，单击“PartsUnlimited”条目，在“PartsUnlimited”窗格的“运行”选项卡上，选择最近的运行，在该运行的“摘要”窗格上，向下滚动至底部，在“作业”部分单击“阶段 1”，并监视作业，直到作业成功完成       。 

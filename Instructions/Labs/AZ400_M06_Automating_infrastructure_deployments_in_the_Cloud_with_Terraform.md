@@ -2,12 +2,12 @@
 lab:
   title: 实验室 15：在云中使用 Terraform 和 Azure Pipelines 自动完成基础结构部署
   module: 'Module 06: Manage infrastructure as code using Azure, DSC, and third-party tools'
-ms.openlocfilehash: e98e6235c4b2e3604390f66109dd395ae7c0d2b9
-ms.sourcegitcommit: f72fcf5ee578f465b3495f3cf789b06c530e88a4
+ms.openlocfilehash: 8c2df320b4a4b40bcc449cf00d6a479b864f624f
+ms.sourcegitcommit: 31ed72aab4ce3ac156655216d24b04ebeea6fd0b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/04/2022
-ms.locfileid: "139262509"
+ms.lasthandoff: 04/29/2022
+ms.locfileid: "144390485"
 ---
 # <a name="lab-15-automating-infrastructure-deployments-in-the-cloud-with-terraform-and-azure-pipelines"></a>实验室 15：在云中使用 Terraform 和 Azure Pipelines 自动完成基础结构部署
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -31,7 +31,7 @@ Terraform 配置文件描述了运行单个应用程序或整个数据中心所�
 
 -   估计时间：60 分钟
 
-## <a name="instructions"></a>说明
+## <a name="instructions"></a>Instructions
 
 ### <a name="before-you-start"></a>开始之前
 
@@ -94,7 +94,7 @@ Terraform 配置文件描述了运行单个应用程序或整个数据中心所�
 
 1.  在 Terraform 存储库的文件夹层次结构中，展开“Terraform”文件夹，然后单击“webapp.tf”  。
 1.  在 webapp.tf 上查看 webapp.tf 文件的内容，然后单击“编辑”  。
-1.  为提供程序部分添加新行，该文件应如以下示例所示：
+1.  文件应如下例所示：
 
     ```
      terraform {
@@ -171,7 +171,7 @@ Terraform 配置文件描述了运行单个应用程序或整个数据中心所�
 
     > **注意**：若要配置 Terraform [后端](https://www.terraform.io/docs/backends/)，我们需要托管 Terraform 状态的 Azure 存储帐户的访问密钥。 在这种情况下，我们使用 Azure PowerShell 任务来检索上一任务中预配的 Azure 存储帐户的访问密钥。 通过使用 `Write-Host "##vso[task.setvariable variable=storagekey]$key"`，我们将创建一个管道变量，稍后的任务可以使用该变量。
 
-1.  在“开发”阶段的任务列表中，选择“替换 Terraform 文件中的令牌”任务 。
+1.  在“开发”阶段的任务列表中，选择“替换 Terraform 文件中的令牌”任务 。 将任务的“令牌模式”属性更新为 `__...__` 以匹配 webapp.tf 文件中的令牌 。
 
     > **注意**：如果你仔细查看过 webapp.tf 文件，你应该会注意到一些以“__”为前缀和后缀的值，例如 `__terraformstorageaccount__` 。 “替换令牌”任务会将这些值替换为发布管道中定义的变量值。
      

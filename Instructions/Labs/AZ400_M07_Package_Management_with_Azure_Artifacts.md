@@ -2,12 +2,12 @@
 lab:
   title: 实验室 17：使用 Azure Artifacts 进行包管理
   module: 'Module 07: Design and implement a dependency management strategy'
-ms.openlocfilehash: e4172b81e228750517d6b7dc93e2a16755d031c1
-ms.sourcegitcommit: f72fcf5ee578f465b3495f3cf789b06c530e88a4
+ms.openlocfilehash: e034aca12dc1fc7cfc00c039629a9fc9ba9c42eb
+ms.sourcegitcommit: 31ed72aab4ce3ac156655216d24b04ebeea6fd0b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/04/2022
-ms.locfileid: "139262507"
+ms.lasthandoff: 04/29/2022
+ms.locfileid: "144390487"
 ---
 # <a name="lab-17-package-management-with-azure-artifacts"></a>实验室 17：使用 Azure Artifacts 进行包管理
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -200,8 +200,6 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 1.  在“解决方案资源管理器”窗格中，右键单击 PartsUnlimitedWebsite 项目下的“引用”节点，然后在右键菜单中选择“管理 NuGet 包”   。 这将打开窗口中央窗格中的“NuGet: PartsUnlimitedWebsite”选项卡。
 1.  在“NuGet:PartsUnlimitedWebsite”窗格中，单击“浏览”选项卡，然后在窗格右上角的“包源”下拉列表中，选择 PartsUnlimitedShared  。 
 
-    > **注意**：包列表将仅包含你刚刚添加的一个包。
-
 1.  选择包，然后在 PartsUnlimited.Shared 窗格中，单击“安装”将其添加到项目中 。
 1.  当系统出现提示时，在“预览更改”对话框中，单击“确定” 。
 1.  按 Ctrl+Shift+B 生成项目，并确认生成成功完成。 
@@ -267,7 +265,8 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
 1.  在“NuGet:PartsUnlimitedWebsite”窗格中，单击“更新”选项卡，在搜索文本框中键入“PartsUnlimited.Shared”，然后在窗格右侧的“版本:   最新稳定版 1.1.0”下拉列表旁边，单击“更新”以安装新版本。 
 
-    > **注意**：可能有许多 NuGet 更新可用，但你只需要更新 PartsUnlimited.Shared。 请注意，该包可能需要一些时间才能完全可用于更新。 如果遇到错误，请稍等片刻，然后重试。
+    > **注意**：可能有许多 NuGet 更新可用，但你只需要更新 PartsUnlimited.Shared。 请注意，该包可能需要一些时间才能完全可用于更新。 如果遇到错误，请稍等片刻，然后重试。 还可以尝试清理 NuGet 缓存：VS –> 工具 –> Nuget 包管理器 –>“包管理器”设置 –> 常规。
+    
 
 1.  当系统出现提示时，在“预览更改”对话框中，单击“确定” 。
 1.  按 F5 键生成并运行站点。 验证脚本是否按预期运行。
