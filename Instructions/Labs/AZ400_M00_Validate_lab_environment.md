@@ -2,18 +2,20 @@
 lab:
   title: 实验室 00：验证实验室环境
   module: 'Module 0: Welcome'
-ms.openlocfilehash: 95077d37927a88b6e74a8aa1bd469ae931060645
-ms.sourcegitcommit: ebeb5eea409c6a20414c1f419fd64b2bbe05bfa2
+ms.openlocfilehash: 6f17dfd8417f4e2b15f1e2ebedd9c88c961532cd
+ms.sourcegitcommit: b1421ee189fd5d980b6455e44b45cd3efea2a62a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/05/2022
-ms.locfileid: "144789462"
+ms.lasthandoff: 05/09/2022
+ms.locfileid: "144822529"
 ---
 # <a name="lab-00-validate-lab-environment"></a>实验室 00：验证实验室环境
 # <a name="student-lab-manual"></a>学生实验室手册
 
 ## <a name="instructions"></a>说明
+
 > **注意**：如果已有“个人 Microsoft 帐户”设置和与该帐户相关联的有效 Microsoft Azure Pass 订阅，请从步骤 4 开始。
+
 1. 从讲师或其他来源获取新的“Azure Pass 促销代码”。
 2. 使用专用浏览器会话从以下链接获取新的“个人 Microsoft 帐户(MSA)”：[https://account.microsoft.com](https://account.microsoft.com)。
 3. 使用相同的浏览器会话，转到 [https://www.microsoftazurepass.com](https://www.microsoftazurepass.com)，然后使用 Microsoft 帐户 (MSA) 兑换 Azure Pass。 有关详细信息，请参阅[兑换 Microsoft Azure Pass](https://www.microsoftazurepass.com/Home/HowTo?Length=5)。 按照说明进行兑换。 
