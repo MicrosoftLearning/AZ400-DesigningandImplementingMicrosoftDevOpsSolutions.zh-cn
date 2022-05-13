@@ -2,12 +2,12 @@
 lab:
   title: 实验室 01：使用 Azure Boards 进行敏捷规划和项目组合管理
   module: 'Module 1: Get started on a DevOps transformation journey'
-ms.openlocfilehash: b67811c9d2397ad082be78bb30d87955f4cba455
-ms.sourcegitcommit: f72fcf5ee578f465b3495f3cf789b06c530e88a4
+ms.openlocfilehash: 5755d9761c4682d2e5e8004cea3810f0b041647d
+ms.sourcegitcommit: ad90d44825eb733a12cbf9ce1e987948530e09db
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/04/2022
-ms.locfileid: "139262442"
+ms.lasthandoff: 05/04/2022
+ms.locfileid: "144761308"
 ---
 # <a name="lab-01-agile-planning-and-portfolio-management-with-azure-boards"></a>实验室 01：使用 Azure Boards 进行敏捷规划和项目组合管理
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -29,11 +29,11 @@ ms.locfileid: "139262442"
 
 ## <a name="lab-duration"></a>实验室时长
 
--   预计用时：**60 分钟**
+-   估计时间：60 分钟
 
-## <a name="instructions"></a>Instructions
+## <a name="instructions"></a>说明
 
-### <a name="before-you-start"></a>准备工作
+### <a name="before-you-start"></a>开始之前
 
 #### <a name="sign-in-to-the-lab-virtual-machine"></a>登录到实验室虚拟机
 
@@ -286,7 +286,7 @@ ms.locfileid: "139262442"
 
     > **注意**：该板的一项便捷功能是你可以轻松地在线更新关键数据。 定期更新“剩余工时”估计是一个不错的做法，可反映每个任务的预期时长。 假设你已查看“为最新教程添加页面”任务的工作，并且发现它实际所需的时间将比初始预期用时更长。 
 
-1.  在“冲刺”视图的“任务面板”选项卡上，在表示“为最新教程添加页面”的方框中，将估计的小时数设置为与你在上一步中确定的冲刺总容量一致  。
+1.  在“冲刺(sprint)”视图的“任务面板”选项卡上，在表示“为最新教程添加页面”的方框中，将估计的小时数设置为与你在上一步中确定的冲刺(sprint) 总容量一致  。
 
     ![查看“工作详细信息”部分的信息，为团队分配的时间大于容量。](images/m1/over_capacity_v1.png)
 

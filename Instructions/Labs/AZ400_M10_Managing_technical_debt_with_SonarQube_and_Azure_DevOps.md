@@ -2,12 +2,12 @@
 lab:
   title: 实验室 24：使用 SonarCloud 和 Azure DevOps 管理技术债务
   module: 'Module 10: Implement security and validate code bases for compliance'
-ms.openlocfilehash: 31326e288d746f6d6577b91fc60f58c2293698d1
-ms.sourcegitcommit: f72fcf5ee578f465b3495f3cf789b06c530e88a4
+ms.openlocfilehash: 6d21a232131d1e5eb7a59c48cea8a6737a9f8dcf
+ms.sourcegitcommit: ad90d44825eb733a12cbf9ce1e987948530e09db
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/04/2022
-ms.locfileid: "139262510"
+ms.lasthandoff: 05/04/2022
+ms.locfileid: "144761311"
 ---
 # <a name="lab-24-managing-technical-debt-with-sonarcloud-and-azure-devops"></a>实验室 24：使用 SonarCloud 和 Azure DevOps 管理技术债务
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -118,26 +118,25 @@ ms.locfileid: "139262510"
 
     > **注意**：在 SonarCloud 中，你将创建组织，并在其中新建项目。 在 SonarCloud 中设置的组织和项目将与在 Azure DevOps 中设置的组织和项目一样。
 
-1.  在“欢迎使用 SonarCloud”页面上，单击“从 Azure 导入组织” 。
+1.  单击“从 Azure 导入组织”。
 1.  在“创建组织”页面上的“Azure DevOps 组织名称”文本框中，键入你的 Azure DevOps 组织的名称，在“个人访问令牌”文本框中，粘贴在上一练习中记下的令牌的值，然后单击“继续”   。 
 1.  在“导入组织详细信息”部分的“密钥”文本框中，键入用于指定组织的字符串，然后单击“继续”  。
 
     > **注意**：此密钥在 SonarCloud 系统中必须唯一。 确保“密钥”文本框的右侧显示了绿色对勾。 这表示密钥符合唯一性前提条件。
 
-1.  在“选择计划”部分，选择要在本实验中使用的计划，然后单击“创建组织” 。
+1.  在“选择计划”部分，选择要在本实验室中使用的计划（建议使用免费计划），然后单击“创建组织”  。
 
     > **注意**：现在，你已创建了与 Azure DevOps 组织完全相同的 SonarCloud 组织。
 
     > **注意**：接下来，在新创建的组织中，你将创建 SonarCloud 项目，该项目与 Azure DevOps 项目 SonarExamples 完全相同。 
 
-1.  在“全部设置完毕!组织现已准备就绪”页上，单击“分析新项目”。
 1.  在“分析项目 - 选择存储库”页的 Azure DevOps Projects 列表中，选中“SonarExamples/SonarExamples”条目旁的复选框，然后单击“设置”  。
-1.  在“分析项目”页面上，单击“使用 Azure DevOps 管道”磁贴 。 
+1.  在“选择分析方法”页上，单击“使用 Azure DevOps 管道”磁贴 。 
 1.  在“使用 Azure Pipelines 分析”页的“安装扩展”部分，单击“继续”  。
 
     > **注意**：如果已安装扩展，可忽略创建扩展部分。 
-
-1.  在“使用 Azure Pipelines 分析”页的“配置 Azure Pipelines”部分，单击“.NET”  。 这将显示“准备分析配置”、“运行代码分析”和“发布 Quality Gate 结果”所需执行的一系列步骤  。 
+1.  在“添加新的 Sonarcloud 服务终结点”上，按照 Azure DevOps 项目中所述的步骤将服务连接命名为 SonarSC，选中“授予对所有管道的访问权限”复选框，然后单击“验证并保存”   。 返回到 Sonarcloud 网站，单击“继续”。
+1.  在“使用 Azure Pipelines 分析”页的“配置 Azure Pipelines”部分，单击“.NET”  。 这将显示“准备分析配置”、“运行代码分析”和“发布 Quality Gate 结果”所需执行的一系列步骤  。 你将需要这些用于管道定义的说明。 
 
     > **注意**：查看实现这些目标的步骤列表。 你将在后续任务中实现它们。
 
@@ -154,12 +153,9 @@ ms.locfileid: "139262510"
 
 在此任务中，你将开始为项目创建生成管道。
 
-1.  切换到在 Azure DevOps 门户中显示“SonarExamples”窗格的 Web 浏览器窗口，在 Azure DevOps 门户最左侧的垂直菜单栏中，单击“管道”，然后单击“创建管道”  。
-1.  在“你的代码在哪里?”窗格上，查看可用选项。
+1. 切换到 Web 浏览器窗口，其中显示了 Azure DevOps 门户中的“SonarExamples”窗格。 转至“项目设置”，将“可见性”更改为专用并保存  。
 
-    > **注意**：你有两种选项。 可以使用 YAML 编辑器或经典编辑器来配置管道 。 如果使用经典编辑器，则可使用上述 SonarCloud 扩展中安装的预定义模板。 如果使用 YAML 编辑器，则需要使用单独提供的 YAML 文件。 我们将逐步介绍这两种选项。 
-
-    > **注意**：如果打算使用经典编辑器，请跳过下一任务。
+    > **注意**：如果按照 Mod 00 中的步骤仅为专用项目设置并行作业，并且组织当前没有可用于公共项目的作业，则需要执行此操作。
 
 #### <a name="task-2-create-a-pipeline-by-using-the-yaml-editor"></a>任务 2：使用 YAML 编辑器创建管道
 
@@ -167,12 +163,7 @@ ms.locfileid: "139262510"
 
 > **注意**：继续配置 YAML 管道前，你将先为 SonarCloud 创建服务连接。
 
-1.  打开另一个浏览器选项卡，导航到 Azure DevOps 门户中的 SonarExamples 主页。
-1.  在显示 Azure DevOps 门户中的“SonarExamples”窗格的 Web 浏览器窗口中，在左下角单击“项目设置” 。
-1.  在“项目设置”窗格的垂直菜单栏中的“管道”部分，依次单击“服务连接”和“创建服务连接”   。
-1.  在“新建服务连接”窗格上，选择“SonarCloud”选项，然后单击“下一步”  。
-1.  在“新建 SonarCloud 服务连接”窗格的“SonarCloud 令牌”文本框中，粘贴在上一任务中记下的令牌值，在“服务连接名称”文本框中，键入“SC”并单击“验证并保存”    。 
-1.  切换回显示了“你的代码在哪里?”窗格的 Web 浏览器选项卡。 如果已关闭此选项卡，请返回在 Azure DevOps 门户中的“SonarExamples”窗格，在 Azure DevOps 门户最左侧的垂直菜单栏中，单击“管道”，然后单击“创建管道”  。
+1.  在 Azure DevOps 门户最左侧的垂直菜单栏中，单击“管道”，然后单击“创建管道” 。
 1.  在“你的代码在哪里?”窗格上，单击“Azure Repos Git” 。
 1.  在“选择存储库”窗格中，单击“SonarExamples” 。 
 1.  在“配置管道”窗格上，单击“.NET 桌面”YAML 模板 。
@@ -240,44 +231,15 @@ ms.locfileid: "139262510"
     > **注意**：需遵循本任务中的其余步骤来修改 YAML 管道。 
 
 1. 在 NuGetCommand@2 任务中，将 `restoreSolution: 'SomeConsoleApplication.sln'` 替换为 `restoreSolution: '**\SomeConsoleApplication.sln'`，以说明解决方案不在存储库的根目录中。
+1.  在 SonarCloudPrepare@1 任务中，单击“设置”选项以打开视觉对象帮助程序，从下拉列表中选择已创建的“sonarSC”服务连接，并按照“Sonarcloud 网站”>“配置 Azure Pipeline”部分中所述替换字段值   。 单击“添加”以将更改添加到管道中。
 1.  在 VSBuild@1 任务中，将 `solution: 'SomeConsoleApplication.sln'` 替换为 `solution: '**\SomeConsoleApplication.sln'`，以说明解决方案不在存储库的根目录中。
-1.  在 SonarCloudPrepare@1 任务中，将 `organization: 'myorga'` 条目中 `myorga` 占位符的值替换为 SonarCloud 组织的名称。
-1.  在 SonarCloudPrepare@1 任务中，将 `projectKey: 'dotnet-framework-on-azdo'` 条目中 `dotnet-framework-on-azdo` 占位符的值替换为 SonarCloud 项目密钥的名称。
-1.  在 SonarCloudPrepare@1 任务中，将 `projectName: 'Sample .NET Framework project with Azure DevOps'` 条目中 `Sample .NET Framework project with Azure DevOps` 占位符的值替换为 SonarCloud 项目的名称 (`SonarExamples`)。
 1.  在“查看管道 YAML”窗格上，单击“保存并运行”，然后在“保存并运行”窗格中，单击“保存并运行”   。
 
     > **注意**：如果在 YAML 编辑器中完成了此任务，请跳过下一个任务。
 
-1. 转到“Azure Pipelines”>“管道”，单击“Sonarexample”管道，打开最新的运行。 你将看到它在队列中，取消等待中的运行，单击“是” 。 现在，单击“运行新的” > “运行”以触发一次新的运行（这次管道将为私密项目分配适当的代理） 。
+1. 转到“Azure Pipelines”>“管道”，单击“Sonarexample”管道，等待管道完成。
 
-#### <a name="task-3-create-a-pipeline-by-using-the-classic-editor"></a>任务 3：使用经典编辑器创建管道
-
-在此任务中，你将使用经典编辑器创建管道。
-
-1.  在“你的代码在哪里?”窗格上，单击“使用经典编辑器” 。
-1.  在“选择源”窗格上，确保选中“Azure Repos Git”选项，“存储库”下拉列表中显示“SonarExamples”条目，并且“手动和计划生成的默认分支”中显示主分支，然后单击“继续”      。
-
-    > **注意**：先前安装的 SonarCloud 扩展为 Maven、Gradle、.NET Core 和 .NET 桌面应用程序提供了启用了 SonarCloud 的自定义生成模板。 这些模板基于标准 Azure DevOps 模板，但具有其他特定于分析的任务和一些预配置的设置。
-
-1.  在“选择模板”窗格上，向下滚动到“其他”部分，然后依次单击“具有 SonarCloud 的 .NET 桌面”模板条目和“应用”   。
-
-    > **注意**：该模板包含所有必需的任务和大多数必需的设置。 你需要提供其余设置。
-
-1.  在生成管道定义的“任务”选项卡上，确保选中“管道”条目，在右侧的“代理池”下拉列表中，选择“Azure Pipelines”条目，然后在“代理规范”下拉列表中，选择“vs2017-win2016”条目     。
-1.  在管道任务列表中，选择“准备分析 SonarCloud”任务，然后单击“+ 新建” 。
-1.  在“新建服务连接”窗格的“SonarCloud 令牌”文本框中，粘贴从本实验室的先前部分中记下的令牌值，单击“验证”对其进行验证，在“服务连接名称”文本框中，键入“SC”并单击“验证并保存”     。 
-1.  回到“准备分析配置”窗格中的“组织”下拉列表中，选择 SonarCloud 组织的名称 。 
-1.  在“准备分析配置”窗格的“项目密钥”文本框中，键入从本实验室先前部分中记下的项目密钥的名称 。
-1.  在“准备分析配置”窗格的“项目名称”文本框中，键入从本实验室的先前部分中记下的项目的名称 (`SonarExamples`) 。
-1.  可以根据需要禁用“发布 Quality Gate 结果”，在管道任务列表中，选择“发布 Quality Gate 结果”任务，在“发布 Quality Gate 结果”窗格中，展开“控制选项”部分，然后清除“已启用”复选框   。 
-
-    > **注意**：如果要使用预部署入口和发布管道，则必须执行本任务。
-
-    > **注意**：如果已启用本步骤，则“生成摘要”页的“扩展”选项卡中将显示分析结果的摘要 。 但这将导致 SonarCloud 上的处理完成后才能完成生成。
-
-1.  在生成管道编辑器窗格上，单击“保存并排队”，在下拉菜单中，单击“保存并排队”，然后在“运行管道”窗格上，单击“保存并运行”，然后等待生成完成   。
-
-#### <a name="task-4-check-pipeline-results"></a>任务 4：检查管道结果
+#### <a name="task-3-check-pipeline-results"></a>任务 3：检查管道结果
 
 在此任务中，你将检查管道结果。
 
@@ -293,12 +255,12 @@ ms.locfileid: "139262510"
 
     > **注意**：为了能够看到 Quality Gate 结果，在运行第一个报表后，我们需要设置“新建代码定义”。 这样，后续的管道运行将包含 Quality Gate 结果。
 
-1.  在 SonarCloud 项目的“概述”选项卡上，单击“设置新建代码定义” 。 
-1.  在 SonarCloud 项目的“管理”选项卡上，单击“上一版本” 。
-1.  切换到 Web 浏览器窗口，该窗口显示了 Azure DevOps 门户中的 SonarExamples 项目窗格和最新的生成运行，然后单击“运行新建”，在“运行管道”窗格中，单击“运行”   。
+1.  在 SonarCloud 项目（Sonarcloud 网站）的“概述”选项卡上，单击“管理”图标（左侧栏）和“新建代码”  。 
+1.  在 SonarCloud 项目的“管理”选项卡上，单击“先前版本” 。
+1.  切换到 Web 浏览器窗口，该窗口显示了 Azure DevOps 门户中的 SonarExamples 项目窗格和最新的生成运行，然后单击“运行新建”，在“运行管道”窗格中，单击“运行”    。
 1.  在生成运行窗格上，查看“摘要”选项卡的内容，然后单击“扩展”选项卡标头 。
 1.  在“扩展”选项卡上，单击“详细 SonarCloud 报表” 。 这将自动打开新的浏览器选项卡，其中显示了 SonarCloud 项目报表页。
-1.  验证报表现在是否包含 Quality Gate 结果。
+1.  验证报告和 Azure DevOps“扩展”选项卡现在是否“包含质量门结果” 。
 
     > **注意**：我们现已在 SonarCloud 上创建了新组织，并配置了 Azure DevOps 生成，用于执行分析和将生成结果推送到 SonarCloud。
 
@@ -310,9 +272,9 @@ ms.locfileid: "139262510"
 
 在本任务中，你将分析 SonarCloud 报表。
 
-1.  在 SonarCloud 项目的“概述”选项卡的“可靠性措施”部分，你会发现该处有一个 bug 条目 。
+1.  在 SonarCloud 项目的“概述”选项卡上，我们看到了关于“主”分支的报告摘要 。 如果单击“主分支”图标（左侧栏）并选择“总体代码”，将看到更详细的报告 。
 
-    > **注意**：该页面还包含其他指标，例如“代码异味”、“覆盖率”、“复制”和“大小”（代码行）   。 下表简要说明了每个术语。
+    > **注意**：该页面还包含指标，例如“代码异味”、“覆盖率”、“复制”和“大小”（代码行）   。 下表简要说明了每个术语。
 
     | 术语 | 说明 |
     | --- | --- |
@@ -348,7 +310,7 @@ ms.locfileid: "139262510"
 在此任务中，你将查看个人访问令牌要求，以实现与 SonarCloud 项目的 Azure DevOps 拉取请求集成。
 
 1.  切换到 Web 浏览器窗口，其中显示了 Azure DevOps 门户中的 SonarExamples 项目。
-1.  再次执行本实验室先前部分所述的步骤，生成具有“代码”范围和 SonarExamples 项目读写权限的个人访问令牌  。 
+1.  重用在本实验室前面生成的 Azure DevOps 个人访问令牌，或重复本实验室前面描述的步骤，以生成具有“代码”范围和对 SonarExamples 项目的“读取和写入”权限的个人访问令牌   。 
 
     > **注意**：另外，你可以再次使用在本实验室先前部分中生成的个人访问令牌。
 
@@ -358,8 +320,8 @@ ms.locfileid: "139262510"
 
 在此任务中，你将通过为 SonarCloud 项目分配 Azure DevOps 个人访问令牌来配置 SonarCloud 中的拉取请求集成。
 
-1.  切换到 Web 浏览器窗口，其中显示了 SonarCloud 门户中的 SonarExamples 项目。 
-1.  在项目的仪表板页面上，单击“管理”选项卡的标头，然后在下拉菜单中，单击“常规设置” 。
+1.  切换到 Web 浏览器窗口，其中显示了 SonarCloud 门户中的 SonarExamples 项目 。 
+1.  在项目的仪表板页面上，单击“管理”选项卡的图标，然后在下拉菜单中，单击“常规设置” 。
 1.  在“常规设置”页面，单击“拉取请求” 。
 1.  在“拉取请求”设置的“常规”部分的“提供程序”下拉列表中，选择“Azure DevOps Services”，然后单击“保存”    。
 1.  在“拉取请求”设置的“与 Azure DevOps Services 集成”部分的“个人访问令牌”文本框中，粘贴先前生成的 Azure DevOps 个人访问令牌，然后单击“保存”   
@@ -368,7 +330,7 @@ ms.locfileid: "139262510"
 
 在此任务中，你将为与 SonarCloud 集成配置 Azure DevOps 分支策略。
 
-1.  切换到 Web 浏览器窗口，其中显示了 Azure DevOps 门户中的 SonarExamples 项目。
+1.  切换到 Web 浏览器窗口，其中显示了 Azure DevOps 门户中的 SonarExamples 项目 。
 1.  在 Azure DevOps 门户最左侧的垂直菜单栏中，单击“Repos”，然后在“存储库”部分，单击“分支”  。 
 1.  在“分支”窗格的分支列表中，将鼠标悬停在主分支条目的右边缘上，这样会显示表示“更多选项”菜单的垂直省略号字符，单击省略号，然后在弹出的菜单中，单击“分支策略”   。
 1.  在主窗格上，单击“生成验证”部分右侧的“+”  。
