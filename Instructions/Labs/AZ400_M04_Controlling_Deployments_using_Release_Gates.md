@@ -2,12 +2,12 @@
 lab:
   title: 实验室 08：使用发布入口控制部署
   module: 'Module 04: Design and implement a release strategy'
-ms.openlocfilehash: c010c7cb2f4444be0a2ab1c850e8331d95c85ff6
-ms.sourcegitcommit: ea152638f54c729974e5cc91ef3dc7414d853ab5
+ms.openlocfilehash: 7bc9ba56b30f0d62032028872841d18994bb4d3e
+ms.sourcegitcommit: 3a7fe6a0cc9e03a34a688459b373f37cbcc8d879
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/26/2022
-ms.locfileid: "144012344"
+ms.lasthandoff: 06/01/2022
+ms.locfileid: "145985262"
 ---
 # <a name="lab-08-controlling-deployments-using-release-gates"></a>实验室 08：使用发布入口控制部署
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -119,13 +119,6 @@ ms.locfileid: "144012344"
     ```bash
     SERVICEPLANNAME='az400m01l01-sp1'
     az appservice plan create -g $RESOURCEGROUPNAME -n $SERVICEPLANNAME --sku S1
-    ```
-
-    > **注意**：如果 `az appservice plan create` 命令失败并显示以 `ModuleNotFoundError: No module named 'vsts_cd_manager'` 开头的错误消息，那么请运行以下命令，然后重新运行失败的命令。
-
-    ```bash
-    az extension remove -n appservice-kube
-    az extension add --yes --source "https://aka.ms/appsvc/appservice_kube-latest-py2.py3-none-any.whl"
     ```
 
 1.  使用唯一的应用名称创建两个 Web 应用。
