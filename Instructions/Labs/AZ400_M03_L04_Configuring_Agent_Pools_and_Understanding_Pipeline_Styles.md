@@ -2,12 +2,12 @@
 lab:
   title: 实验室 04：配置代理池并了解管道样式
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
-ms.openlocfilehash: 41fe06e338c0cf62d7aff0513cf94550cb54de6b
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
+ms.openlocfilehash: 583d985e3529f9af22b07dc210a536a4451cac28
+ms.sourcegitcommit: ec8c8d929e4a5263af67a5ca17638128bc754bc0
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276066"
+ms.lasthandoff: 06/21/2022
+ms.locfileid: "146533395"
 ---
 # <a name="lab-04-configuring-agent-pools-and-understanding-pipeline-styles"></a>实验室 04：配置代理池并了解管道样式
 
@@ -162,10 +162,7 @@ ms.locfileid: "146276066"
 1.  在 Azure DevOps 门户中，在垂直导航窗格左侧，单击“管道”部分的“管道” 。
 1.  在“管道”窗格的“最近”选项卡上，单击“PartsUnlimited”条目，在“PartsUnlimited”窗格的“运行”选项卡上，选择最近的运行，在该运行的“摘要”窗格上，向下滚动至底部，在“作业”部分单击“阶段 1”，并监视作业，直到作业成功完成       。 
 
-1. 对于 `Task: NugetInstaller@0`，单击设置（以灰色显示在任务上方的链接），修改“要安装的 NuGet.exe 版本” >  4.0.0 并单击“添加”   。
-1. 在“PartsUnlimited”编辑窗格上，单击窗格右上角的“保存”，然后在“保存”窗格上，再次单击“保存”   。 这将自动触发基于此管道的生成。
-1. 在 Azure DevOps 门户中，在垂直导航窗格左侧，单击“管道”部分的“管道” 。
-1. 在“管道”窗格的“最近”选项卡上，单击“PartsUnlimited”条目，在“PartsUnlimited”窗格的“运行”选项卡上，选择最近的运行，在该运行的“摘要”窗格上，向下滚动至底部，在“作业”部分单击“阶段 1”，并监视作业，直到作业成功完成       。
+
 
 ## <a name="review"></a>审阅
 
