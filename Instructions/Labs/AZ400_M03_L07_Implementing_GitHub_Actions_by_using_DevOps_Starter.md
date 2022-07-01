@@ -2,12 +2,12 @@
 lab:
   title: 实验室 07：使用 DevOps Starter 实现 GitHub Actions
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
-ms.openlocfilehash: d4369acd15a31e2fae611bf74d3514abb500e367
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
+ms.openlocfilehash: aa16fd8e941c3e94eef0d4c9b0fdd23caa3e7866
+ms.sourcegitcommit: 73179152f51e48ada9641c4a6a33ea941606c469
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276045"
+ms.lasthandoff: 07/01/2022
+ms.locfileid: "146774602"
 ---
 # <a name="lab-07-implementing-github-actions-by-using-devops-starter"></a>实验室 07：使用 DevOps Starter 实现 GitHub Actions
 
@@ -121,17 +121,18 @@ ms.locfileid: "146276045"
 1. 在“所有工作流”部分，单击“Update Index.cshtml”条目 。
 1. 在“devops-starter-workflow.yml”部分，监视部署进度并验证部署是否成功完成。
      > **注意**：注意：如果使用 azure/CLI@1 的操作失败，请将以下更改提交到 devops-starter-workflow.yml 文件（更改默认的 azure cli 版本）并验证其是否成功完成 ：
-
-       ```
-       - name: Deploy ARM Template
-          uses: azure/CLI@v1
-          continue-on-error: false
-          with:
-            azcliversion: 2.29.2
-            inlineScript: |
-              az group create --name "${{ env.RESOURCEGROUPNAME }}" --location "${{ env.LOCATION }}"
-              az deployment group create --resource-group "${{ env.RESOURCEGROUPNAME }}" --template-file ./ArmTemplates/windows-webapp-     template.json --parameters webAppName="${{ env.AZURE_WEBAPP_NAME }}" hostingPlanName="${{ env.HOSTINGPLANNAME }}"   appInsightsLocation="${{ env.APPINSIGHTLOCATION }}" sku="${{ env.SKU }}"
-       ```
+     > <!-- {% raw %}) -->
+     > ```
+     >     - name: Deploy ARM Template
+     >       uses: azure/CLI@v1
+     >       continue-on-error: false
+     >       with:
+     >         azcliversion: 2.29.2
+     >         inlineScript: |
+     >           az group create --name "${{ env.RESOURCEGROUPNAME }}" --location "${{ env.LOCATION }}"
+     >           az deployment group create --resource-group "${{ env.RESOURCEGROUPNAME }}" --template-file ./ArmTemplates/windows-webapp-template.json --parameters webAppName="${{ env.AZURE_WEBAPP_NAME }}" hostingPlanName="${{ env.HOSTINGPLANNAME }}" appInsightsLocation="${{ env.APPINSIGHTLOCATION }}" sku="${{ env.SKU }}"
+     > ```
+     > <!-- {% endraw %}) -->
 
 1. 切换到在 Azure 门户中显示 DevOps Starter 边栏选项卡的浏览器窗口，并单击“Application 终结点”条目旁边的“浏览”链接 。
 1. 在新打开的 Web 浏览器窗口中，验证更新后的文本（表示在 GitHub 存储库中提交的更改）是否显示在 Web 应用主页上。
