@@ -2,12 +2,12 @@
 lab:
   title: 实验室 10：创建发布仪表板
   module: 'Module 04: Design and implement a release strategy'
-ms.openlocfilehash: fff8ad410e278a809489cf4dd8a0e5f1cac4570f
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
+ms.openlocfilehash: 3d2f730f3c38f20561cfab1b7ce7e4ea971594f3
+ms.sourcegitcommit: 73179152f51e48ada9641c4a6a33ea941606c469
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276049"
+ms.lasthandoff: 07/01/2022
+ms.locfileid: "146774608"
 ---
 # <a name="lab-10-creating-a-release-dashboard"></a>实验室 10：创建发布仪表板
 
@@ -103,11 +103,11 @@ ms.locfileid: "146276049"
     > **注意**：现在，你将创建一个部署会失败的新发布。 失败将由内置程序集测试导致，该测试会将与新发布相关联的更改视为无效更改。
 
 1. 在 Azure DevOps 门户，从左侧垂直菜单中单击“存储库”，在存储库中的文件夹列表中，导航到 Applications\\aspnet-core-dotnet-core\\Pages 文件夹，然后单击 Index.chtml 条目  。
-1. 在 Index.cshtml 窗格中，单击“编辑”，在行 4 中，将 `ViewData["Title"] = "Home Page - ASP.NET Core";` 替换为 `ViewData["Title"] = "Home Page v1.2 - ASP.NET Core";`，单击“提交”，在“提交”窗格中，再次单击“提交”     。 这将自动触发生成管道。
+1. 在“Index.cshtml”窗格上，单击“编辑” 。 在第 4 行中，将 `ViewData["Title"] = "Home Page - ASP.NET Core";` 替换为 `ViewData["Title"] = "Home Page v1.2 - ASP.NET Core";`。 单击“提交”。 在“提交”窗格中，再次单击“提交” 。 这将自动触发生成管道。
 1. 在 Azure DevOps 门户，从左侧垂直导航窗格中单击“管道”。
 1. 在“管道”窗格的“最近”选项卡上，单击“az400m10l02-CI”条目，在“az400m10l02-CI”窗格的“运行”选项卡上，选择最近的运行，在该运行的“摘要”选项卡的“作业”部分，单击“生成”，并监视作业，直到作业成功完成       。
 1. 作业完成后，在 Azure DevOps 门户，从左侧垂直导航窗格的“管道”部分，单击“发布” 。
-1. 在“az400m10l02 - CD”窗格的“发布”选项卡上，单击“Release-2”条目，在“Release-2”窗格的“管道”选项卡上，单击“开发”阶段，然后在“开发”窗格上，单击“查看日志”，并监视部署的进度，直到部署在“测试程序集”阶段失败        。
+1. 在“az400m10l02 - CD”窗格的“发布”选项卡上，单击“Release-3”条目，在“Release-3”窗格的“管道”选项卡上，单击“开发”阶段，然后在“开发”窗格上，单击“查看日志”，并监视部署的进度，直到部署在“测试程序集”阶段失败        。
 
 #### <a name="task-3-create-an-azure-devops-release-dashboard"></a>任务 3：创建 Azure DevOps 发布仪表板
 

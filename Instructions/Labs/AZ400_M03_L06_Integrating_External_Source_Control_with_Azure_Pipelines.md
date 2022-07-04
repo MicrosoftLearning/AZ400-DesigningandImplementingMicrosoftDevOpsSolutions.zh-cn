@@ -2,12 +2,12 @@
 lab:
   title: 实验室 6：将外部源代码管理与 Azure Pipelines 集成
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
-ms.openlocfilehash: d725318a4b016a5e32eef84993b2c3989d6d4c6c
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
+ms.openlocfilehash: af9b06398bffd5ede41513f4423ce875a018d214
+ms.sourcegitcommit: 73179152f51e48ada9641c4a6a33ea941606c469
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276046"
+ms.lasthandoff: 07/01/2022
+ms.locfileid: "146774604"
 ---
 # <a name="lab-06-integrating-external-source-control-with-azure-pipelines"></a>实验室 6：将外部源代码管理与 Azure Pipelines 集成
 
@@ -174,7 +174,7 @@ Azure Pipelines 为每个 GitHub 开源项目免费提供无限的 CI/CD 分钟�
     > **注意**：做出这些更改的人似乎没有意识到，必须在每个变量之前加上加号才能强制将这些变量转换为其数字表示形式。 删除它们后，JavaScript 会将中间的加号解释为字符串串联运算符，这就说明了为什么失败的测试中会出现 21 + 21 = 2121。
 
 1. 在“修改添加函数 #1”GitHub 页面上，单击“查看更改”按钮正下方的省略号，然后在下拉菜单中单击“编辑文件”  。
-1. 通过在 a 和 b 变量前面添加加号来还原原始更改，从而得到“add”：function(a,b) { return +a + +b }，`. In addition, include a comment on the preceding line stating`// 使用 + 运算符将类型转换为整数，以防止字符串串联` 。
+1. 通过在“a”和“b”变量前面添加加号来还原原来的更改，得到 `'add':      function(a,b) { return +a + +b },` 。 此外，对前一行添加注释，说明 `// Using + operator to type cast variables as integers in order to prevent string concatenation`。
 1. 滚动到页面底部，将默认提交消息替换为“修复添加函数”，确保选择了“直接提交到 additional-cleanup 分支”选项，然后单击“提交更改”  。
 1. 在“修改添加函数 #1”GitHub 页面上，选择“对话”选项卡 。
 
