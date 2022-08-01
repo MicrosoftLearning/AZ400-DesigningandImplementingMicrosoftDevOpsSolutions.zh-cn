@@ -2,12 +2,12 @@
 lab:
   title: 实验室 09：使用发布入口控制部署
   module: 'Module 04: Design and implement a release strategy'
-ms.openlocfilehash: 487310a0850c669952358c45828cf3c395459c05
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
+ms.openlocfilehash: bd98a90edce5aef989b22fbb4a65c9e4a8630485
+ms.sourcegitcommit: e8cd9b150299edd40e536a5d0555095cbb76926f
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276050"
+ms.lasthandoff: 07/27/2022
+ms.locfileid: "147422149"
 ---
 # <a name="lab-09-controlling-deployments-using-release-gates"></a>实验室 09：使用发布入口控制部署
 

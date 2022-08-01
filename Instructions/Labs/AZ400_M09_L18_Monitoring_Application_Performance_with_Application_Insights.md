@@ -2,12 +2,12 @@
 lab:
   title: 实验室 18：使用 Application Insights 监视应用程序性能
   module: 'Module 09: Implement continuous feedback'
-ms.openlocfilehash: 3e69170fc72f330fd83dda9df84f7b79fbe2ee2e
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
+ms.openlocfilehash: 6fce4d36fc4bc7e8eb48ffde0b5443fde335db9d
+ms.sourcegitcommit: 0edaa2709ad93baf1078fe5c11bc99c4937bbaf6
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276070"
+ms.lasthandoff: 07/28/2022
+ms.locfileid: "147433382"
 ---
 # <a name="lab-18-monitoring-application-performance-with-application-insights"></a>实验室 18：使用 Application Insights 监视应用程序性能
 
@@ -90,13 +90,6 @@ Application Insights 是多个平台上面向 Web 开发人员的可扩展应用
     SERVICEPLANNAME='az400l17-sp'
     az appservice plan create --resource-group $RESOURCEGROUPNAME \
         --name $SERVICEPLANNAME --sku B3 
-    ```
-
-    > **注意**：如果 `az appservice plan create` 命令失败并显示以 `ModuleNotFoundError: No module named 'vsts_cd_manager'` 开头的错误消息，请运行以下命令，然后重新运行失败的命令。
-
-    ```bash
-    az extension remove --name appservice-kube
-    az extension add --yes --source "https://aka.ms/appsvc/appservice_kube-latest-py2.py3-none-any.whl"
     ```
 
 1. 创建具有唯一名称的 Web 应用。
@@ -300,7 +293,7 @@ Application Insights 是多个平台上面向 Web 开发人员的可扩展应用
 
     > **注意**：将 Web 应用或网站部署到任何服务器后，可以设置测试，以监视其可用性和响应性。 Application Insights 将来自全球各地的 Web 请求定期发送到应用程序。 如果应用程序无响应或响应慢，它会提醒你。
 
-1. 在“可用性”边栏选项卡的工具栏中，单击“+ 添加测试” 。
+1. 在“可用性”边栏选项卡的工具栏中，单击“+ 添加经典测试” 。
 1. 在“创建测试”边栏选项卡的“测试名称”文本框中，键入“主页”，将 URL 设置为应用服务 Web 应用的根目录，然后单击“创建”    。
 
     > **注意**：测试不会立即运行，因此不会有任何数据。 如果稍后再返回查看，应可看到已更新可用性数据，反映针对实时站点的测试。 现在不要等待更新。
