@@ -2,12 +2,12 @@
 lab:
   title: 实验室 04：配置代理池并了解管道样式
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
-ms.openlocfilehash: 583d985e3529f9af22b07dc210a536a4451cac28
-ms.sourcegitcommit: ec8c8d929e4a5263af67a5ca17638128bc754bc0
+ms.openlocfilehash: 114bcefd6798265a41ffb7c3ced16f6f9f4cc28c
+ms.sourcegitcommit: ec2e4b7c653ff81fcf62ef96d3720c60d074176e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/21/2022
-ms.locfileid: "146533395"
+ms.lasthandoff: 08/06/2022
+ms.locfileid: "147503642"
 ---
 # <a name="lab-04-configuring-agent-pools-and-understanding-pipeline-styles"></a>实验室 04：配置代理池并了解管道样式
 
@@ -139,6 +139,7 @@ ms.locfileid: "146533395"
     | 输入工作文件夹（对于 _work，按 enter） | Enter |
     | （仅在显示时）输入“为每个步骤的任务执行解压缩”。 （按 enter 表示 N） | Enter |
     | 输入“将代理作为服务运行?” (Y/N)（按 enter 表示 N） | **是** |
+    | 输入 enable SERVICE_SID_TYPE_UNRESTRICTED (Y/N)（按 enter 表示 N） | **是** |
     | 输入要用于服务的用户帐户（按 enter 表示 NT AUTHORITY\NETWORK SERVICE） | Enter |
     | 输入是否阻止在配置完成后立即启动服务？ (Y/N)（按 enter 表示 N） | Enter |
 

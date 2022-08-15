@@ -2,12 +2,12 @@
 lab:
   title: 实验室 10：创建发布仪表板
   module: 'Module 04: Design and implement a release strategy'
-ms.openlocfilehash: 3d2f730f3c38f20561cfab1b7ce7e4ea971594f3
-ms.sourcegitcommit: 73179152f51e48ada9641c4a6a33ea941606c469
+ms.openlocfilehash: 87adc2517e0262de87f4b9608d066dd1934673b2
+ms.sourcegitcommit: ec2e4b7c653ff81fcf62ef96d3720c60d074176e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/01/2022
-ms.locfileid: "146774608"
+ms.lasthandoff: 08/06/2022
+ms.locfileid: "147503643"
 ---
 # <a name="lab-10-creating-a-release-dashboard"></a>实验室 10：创建发布仪表板
 
@@ -93,7 +93,7 @@ ms.locfileid: "146774608"
 
     > **注意**：首先，你将创建一个新发布，该发布将成功部署。
 
-1. 在 Azure DevOps 门户，从左侧垂直菜单中单击“存储库”，在存储库中的文件夹列表中，导航到 Applications\\aspnet-core-dotnet-core\\Pages 文件夹，然后单击 Index.chtml 条目  。
+1. 在 Azure DevOps 门户，从左侧垂直菜单中单击“存储库”，在存储库中的文件夹列表中，导航到 Application\\aspnet-core-dotnet-core\\Pages 文件夹，然后单击 Index.chtml 条目  。
 1. 在 Index.cshtml 窗格中，单击“编辑”，在行 20 中，将 `<div class="description line-2"> Your ASP.NET Core app is up and running on Azure</div>` 替换为 `<div class="description line-2"> Your ASP.NET Core app v1.1 is up and running on Azure</div>`，单击“提交”，在“提交”窗格中，再次单击“提交”     。 这将自动触发生成管道。
 1. 在 Azure DevOps 门户，从左侧垂直导航窗格中单击“管道”。
 1. 在“管道”窗格的“最近”选项卡上，单击“az400m10l02-CI”条目，在“az400m10l02-CI”窗格的“运行”选项卡上，选择最近的运行，在该运行的“摘要”选项卡的“作业”部分，单击“生成”，并监视作业，直到作业成功完成       。
@@ -102,7 +102,7 @@ ms.locfileid: "146774608"
 
     > **注意**：现在，你将创建一个部署会失败的新发布。 失败将由内置程序集测试导致，该测试会将与新发布相关联的更改视为无效更改。
 
-1. 在 Azure DevOps 门户，从左侧垂直菜单中单击“存储库”，在存储库中的文件夹列表中，导航到 Applications\\aspnet-core-dotnet-core\\Pages 文件夹，然后单击 Index.chtml 条目  。
+1. 在 Azure DevOps 门户，从左侧垂直菜单中单击“存储库”，在存储库中的文件夹列表中，导航到 Application\\aspnet-core-dotnet-core\\Pages 文件夹，然后单击 Index.chtml 条目  。
 1. 在“Index.cshtml”窗格上，单击“编辑” 。 在第 4 行中，将 `ViewData["Title"] = "Home Page - ASP.NET Core";` 替换为 `ViewData["Title"] = "Home Page v1.2 - ASP.NET Core";`。 单击“提交”。 在“提交”窗格中，再次单击“提交” 。 这将自动触发生成管道。
 1. 在 Azure DevOps 门户，从左侧垂直导航窗格中单击“管道”。
 1. 在“管道”窗格的“最近”选项卡上，单击“az400m10l02-CI”条目，在“az400m10l02-CI”窗格的“运行”选项卡上，选择最近的运行，在该运行的“摘要”选项卡的“作业”部分，单击“生成”，并监视作业，直到作业成功完成       。
