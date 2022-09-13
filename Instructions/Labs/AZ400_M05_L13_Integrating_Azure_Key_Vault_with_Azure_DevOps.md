@@ -2,12 +2,12 @@
 lab:
   title: 实验室 13：将 Azure Key Vault 与 Azure DevOps 集成
   module: 'Module 05: Implement a secure continuous deployment using Azure Pipelines'
-ms.openlocfilehash: 9be7385294511e1d2a67b87521895951a95e5573
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
+ms.openlocfilehash: 7e9be63b9c66718c82bddd58559fee586fe37a7b
+ms.sourcegitcommit: 7f9f6520944441639574d22603a45303f8a26a87
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276048"
+ms.lasthandoff: 09/05/2022
+ms.locfileid: "147783008"
 ---
 # <a name="lab-13-integrating-azure-key-vault-with-azure-devops"></a>实验室 13：将 Azure Key Vault 与 Azure DevOps 集成
 
@@ -170,7 +170,7 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
     > **注意**：你需要为管道授权才能部署到 Azure。 Azure 管道可以使用新的服务主体自动创建服务连接，但建议使用之前创建的服务连接，因为它已获得读取机密的权限。
 
-1. 选择“在代理上运行”并将“代理池”字段修改为“Azure Pipelines”和代理规范“ubuntu 18.04”   。
+1. 选择“在代理上运行”并将“代理池”字段修改为“Azure Pipelines”和代理规范“ubuntu 20.04”   。
 1. 选择“Azure Key Vault”任务，然后在右侧的“Azure Key Vault”任务属性的“Azure 订阅”标签旁，单击“管理”   。
 这将打开另一个浏览器标签页，该选项卡显示了 Azure DevOps 门户中的“服务连接”窗格。
 1. 在“服务连接”窗格上，单击“新建服务连接” 。
