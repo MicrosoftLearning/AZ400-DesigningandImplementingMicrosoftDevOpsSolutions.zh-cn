@@ -2,13 +2,8 @@
 lab:
   title: 实验室 14：使用 Azure 资源管理器模板进行 Azure 部署
   module: 'Module 06: Manage infrastructure as code using Azure and DSC'
-ms.openlocfilehash: 943ae78045dffc1bf0bd77c281870f7f6f1177b2
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276051"
 ---
+
 # <a name="lab-14-azure-deployments-using-azure-resource-manager-templates"></a>实验室 14：使用 Azure 资源管理器模板进行 Azure 部署
 
 # <a name="student-lab-manual"></a>学生实验室手册

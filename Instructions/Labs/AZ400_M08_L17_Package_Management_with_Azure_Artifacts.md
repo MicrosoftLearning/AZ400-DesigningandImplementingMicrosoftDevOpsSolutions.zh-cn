@@ -2,13 +2,8 @@
 lab:
   title: 实验室 17：使用 Azure Artifacts 进行包管理
   module: 'Module 08: Design and implement a dependency management strategy'
-ms.openlocfilehash: 8512853849f4556aac6a108b4e95d283f23533bb
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276101"
 ---
+
 # <a name="lab-17-package-management-with-azure-artifacts"></a>实验室 17：使用 Azure Artifacts 进行包管理
 
 # <a name="student-lab-manual"></a>学生实验室手册

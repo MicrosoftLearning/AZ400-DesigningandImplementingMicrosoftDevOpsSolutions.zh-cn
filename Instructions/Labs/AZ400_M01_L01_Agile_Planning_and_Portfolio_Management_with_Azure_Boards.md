@@ -2,13 +2,8 @@
 lab:
   title: 实验室 01：使用 Azure Boards 进行敏捷规划和项目组合管理
   module: 'Module 01: Get started on a DevOps transformation journey'
-ms.openlocfilehash: 42f817d384bed5f30b52a96793c5fed0b5637bfa
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276068"
 ---
+
 # <a name="lab-01-agile-planning-and-portfolio-management-with-azure-boards"></a>实验室 01：使用 Azure Boards 进行敏捷规划和项目组合管理
 
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -143,7 +138,7 @@ ms.locfileid: "146276068"
 1. 选择左上角的“未分配”条目，在下拉列表中选择你的用户帐户，将新工作项分配给自己。
 1. 选择“领域”条目旁边的“使用 Azure Boards 进行敏捷规划和项目组合管理”条目，然后在下拉列表中选择 PUL-Web  。 这会将“领域”设置为“使用 Azure Boards 进行敏捷规划和项目组合管理\PUL-Web” 。
 1. 选择“迭代”条目旁边的“使用 Azure Boards 进行敏捷规划和项目组合管理”条目，然后在下拉列表中选择“冲刺 2”  。 这会将“迭代”设置为“使用 Azure Boards 进行敏捷规划和项目组合管理\冲刺 2” 。
-1. 单击“保存”  以完成更改。 请勿关闭它。
+1. 单击“保存” **** 以完成更改。 请勿关闭它。
 
     ![输入之前显示的信息，并单击“长篇故事”窗口中的“保存”](images/m1/epic_details_v1.png)
 

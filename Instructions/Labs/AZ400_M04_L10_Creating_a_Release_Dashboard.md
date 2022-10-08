@@ -2,13 +2,8 @@
 lab:
   title: 实验室 10：创建发布仪表板
   module: 'Module 04: Design and implement a release strategy'
-ms.openlocfilehash: 87adc2517e0262de87f4b9608d066dd1934673b2
-ms.sourcegitcommit: ec2e4b7c653ff81fcf62ef96d3720c60d074176e
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 08/06/2022
-ms.locfileid: "147503643"
 ---
+
 # <a name="lab-10-creating-a-release-dashboard"></a>实验室 10：创建发布仪表板
 
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -103,7 +98,7 @@ ms.locfileid: "147503643"
     > **注意**：现在，你将创建一个部署会失败的新发布。 失败将由内置程序集测试导致，该测试会将与新发布相关联的更改视为无效更改。
 
 1. 在 Azure DevOps 门户，从左侧垂直菜单中单击“存储库”，在存储库中的文件夹列表中，导航到 Application\\aspnet-core-dotnet-core\\Pages 文件夹，然后单击 Index.chtml 条目  。
-1. 在“Index.cshtml”窗格上，单击“编辑” 。 在第 4 行中，将 `ViewData["Title"] = "Home Page - ASP.NET Core";` 替换为 `ViewData["Title"] = "Home Page v1.2 - ASP.NET Core";`。 单击“提交”。 在“提交”窗格中，再次单击“提交” 。 这将自动触发生成管道。
+1. 在“Index.cshtml”窗格上，单击“编辑” 。 在第 4 行中，将 `ViewData["Title"] = "Home Page - ASP.NET Core";` 替换为 `ViewData["Title"] = "Home Page v1.2 - ASP.NET Core";`。 单击“提交”。**** 在“提交”窗格中，再次单击“提交” 。 这将自动触发生成管道。
 1. 在 Azure DevOps 门户，从左侧垂直导航窗格中单击“管道”。
 1. 在“管道”窗格的“最近”选项卡上，单击“az400m10l02-CI”条目，在“az400m10l02-CI”窗格的“运行”选项卡上，选择最近的运行，在该运行的“摘要”选项卡的“作业”部分，单击“生成”，并监视作业，直到作业成功完成       。
 1. 作业完成后，在 Azure DevOps 门户，从左侧垂直导航窗格的“管道”部分，单击“发布” 。
@@ -116,7 +111,7 @@ ms.locfileid: "147503643"
 1. 在 Azure DevOps 门户，从左侧垂直菜单中单击“概述”，在“概述”部分单击“仪表板”，然后单击“添加小组件”   。
 1. 在“添加小组件”窗格上，向下滚动小组件列表，选择“部署状态”条目并单击“添加”  。
 1. 使用上一步中所述的过程添加“发布运行状况详细信息”、“发布运行状况概述”和“发布管道概述”小组件  。
-    > **注意**：从市场 [团队项目运行状况](https://marketplace.visualstudio.com/items?itemName=ms-devlabs.TeamProjectHealth)安装版本运行状况详细信息并发布运行状况概述 
+    > **注意**：从市场[团队项目运行状况](https://marketplace.visualstudio.com/items?itemName=ms-devlabs.TeamProjectHealth)安装版本运行状况详细信息并发布运行状况概述 
 1. 使用鼠标将“发布管道概述”拖至“部署状态”小组件右侧，这样就无需垂直滚动仪表板，然后单击“完成编辑”  。
 1. 返回仪表板窗格，在表示“部署状态”小组件的矩形中，单击“配置小组件” 。
 1. 在“配置”窗格上，指定以下设置（将所有其他设置保留为默认值）并选择“保存”。
@@ -151,7 +146,7 @@ ms.locfileid: "147503643"
 
     > **注意**：通过小组件上的链接可以直接导航到 Azure DevOps 门户中相应的窗格。
 
-### <a name="exercise-2-query-release-information-via-rest-api"></a>练习 2：通过 REST API 查询发布信息
+### <a name="exercise-2-query-releaseinformation-via-restapi"></a>练习 2：通过 REST API 查询发布信息
 
 在本练习中，你将使用 Postman 通过 REST API 查询发布信息。
 
@@ -176,7 +171,7 @@ ms.locfileid: "147503643"
 
 1. 在“成功”窗格中，单击“关闭” 。
 
-#### <a name="task-2-query-release-information-via-rest-api-by-using-postman"></a>任务 2：使用 Postman 通过 REST API 查询发布信息
+#### <a name="task-2-query-releaseinformation-via-restapi-by-using-postman"></a>任务 2：使用 Postman 通过 REST API 查询发布信息
 
 在此任务中，你将使用 Postman 通过 REST API 查询发布信息。
 
@@ -186,7 +181,7 @@ ms.locfileid: "147503643"
     > **注意**：你将收到一封来自 Postman 的电子邮件，提示你激活 Postman 帐户以完成帐户预配过程。
 
 1. 注册后，请单击 Postman 桌面应用窗口左上角的“+ 新建”，在“新建”窗格中单击“请求”，在“保存请求”窗格中的“请求名称”文本框内键入“Get-Releases”，单击“+ 新建集合”，然后在“为集合命名”文本框中键入“Azure DevOps az400m10l02 查询”，单击右侧的复选标记，然后单击“保存至 Azure DevOps az400m10l02 查询”按钮         。
-1. 打开另一个 Web 浏览器窗口，导航到 [发布 - 列表 Microsoft Docs 页 **并查看其内容**](https://docs.microsoft.com/en-us/rest/api/azure/devops/release/releases/list?view=azure-devops-rest-6.0)。
+1. 打开另一个 Web 浏览器窗口，导航到[发布 - 列表 Microsoft Docs 页**并查看其内容**](https://docs.microsoft.com/en-us/rest/api/azure/devops/release/releases/list?view=azure-devops-rest-6.0)。
 1. 切换回 Postman 桌面应用，在应用窗口右上角部分的启动板窗格中，单击“授权”选项卡标题，在“类型”下拉列表中，选择“基本身份验证”条目，然后在“密码”文本框中粘贴在上一个任务中复制的令牌值（请勿设置“用户名”文本框的值）    。
 1. 在应用窗口右上角部分的启动板窗格中，确保“获取”显示在下拉列表中，在“输入请求 URL”文本框中，键入以下内容并单击“发送”（将 `<organization_name>` 的值替换为 Azure DevOps 组织的名称），以列出所有发布  ：
 
@@ -195,7 +190,7 @@ ms.locfileid: "147503643"
     ```
 
 1. 查看应用窗口右下角部分的“正文”选项卡上列出的输出，并确认其中包含你在本实验室的之前练习中创建的发布列表。
-1. 切换到显示 Microsoft Docs 内容的 Web 浏览器窗口，并导航到 [部署 - 列表 Microsoft Docs 页 **并查看其内容**](https://docs.microsoft.com/en-us/rest/api/azure/devops/release/deployments/list?view=azure-devops-rest-6.0)。
+1. 切换到显示 Microsoft Docs 内容的 Web 浏览器窗口，并导航到[部署 - 列表 Microsoft Docs 页**并查看其内容**](https://docs.microsoft.com/en-us/rest/api/azure/devops/release/deployments/list?view=azure-devops-rest-6.0)。
 1. 在应用窗口右上角部分的启动板窗格中，确保“获取”显示在下拉列表中，在“输入请求 URL”文本框中，键入以下内容并单击“发送”（将 `<organization_name>` 的值替换为 Azure DevOps 组织的名称），以列出所有部署  ：
 
     ```url

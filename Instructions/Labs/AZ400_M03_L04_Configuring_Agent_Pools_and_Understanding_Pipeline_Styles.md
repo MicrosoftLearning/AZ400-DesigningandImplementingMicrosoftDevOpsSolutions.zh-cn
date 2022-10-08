@@ -2,13 +2,8 @@
 lab:
   title: 实验室 04：配置代理池并了解管道样式
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
-ms.openlocfilehash: 114bcefd6798265a41ffb7c3ced16f6f9f4cc28c
-ms.sourcegitcommit: ec2e4b7c653ff81fcf62ef96d3720c60d074176e
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 08/06/2022
-ms.locfileid: "147503642"
 ---
+
 # <a name="lab-04-configuring-agent-pools-and-understanding-pipeline-styles"></a>实验室 04：配置代理池并了解管道样式
 
 # <a name="student-lab-manual"></a>学生实验室手册

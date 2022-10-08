@@ -2,14 +2,9 @@
 lab:
   title: 实验室 12：设置和运行功能测试
   module: 'Module 05: Implement a secure continuous deployment using Azure Pipelines'
-ms.openlocfilehash: 74c12ec06dce2b6a033a17744c761b7b9af201eb
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276053"
 ---
-# <a name="lab-12-setting-up-and-running-functional-tests"></a>实验室 12：设置和运行功能测试
+
+# <a name="lab-12-settingupandrunningfunctionaltests"></a>实验室 12：设置和运行功能测试
 
 # <a name="student-lab-manual"></a>学生实验室手册
 
@@ -52,7 +47,7 @@ ms.locfileid: "146276053"
 
 1. 在实验室计算机上，启动 Web 浏览器并导航到 [Azure DevOps 演示生成器](https://azuredevopsdemogenerator.azurewebsites.net)。 此实用工具将对以下过程进行自动化：在你的帐户中创建预填充了实验室所需内容（工作项、存储库等）的 Azure DevOps 项目。
 
-    > **注意**：有关该站点的详细信息，请参阅 [什么是 Azure DevOps 服务演示生成器？](https://docs.microsoft.com/en-us/azure/devops/demo-gen)。
+    > **注意**：有关该站点的详细信息，请参阅[什么是 Azure DevOps 服务演示生成器？](https://docs.microsoft.com/en-us/azure/devops/demo-gen)。
 
 1. 单击“登录”，并使用与你的 Azure DevOps 订阅相关联的 Microsoft 帐户登录。
 1. 如果需要，在“Azure DevOps 演示生成器”页面上，单击“接受”以接受访问 Azure DevOps 订阅的权限请求 。
@@ -162,7 +157,7 @@ ms.locfileid: "146276053"
 
 - **IIS 部署阶段**：在此阶段，使用以下任务将应用程序部署到 VM：
 
-  - **IIS Web 应用管理**：此任务在已注册代理的目标计算机上运行。 它会在本地创建一个网站和一个在端口 82 下运行的名为“PartsUnlimited”的应用程序池  [ **http://localhost:82**](http://localhost:82)
+  - **IIS Web 应用管理**：此任务在已注册代理的目标计算机上运行。 它会在本地创建一个网站和一个在端口 82 下运行的名为“PartsUnlimited”的应用程序池  [ **http://localhost:82** ](http://localhost:82)
   - **IIS Web 应用部署**：此任务使用“Web 部署”将应用程序部署到 IIS 服务器。
 
 - **数据库部署阶段**：在此阶段，我们使用 [**SQL Server 数据库部署**](https://github.com/Microsoft/vsts-tasks/blob/master/Tasks/SqlDacpacDeploymentOnMachineGroup/README.md) 任务将 [**dacpac**](https://docs.microsoft.com/en-us/sql/relational-databases/data-tier-applications/data-tier-applications) 文件部署到 DB 服务器。
@@ -170,7 +165,7 @@ ms.locfileid: "146276053"
 - **Selenium 测试执行**：通过在发布过程中执行 UI 测试可以检测到意外更改。 设置基于浏览器的自动测试可提高应用程序的质量，免去了手动进行测试。 在此阶段，我们将对已部署的 Web 应用程序执行 Selenium 测试。 后续任务描述了如何使用 Selenium 在发布管道中测试网站。
 
   - **Visual Studio 测试平台安装程序**：[Visual Studio 测试平台安装程序](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/vstest-platform-tool-installer?view=vsts)任务将从 nuget.org 或指定源获取 Microsoft 测试平台，并将其添加到工具缓存。 它满足 vstest 要求，因此无需在代理计算机上完整安装 Visual Studio 即可运行生成或发布管道中的任何后续 Visual Studio 测试任务。
-  - **运行 Selenium UI 测试**：此 [任务](https://github.com/Microsoft/azure-pipelines-tasks/blob/master/Tasks/VsTestV2/README.md)使用 vstest.console.exe 在代理计算机上执行 selenium 测试用例。
+  - **运行 Selenium UI 测试**：此[任务](https://github.com/Microsoft/azure-pipelines-tasks/blob/master/Tasks/VsTestV2/README.md)使用 vstest.console.exe 在代理计算机上执行 selenium 测试用例。
 
 1. 在“所有管道”>“Selenium”窗格上，单击“IIS 部署”阶段，然后在“代理作业”窗格上，验证是否选中默认代理池   。
 1. 对“SQL 部署”和“Selenium 测试执行”阶段重复上述步骤 。 如有需要，单击“保存”以保存更改。

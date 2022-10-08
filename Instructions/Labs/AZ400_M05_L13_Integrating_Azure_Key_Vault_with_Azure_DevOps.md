@@ -2,13 +2,8 @@
 lab:
   title: 实验室 13：将 Azure Key Vault 与 Azure DevOps 集成
   module: 'Module 05: Implement a secure continuous deployment using Azure Pipelines'
-ms.openlocfilehash: 7e9be63b9c66718c82bddd58559fee586fe37a7b
-ms.sourcegitcommit: 7f9f6520944441639574d22603a45303f8a26a87
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2022
-ms.locfileid: "147783008"
 ---
+
 # <a name="lab-13-integrating-azure-key-vault-with-azure-devops"></a>实验室 13：将 Azure Key Vault 与 Azure DevOps 集成
 
 # <a name="student-lab-manual"></a>学生实验室手册

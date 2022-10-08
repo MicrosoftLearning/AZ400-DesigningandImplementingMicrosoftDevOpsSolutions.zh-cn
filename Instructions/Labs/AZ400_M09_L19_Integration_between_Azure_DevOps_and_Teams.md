@@ -2,13 +2,8 @@
 lab:
   title: 实验室 19：Azure DevOps 和 Teams 的集成
   module: 'Module 09: Implement continuous feedback'
-ms.openlocfilehash: 8b897b8b6bdf577fc2b37c2921af8f7f0ebb248a
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276069"
 ---
+
 # <a name="lab-19-integration-between-azure-devops-and-teams"></a>实验室 19：Azure DevOps 和 Teams 的集成
 
 # <a name="student-lab-manual"></a>学生实验室手册

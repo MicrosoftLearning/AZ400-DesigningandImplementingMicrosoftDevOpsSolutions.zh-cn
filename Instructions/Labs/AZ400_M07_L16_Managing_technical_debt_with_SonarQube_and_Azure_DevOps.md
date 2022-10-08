@@ -2,13 +2,8 @@
 lab:
   title: 实验室 16：使用 SonarCloud 和 Azure DevOps 管理技术债务
   module: 'Module 07: Implement security and validate code bases for compliance'
-ms.openlocfilehash: 129e98b71cf15e668dcb8c1c5645d68143498e9c
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276064"
 ---
+
 # <a name="lab-16-managing-technical-debt-with-sonarcloud-and-azure-devops"></a>实验室 16：使用 SonarCloud 和 Azure DevOps 管理技术债务
 
 # <a name="student-lab-manual"></a>学生实验室手册

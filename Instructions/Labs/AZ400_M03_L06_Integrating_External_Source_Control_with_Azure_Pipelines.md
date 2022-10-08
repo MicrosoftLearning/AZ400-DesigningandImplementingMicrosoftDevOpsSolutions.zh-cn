@@ -2,13 +2,8 @@
 lab:
   title: 实验室 6：将外部源代码管理与 Azure Pipelines 集成
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
-ms.openlocfilehash: af9b06398bffd5ede41513f4423ce875a018d214
-ms.sourcegitcommit: 73179152f51e48ada9641c4a6a33ea941606c469
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 07/01/2022
-ms.locfileid: "146774604"
 ---
+
 # <a name="lab-06-integrating-external-source-control-with-azure-pipelines"></a>实验室 6：将外部源代码管理与 Azure Pipelines 集成
 
 # <a name="student-lab-manual"></a>学生实验室手册

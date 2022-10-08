@@ -2,13 +2,8 @@
 lab:
   title: 实验室 20：使用 Azure 项目 Wiki 共享团队知识
   module: 'Module 09: Implement continuous feedback'
-ms.openlocfilehash: 5d9f8d7b375efd25ac91dfc44fd90695c853bc35
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276063"
 ---
+
 # <a name="lab-20-sharing-team-knowledge-using-azure-project-wikis"></a>实验室 20：使用 Azure 项目 Wiki 共享团队知识
 
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -155,11 +150,11 @@ ms.locfileid: "146276063"
     :::
     ```
 
-    >**注意**：有关 Mermaid 语法的详细信息，请参阅 [关于 Mermaid](https://mermaid-js.github.io/mermaid/#/)
+    >**注意**：有关 Mermaid 语法的详细信息，请参阅[关于 Mermaid](https://mermaid-js.github.io/mermaid/#/)
 
 1. 在编辑器窗格的右侧的预览窗格中，单击“加载关系图”并查看结果。
 
-    >**注意**：输出应类似于流程图，该流程图说明了如何 [使用 OAuth 2.0 授权对 REST API 的访问](https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops)
+    >**注意**：输出应类似于流程图，该流程图说明了如何[使用 OAuth 2.0 授权对 REST API 的访问](https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops)
 
 1. 在编辑器窗格的右上角，单击“保存”按钮旁边指向下方的脱字号，然后在下拉菜单中单击“保存修订消息” 。
 1. 在“保存页面”对话框中，键入“OAuth 2.0 Mermaid 图的“身份验证和授权”部分”，然后单击“保存”  。
