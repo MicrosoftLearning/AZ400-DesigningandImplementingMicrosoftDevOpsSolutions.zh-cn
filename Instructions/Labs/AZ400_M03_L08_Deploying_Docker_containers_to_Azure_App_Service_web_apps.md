@@ -2,13 +2,8 @@
 lab:
   title: 实验室 08：将 Docker 容器部署到 Azure 应用服务 Web 应用
   module: 'Module 03: Create and manage containers using Docker and Kubernetes'
-ms.openlocfilehash: 4326bfeac0193b1ef6a8504bd0d6b127909cc792
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276047"
 ---
+
 # <a name="lab-08-deploying-docker-containers-to-azure-app-service-web-apps"></a>实验室 08：将 Docker 容器部署到 Azure 应用服务 Web 应用
 
 # <a name="student-lab-manual"></a>学生实验室手册

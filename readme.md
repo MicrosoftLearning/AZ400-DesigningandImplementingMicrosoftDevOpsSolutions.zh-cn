@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: c7a689e184a4f1475d50dad2c44ed0f83506c1ba
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276035"
----
 # <a name="az-400-designing-and-implementing-microsoft-devops-solutions"></a>AZ-400：设计和实现 Microsoft DevOps 解决方案
 
 ## <a name="welcome"></a>欢迎使用
@@ -13,7 +5,7 @@ ms.locfileid: "146276035"
 此存储库适用于教授 Microsoft 课程的讲师。 如果你在上课，请向你的讲师寻求帮助。 
 
 - [实验室的链接（HTML 格式）](https://microsoftlearning.github.io/AZ400-DesigningandImplementingMicrosoftDevOpsSolutions/)
-- 你是 MCT 吗？ - 查看 [MCT GitHub 用户指南](https://microsoftlearning.github.io/MCT-User-Guide/)
+- 你是 MCT 吗？ - 请查看 [MCT GitHub 用户指南](https://microsoftlearning.github.io/MCT-User-Guide/)
 - **[下载最新学生手册和 AllFiles 内容](../../releases/latest)**
 - **需要手动生成实验室说明？** - [MicrosoftLearning/Docker-Build ](https://github.com/MicrosoftLearning/Docker-Build) 存储库中提供了说明
 
@@ -30,7 +22,7 @@ ms.locfileid: "146276035"
 
 - 我们希望这会给实验室带来前所未有的协作感 - 当 Azure 发生变化，并且你在实时交付期间首先发现它时，就在实验室的源头上进行增强。  帮助你的 MCT 伙伴们。
 
-## <a name="how-should-i-use-these-files-relative-to-the-released-moc-files"></a>我应该如何使用与已发布 MOC 文件相关的这些文件？
+## <a name="how-should-i-use-these-files-relative-to-the-released-moc-files"></a>相对于已发布的 MOC 文件，应如何使用这些文件？
 
 - 讲师手册和 PowerPoint 仍将是教授课程内容的主要来源。
 

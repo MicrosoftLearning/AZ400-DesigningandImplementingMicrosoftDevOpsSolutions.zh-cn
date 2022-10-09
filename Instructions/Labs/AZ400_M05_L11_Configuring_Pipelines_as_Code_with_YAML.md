@@ -2,13 +2,8 @@
 lab:
   title: 实验室 11：使用 YAML 将管道配置为代码
   module: 'Module 05: Implement a secure continuous deployment using Azure Pipelines'
-ms.openlocfilehash: 6787173f4e1243d6559baf1ea2d0699f0bd3bbee
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276052"
 ---
+
 # <a name="lab-11-configuring-pipelines-as-code-with-yaml"></a>实验室 11：使用 YAML 将管道配置为代码
 
 # <a name="student-lab-manual"></a>学生实验室手册
@@ -47,7 +42,7 @@ ms.locfileid: "146276052"
 
 1. 在实验室计算机上，启动 Web 浏览器并导航到 [Azure DevOps 演示生成器](https://azuredevopsdemogenerator.azurewebsites.net)。 此实用工具将对以下过程进行自动化：在你的帐户中创建预填充了实验室所需内容（工作项、存储库等）的 Azure DevOps 项目。
 
-    > **注意**：有关该站点的详细信息，请参阅 [什么是 Azure DevOps 服务演示生成器？](https://docs.microsoft.com/en-us/azure/devops/demo-gen)。
+    > **注意**：有关该站点的详细信息，请参阅[什么是 Azure DevOps 服务演示生成器？](https://docs.microsoft.com/en-us/azure/devops/demo-gen)。
 
 1. 单击“登录”，并使用与你的 Azure DevOps 订阅相关联的 Microsoft 帐户登录。
 1. 如果需要，在“Azure DevOps 演示生成器”页面上，单击“接受”以接受访问 Azure DevOps 订阅的权限请求 。

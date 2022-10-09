@@ -2,13 +2,8 @@
 lab:
   title: 实验室 07：使用 DevOps Starter 实现 GitHub Actions
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
-ms.openlocfilehash: aa16fd8e941c3e94eef0d4c9b0fdd23caa3e7866
-ms.sourcegitcommit: 73179152f51e48ada9641c4a6a33ea941606c469
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 07/01/2022
-ms.locfileid: "146774602"
 ---
+
 # <a name="lab-07-implementing-github-actions-by-using-devops-starter"></a>实验室 07：使用 DevOps Starter 实现 GitHub Actions
 
 # <a name="student-lab-manual"></a>学生实验室手册

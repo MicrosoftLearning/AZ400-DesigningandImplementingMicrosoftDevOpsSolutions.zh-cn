@@ -2,13 +2,8 @@
 lab:
   title: 实验室 03：在 Azure Repos 中使用 Git 进行版本控制
   module: 'Module 02: Development for enterprise DevOps'
-ms.openlocfilehash: d0d9805311da5ccc640fa4d4d8821b9e5a682cec
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276067"
 ---
+
 # <a name="lab-03-version-controlling-with-git-in-azure-repos"></a>实验室 03：在 Azure Repos 中使用 Git 进行版本控制
 
 # <a name="student-lab-manual"></a>学生实验室手册

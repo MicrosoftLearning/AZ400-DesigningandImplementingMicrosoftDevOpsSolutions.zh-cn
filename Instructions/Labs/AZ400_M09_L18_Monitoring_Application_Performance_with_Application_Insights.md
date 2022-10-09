@@ -2,13 +2,8 @@
 lab:
   title: 实验室 18：使用 Application Insights 监视应用程序性能
   module: 'Module 09: Implement continuous feedback'
-ms.openlocfilehash: 6fce4d36fc4bc7e8eb48ffde0b5443fde335db9d
-ms.sourcegitcommit: 0edaa2709ad93baf1078fe5c11bc99c4937bbaf6
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 07/28/2022
-ms.locfileid: "147433382"
 ---
+
 # <a name="lab-18-monitoring-application-performance-with-application-insights"></a>实验室 18：使用 Application Insights 监视应用程序性能
 
 # <a name="student-lab-manual"></a>学生实验室手册

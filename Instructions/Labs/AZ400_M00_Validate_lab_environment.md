@@ -2,13 +2,8 @@
 lab:
   title: 实验室 00：验证实验室环境
   module: 'Module 0: Welcome'
-ms.openlocfilehash: f41ca6d4990f666ea9d33f4662ad131f23432516
-ms.sourcegitcommit: d78aebd7b14277a53f152e26cea68a30b0e90d73
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2022
-ms.locfileid: "146276042"
 ---
+
 # <a name="lab-00-validate-lab-environment"></a>实验室 00：验证实验室环境
 
 # <a name="student-lab-manual"></a>学生实验室手册

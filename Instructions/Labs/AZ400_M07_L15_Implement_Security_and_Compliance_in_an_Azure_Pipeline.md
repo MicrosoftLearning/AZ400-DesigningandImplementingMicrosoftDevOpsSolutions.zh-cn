@@ -2,13 +2,8 @@
 lab:
   title: 实验室 15：在 Azure 管道中实现安全性和合规性
   module: 'Module 07: Implement security and validate code bases for compliance'
-ms.openlocfilehash: 4c067d30c00b9a07342df3b8390534ba10c4ecf1
-ms.sourcegitcommit: 8dc3c31d31d99fd0a2bdd3fb1c7f8f2f04d39778
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 07/27/2022
-ms.locfileid: "147422483"
 ---
+
 # <a name="lab-15-implement-security-and-compliance-in-an-azure-pipeline"></a>实验室 15：在 Azure 管道中实现安全性和合规性
 
 # <a name="student-lab-manual"></a>学生实验室手册
