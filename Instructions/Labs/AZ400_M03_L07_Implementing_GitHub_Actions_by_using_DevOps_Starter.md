@@ -76,35 +76,32 @@ lab:
     | 存储库 | **az400m08l01** |
     | 订阅 | 在本实验室中使用的 Azure 订阅的名称 |
     | Web 应用名称 | azurewebsites.net DNS 命名空间中任何有效的、全局唯一的主机名 |
-    | 位置 | 可以预配 Azure Web 应用的任何 Azure 区域的名称。 建议预配“美国东部” |
+    | 位置 | 可以预配 Azure Web 应用的任何 Azure 区域的名称。 **注意**：等待预配完成。 |
 
-   > **注意**：某些“位置”可能因资源不可用而失败。 建议预配“美国东部”。
-   > **注意**：等待预配完成。 这大约需要 1 分钟。
+   > 这大约需要 1 分钟。 在“Deploy_DevOps_Project_az400m08l01\| 概述”边栏选项卡上，单击“转到资源” 。
+   > 在“az400m08l01”边栏选项卡的“GitHub 工作流”磁贴上单击“授权”  。 在“GitHub 授权”边栏选项卡上再次单击“授权” 。
 
-1. 在“Deploy_DevOps_Project_az400m08l01\| 概述”边栏选项卡上，单击“转到资源” 。
-1. 在“az400m08l01”边栏选项卡的“GitHub 工作流”磁贴上单击“授权”  。
-1. 在“GitHub 授权”边栏选项卡上再次单击“授权” 。
 1. 返回至“az400m08l01”边栏选项卡，在“GitHub 工作流”磁贴上监视操作进度 。
+1. **注意**：等待 GitHub 工作流的构建、部署和功能测试作业完成。
+1. 这大约需要 5 分钟。
+1. 任务 2：查看创建 DevOps Starter 项目的结果
 
-    > **注意**：等待 GitHub 工作流的构建、部署和功能测试作业完成。 这大约需要 5 分钟。
+    > 在此任务中，你将查看创建 DevOps Starter 项目的结果。 在显示 Azure 门户的 Web 浏览器窗口中的“az400m08l01”边栏选项卡上，查看“GitHub 工作流”部分，并验证构建、部署和功能测试作业是否成功完成    。
 
-#### <a name="task-2-review-the-results-of-creating-the-devops-starter-project"></a>任务 2：查看创建 DevOps Starter 项目的结果
+#### <a name="task-2-review-the-results-of-creating-the-devops-starter-project"></a>在“az400m08l01”边栏选项卡上，查看“Azure 资源”部分，并验证是否包含一个应用服务 Web 应用实例和相应的Application Insights资源 。
 
-在此任务中，你将查看创建 DevOps Starter 项目的结果。
+在“az400m08l01”边栏选项卡的顶部，请注意在上一个任务中创建的指向工作流文件和 GitHub 存储库的链接 。
 
-1. 在显示 Azure 门户的 Web 浏览器窗口中的“az400m08l01”边栏选项卡上，查看“GitHub 工作流”部分，并验证构建、部署和功能测试作业是否成功完成    。
-1. 在“az400m08l01”边栏选项卡上，查看“Azure 资源”部分，并验证是否包含一个应用服务 Web 应用实例和相应的Application Insights资源 。
-1. 在“az400m08l01”边栏选项卡的顶部，请注意在上一个任务中创建的指向工作流文件和 GitHub 存储库的链接 。
 1. 在“az400m08l01”边栏选项卡的顶部，单击指向 GitHub 存储库的链接。
 1. 在 GitHub 存储库页面上，注意三个带有以下标签的文件夹：
+1. **.github\workflows** - 包含 YAML 格式的工作流文件
+1. **应用程序** - 包含示例网站的代码
+1. **ArmTemplates** - 包含工作流用于预配 Azure 资源的 Azure 资源管理器模板
 
-    - **.github\workflows** - 包含 YAML 格式的工作流文件
-    - **应用程序** - 包含示例网站的代码
-    - **ArmTemplates** - 包含工作流用于预配 Azure 资源的 Azure 资源管理器模板
+    - 在 GitHub 存储库页面，单击“.github/workflows”，然后单击 devops-starter-workflow.yml 条目  。
+    - 在显示 devops-starter-workflow.yml 内容的 GitHub 存储库页面上检查其内容，并注意它包含构建、部署和功能测试作业定义   。
+    - 在 GitHub 存储库页面的工具栏中单击“操作”。
 
-1. 在 GitHub 存储库页面，单击“.github/workflows”，然后单击 devops-starter-workflow.yml 条目  。
-1. 在显示 devops-starter-workflow.yml 内容的 GitHub 存储库页面上检查其内容，并注意它包含构建、部署和功能测试作业定义   。
-1. 在 GitHub 存储库页面的工具栏中单击“操作”。
 1. 在 GitHub 存储库页面的“操作”选项卡上，在“所有工作流”部分中，单击表示最近运行的工作流的条目 。
 1. 在工作流运行页面上，查看工作流状态，以及注释和工件的列表 。
 1. 在 GitHub 存储库页面上的工具栏中单击“设置”，然后在“设置”选项卡上单击“机密”  。
@@ -115,7 +112,10 @@ lab:
 1. 在 GitHub 存储库页面的工具栏中单击“操作”。
 1. 在“所有工作流”部分，单击“Update Index.cshtml”条目 。
 1. 在“devops-starter-workflow.yml”部分，监视部署进度并验证部署是否成功完成。
-     > **注意**：注意：如果使用 azure/CLI@1 的操作失败，请将以下更改提交到 devops-starter-workflow.yml 文件（更改默认的 azure cli 版本）并验证其是否成功完成 ：
+1. **注意**：注意：如果使用 azure/CLI@1 的操作失败，请将以下更改提交到 devops-starter-workflow.yml 文件（更改默认的 azure cli 版本）并验证其是否成功完成 ：
+1. 切换到在 Azure 门户中显示 DevOps Starter 边栏选项卡的浏览器窗口，并单击“Application 终结点”条目旁边的“浏览”链接 。
+1. 在新打开的 Web 浏览器窗口中，验证更新后的文本（表示在 GitHub 存储库中提交的更改）是否显示在 Web 应用主页上。
+     > 练习 2：删除 Azure 实验室资源
      > <!-- {% raw %}) -->
      > ```
      >     - name: Deploy ARM Template
@@ -129,34 +129,34 @@ lab:
      > ```
      > <!-- {% endraw %}) -->
 
-1. 切换到在 Azure 门户中显示 DevOps Starter 边栏选项卡的浏览器窗口，并单击“Application 终结点”条目旁边的“浏览”链接 。
-1. 在新打开的 Web 浏览器窗口中，验证更新后的文本（表示在 GitHub 存储库中提交的更改）是否显示在 Web 应用主页上。
+1. 在本练习中，你将删除在本实验室中预配的 Azure 资源，避免产生意外费用。
+1. **注意**：记得删除所有不再使用的新建 Azure 资源。
 
-### <a name="exercise-2-remove-the-azure-lab-resources"></a>练习 2：删除 Azure 实验室资源
+### <a name="exercise-2-remove-the-azure-lab-resources"></a>删除未使用的资源可确保不会出现意外费用。
 
-在本练习中，你将删除在本实验室中预配的 Azure 资源，避免产生意外费用。
+任务 1：删除 Azure 实验室资源
 
->**注意**：记得删除所有不再使用的新建 Azure 资源。 删除未使用的资源可确保不会出现意外费用。
+>在此任务中，你将使用 Azure Cloud Shell 删除在本实验室中预配的 Azure 资源，避免产生不必要的费用。 在 Azure 门户中，在 Cloud Shell 窗格中打开 Bash Shell 会话 。
 
-#### <a name="task-1-remove-the-azure-lab-resources"></a>任务 1：删除 Azure 实验室资源
+#### <a name="task-1-remove-the-azure-lab-resources"></a>运行以下命令，列出在本模块各实验室中创建的所有资源组：
 
-在此任务中，你将使用 Azure Cloud Shell 删除在本实验室中预配的 Azure 资源，避免产生不必要的费用。
+通过运行以下命令，删除在此模块的实验室中创建的所有资源组：
 
-1. 在 Azure 门户中，在 Cloud Shell 窗格中打开 Bash Shell 会话 。
-1. 运行以下命令，列出在本模块各实验室中创建的所有资源组：
+1. **注意**：该命令以异步方式执行（由 --nowait 参数确定），因此，尽管可立即在同一 Bash 会话中运行另一个 Azure CLI 命令，但实际上要花几分钟才能删除资源组。
+1. 审阅
 
     ```sh
     az group list --query "[?starts_with(name,'az400m08l01')].name" --output tsv
     ```
 
-1. 通过运行以下命令，删除在此模块的实验室中创建的所有资源组：
+1. 在此实验室中，你使用 DevOps Starter 实现了部署 Azure Web 应用的 GitHub Action 工作流。
 
     ```sh
     az group list --query "[?starts_with(name,'az400m08l01')].[name]" --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
     ```
 
-    >**注意**：该命令以异步方式执行（由 --nowait 参数确定），因此，尽管可立即在同一 Bash 会话中运行另一个 Azure CLI 命令，但实际上要花几分钟才能删除资源组。
+    ><bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The command executes asynchronously (as determined by the --nowait parameter), so while you will be able to run another Azure CLI command immediately afterwards within the same Bash session, it will take a few minutes before the resource groups are actually removed.
 
-## <a name="review"></a>审阅
+## <a name="review"></a>Review
 
-在此实验室中，你使用 DevOps Starter 实现了部署 Azure Web 应用的 GitHub Action 工作流。
+In this lab, you implemented a GitHub Action workflow that deploys an Azure web app by using DevOps Starter.
