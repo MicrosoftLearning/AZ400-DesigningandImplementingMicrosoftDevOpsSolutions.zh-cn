@@ -176,7 +176,7 @@ Git 提交包含以下内容：
 在此任务中，你将使用 Visual Studio Code 探索如何使用暂存更改。 通过暂存更改，可以选择性地将某些文件添加到提交中，而忽略其他文件中所做的更改。
 
 1. 切换回“Visual Studio Code”窗口。
-1. 通过将第一个注释更改为 `//My second change` 并保存文件来更新打开的 CartItem.cs 类。
+1. 通过更改下面的第一个注释并保存文件来更新打开的 CartItem.cs 类。
 1. 在“Visual Studio Code”窗口中，切换回“资源管理器”选项卡，导航到 /PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite/Models/Category.cs 文件并选择该文件 。 这将自动在详细信息窗格中显示其内容。
 1. 在 Category.cs 文件中 `public int CategoryId { get; set; }` 条目的上方添加一个额外的行，并其中包含以下注释，然后保存该文件。
 
