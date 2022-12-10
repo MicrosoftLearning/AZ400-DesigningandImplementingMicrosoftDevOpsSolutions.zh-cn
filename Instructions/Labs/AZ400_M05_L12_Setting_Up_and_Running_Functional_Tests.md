@@ -66,7 +66,7 @@ lab:
 1. 单击此处的[部署到 Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2Falmvm%2Fmaster%2Flabs%2Fvstsextend%2Fselenium%2Farmtemplate%2Fazuredeploy.json) 链接。 这会自动重定向到 Azure 门户中的“自定义部署”边栏选项卡。
 1. 出现提示时，使用用户帐户登录，该帐户在你打算在本实验室中使用的 Azure 订阅中具有所有者角色，并且在该订阅关联的 Azure AD 租户中具有全局管理员角色。
 1. 在“自定义部署”边栏选项卡上，选择“编辑模板” 。
-1. 在“编辑模板”边栏选项卡上，找到行 `"https://raw.githubusercontent.com/microsoft/azuredevopslabs/master/labs/vstsextend/selenium/armtemplate/chrome_firefox_VSTSagent_IIS.ps1"`，将其替换为 `https://raw.githubusercontent.com/MicrosoftLearning/AZ400-DesigningandImplementingMicrosoftDevOpsSolutions/master/Allfiles/Labs/11b/chrome_firefox_VSTSagent_IIS.ps1`，然后单击“保存” 。
+1. 在“编辑模板”边栏选项卡上，找到行 `"https://raw.githubusercontent.com/microsoft/azuredevopslabs/master/labs/vstsextend/selenium/armtemplate/chrome_firefox_VSTSagent_IIS.ps1"`，将其替换为 `"https://raw.githubusercontent.com/MicrosoftLearning/AZ400-DesigningandImplementingMicrosoftDevOpsSolutions/master/Allfiles/Labs/11b/chrome_firefox_VSTSagent_IIS.ps1"`，然后单击“保存” 。
 1. 返回“自定义部署”边栏选项卡，指定以下设置：
 
     | 设置 | 值 |
