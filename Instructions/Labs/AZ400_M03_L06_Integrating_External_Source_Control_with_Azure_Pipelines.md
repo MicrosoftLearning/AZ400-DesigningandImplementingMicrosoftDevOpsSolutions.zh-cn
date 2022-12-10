@@ -1,10 +1,10 @@
 ---
 lab:
-  title: 实验室 6：将外部源代码管理与 Azure Pipelines 集成
+  title: 将外部源代码管理与 Azure Pipelines 集成
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
 ---
 
-# <a name="lab-06-integrating-external-source-control-with-azure-pipelines"></a>实验室 6：将外部源代码管理与 Azure Pipelines 集成
+# <a name="integrating-external-source-control-with-azure-pipelines"></a>将外部源代码管理与 Azure Pipelines 集成
 
 # <a name="student-lab-manual"></a>学生实验室手册
 

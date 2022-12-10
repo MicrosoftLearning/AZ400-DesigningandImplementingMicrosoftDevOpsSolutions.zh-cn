@@ -1,10 +1,10 @@
 ---
 lab:
-  title: 实验室 00：验证实验室环境
+  title: 验证实验室环境
   module: 'Module 0: Welcome'
 ---
 
-# <a name="lab-00-validate-lab-environment"></a>实验室 00：验证实验室环境
+# <a name="validate-lab-environment"></a>验证实验室环境
 
 # <a name="student-lab-manual"></a>学生实验室手册
 

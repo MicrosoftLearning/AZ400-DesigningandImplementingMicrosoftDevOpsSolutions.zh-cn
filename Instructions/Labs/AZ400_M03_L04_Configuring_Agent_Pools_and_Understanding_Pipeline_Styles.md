@@ -1,10 +1,10 @@
 ---
 lab:
-  title: 实验室 04：配置代理池并了解管道样式
+  title: 配置代理池并了解管道样式
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
 ---
 
-# <a name="lab-04-configuring-agent-pools-and-understanding-pipeline-styles"></a>实验室 04：配置代理池并了解管道样式
+# <a name="configuring-agent-pools-and-understanding-pipeline-styles"></a>配置代理池并了解管道样式
 
 # <a name="student-lab-manual"></a>学生实验室手册
 
