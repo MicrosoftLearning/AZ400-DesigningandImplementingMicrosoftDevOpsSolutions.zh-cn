@@ -1,10 +1,10 @@
 ---
 lab:
-  title: 实验室 05：使用 Azure Pipelines 启用持续集成
+  title: 使用 Azure Pipelines 启用持续集成
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
 ---
 
-# <a name="lab-05-enabling-continuous-integration-with-azure-pipelines"></a>实验室 05：使用 Azure Pipelines 启用持续集成
+# <a name="enabling-continuous-integration-with-azure-pipelines"></a>使用 Azure Pipelines 启用持续集成
 
 # <a name="student-lab-manual"></a>学生实验室手册
 

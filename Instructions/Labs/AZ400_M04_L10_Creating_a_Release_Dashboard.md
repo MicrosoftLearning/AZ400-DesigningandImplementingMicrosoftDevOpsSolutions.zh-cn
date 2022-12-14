@@ -1,10 +1,10 @@
 ---
 lab:
-  title: 实验室 10：创建发布仪表板
+  title: 创建发布仪表板
   module: 'Module 04: Design and implement a release strategy'
 ---
 
-# <a name="lab-10-creating-a-release-dashboard"></a>实验室 10：创建发布仪表板
+# <a name="creating-a-release-dashboard"></a>创建发布仪表板
 
 # <a name="student-lab-manual"></a>学生实验室手册
 

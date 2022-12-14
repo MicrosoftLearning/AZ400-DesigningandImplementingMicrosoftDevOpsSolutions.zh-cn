@@ -1,10 +1,10 @@
 ---
 lab:
-  title: 实验室 04：配置代理池并了解管道样式
+  title: 配置代理池并了解管道样式
   module: 'Module 03: Implement CI with Azure Pipelines and GitHub Actions'
 ---
 
-# <a name="lab-04-configuring-agent-pools-and-understanding-pipeline-styles"></a>实验室 04：配置代理池并了解管道样式
+# <a name="configuring-agent-pools-and-understanding-pipeline-styles"></a>配置代理池并了解管道样式
 
 # <a name="student-lab-manual"></a>学生实验室手册
 
@@ -153,10 +153,10 @@ lab:
     demands:
     - agent.name -equals az400m05-vm0
     ```
-1. 对于 `Task: NugetToolInstaller@0`，单击设置（以灰色显示在任务上方的链接），修改“要安装的 NuGet.exe 版本” >  4.0.0 并单击“添加”   。 
-1.  在“PartsUnlimited”编辑窗格上，单击窗格右上角的“保存”，然后在“保存”窗格上，再次单击“保存”   。 这将自动触发基于此管道的生成。 
+1. 对于 `Task: NugetToolInstaller@0`，单击设置（以灰色显示在任务上方的链接），修改“要安装的 NuGet.exe 版本” >  4.0.0 并单击“添加”   。
+1.  在“PartsUnlimited”编辑窗格上，单击窗格右上角的“保存”，然后在“保存”窗格上，再次单击“保存”   。 这将自动触发基于此管道的生成。
 1.  在 Azure DevOps 门户中，在垂直导航窗格左侧，单击“管道”部分的“管道” 。
-1.  在“管道”窗格的“最近”选项卡上，单击“PartsUnlimited”条目，在“PartsUnlimited”窗格的“运行”选项卡上，选择最近的运行，在该运行的“摘要”窗格上，向下滚动至底部，在“作业”部分单击“阶段 1”，并监视作业，直到作业成功完成       。 
+1.  在“管道”窗格的“最近”选项卡上，单击“PartsUnlimited”条目，在“PartsUnlimited”窗格的“运行”选项卡上，选择最近的运行，在该运行的“摘要”窗格上，向下滚动至底部，在“作业”部分单击“阶段 1”，并监视作业，直到作业成功完成       。
 
 
 

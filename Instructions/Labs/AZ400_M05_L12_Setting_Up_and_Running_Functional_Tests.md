@@ -1,10 +1,10 @@
 ---
 lab:
-  title: 实验室 12：设置和运行功能测试
+  title: 设置和运行功能测试
   module: 'Module 05: Implement a secure continuous deployment using Azure Pipelines'
 ---
 
-# <a name="lab-12-settingupandrunningfunctionaltests"></a>实验室 12：设置和运行功能测试
+# <a name="settingupandrunningfunctionaltests"></a>设置和运行功能测试
 
 # <a name="student-lab-manual"></a>学生实验室手册
 
