@@ -1,41 +1,38 @@
 ---
 lab:
-  title: 实验室 13：将 Azure Key Vault 与 Azure DevOps 集成
+  title: 将 Azure Key Vault 与 Azure DevOps 集成
   module: 'Module 05: Implement a secure continuous deployment using Azure Pipelines'
 ---
 
-# <a name="lab-13-integrating-azure-key-vault-with-azure-devops"></a>实验室 13：将 Azure Key Vault 与 Azure DevOps 集成
+# <a name="integrating-azure-key-vault-with-azure-devops"></a>将 Azure Key Vault 与 Azure DevOps 集成
 
 # <a name="student-lab-manual"></a>学生实验室手册
 
 ## <a name="lab-requirements"></a>实验室要求
 
-- 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/en-us/azure/devops/server/compatibility?view=azure-devops#web-portal-supported-browsers)。
+- 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://learn.microsoft.com/azure/devops/server/compatibility?view=azure-devops#web-portal-supported-browsers)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/create-organization?view=azure-devops)中的说明创建一个。
+-               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization?view=azure-devops)中的说明创建一个。
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
-- 验证你拥有 Microsoft 帐户或 Azure AD 帐户，该帐户在 Azure 订阅中具有所有者角色并且在与 Azure 订阅关联的 Azure AD 租户中具有全局管理员角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/en-us/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/en-us/azure/active-directory/roles/manage-roles-portal#view-my-roles)。
-
 ## <a name="lab-overview"></a>实验室概述
 
-Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和证书。 Azure Key Vault 支持硬件安全模块以及各种加密算法和密钥长度。 使用 Azure Key Vault，可以最大程序地降低通过源代码泄漏敏感数据的可能性，这是开发人员经常犯的一个错误。 访问 Azure Key Vault 需要正确的身份验证和授权，从而支持对其内容进行细化的权限管理。
+Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和证书。 Azure Key Vault 支持硬件安全模块以及各种加密算法和密钥长度。 通过使用 Azure Key Vault，可以最大程序降低通过源代码泄漏敏感数据的可能性，这是开发人员经常犯的一个错误。 访问 Azure Key Vault 需要正确的身份验证和授权，从而支持对其内容进行细化的权限管理。
 
-在本实验室中，你将了解如何使用以下步骤将 Azure Key Vault 与 Azure Pipeline 集成：
+在本实验室中，你将了解如何使用以下步骤将 Azure 密钥保管库与 Azure Pipelines 集成：
 
-- 创建 Azure Key Vault 以将 MySQL 服务器密码存储为机密。
-- 创建 Azure 服务主体以提供对 Azure Key Vault 中的机密的访问权限。
+- 创建一个 Azure 密钥保管库，以将 ACR 密码存储为机密。
+- 创建 Azure 服务主体以提供对 Azure 密钥保管库中的机密的访问权限。
 - 配置权限以允许服务主体读取机密。
-- 配置管道，以从 Azure Key Vault 检索密码并将其传递到后续任务。
+- 配置管道，以从 Azure 密钥保管库检索密码并将其传递到后续任务。
 
 ## <a name="objectives"></a>目标
 
 完成本实验室后，你将能够：
 
-- 创建 Azure Active Directory (Azure AD) 服务主体。
-- 创建 Azure 密钥保管库。
-- 通过 Azure Pipeline 跟踪拉取请求。
+-   创建 Azure Active Directory (Azure AD) 服务主体。
+-   创建 Azure 密钥保管库。
 
 ## <a name="estimated-timing-40-minutes"></a>预计用时：40 分钟
 
@@ -43,59 +40,56 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 ### <a name="exercise-0-configure-the-lab-prerequisites"></a>练习 0：配置实验室先决条件
 
-在本练习中，你将设置实验室先决条件，其中包括基于 Azure DevOps 演示生成器模板的预配置的 Parts Unlimited 团队项目。
+在本练习中，你将设置实验室先决条件，其中包括设置新的 Azure DevOps 项目，该项目的存储库基于 [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb)。
 
-#### <a name="task-1-configure-the-team-project"></a>任务 1：配置团队项目
+#### <a name="task-1-skip-if-done-create-and-configure-the-team-project"></a>任务 1：（如果已完成，请跳过此任务）创建和配置团队项目
 
-在此任务中，你将使用 Azure DevOps 演示生成器基于 Azure Key Vault 模板生成新项目。
+在此任务中，你将创建一个 eShopOnWeb Azure DevOps 项目，供多个实验室使用。
 
-1. 在实验室计算机上，启动 Web 浏览器并导航到 [Azure DevOps 演示生成器](https://azuredevopsdemogenerator.azurewebsites.net)。 此实用工具将对以下过程进行自动化：在你的帐户中创建预填充了实验室所需内容（工作项、存储库等）的 Azure DevOps 项目。
+1.  在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，并将其他字段保留默认值。 单击“创建”。
 
-    > **注意**：有关此站点的详细信息，请参阅 <https://docs.microsoft.com/en-us/azure/devops/demo-gen> 。
+    ![创建项目](images/create-project.png)
 
-1. 单击“登录”，并使用与你的 Azure DevOps 订阅相关联的 Microsoft 帐户登录。
-1. 如果需要，在“Azure DevOps 演示生成器”页面上，单击“接受”以接受访问 Azure DevOps 订阅的权限请求 。
-1. 在“新建项目”页面上的“新建项目名称”文本框中，键入“将 Azure Key Vault 与 Azure DevOps 集成”，在“选择组织”下拉列表中选择你的 Azure DevOps 组织，然后单击“选择模板”    。
-1. 在“选择模板”页面上的标题菜单中，单击“DevOps 实验室”，在模板列表中，单击“Azure Key Vault”模板，然后单击“选择模板”   。
-1. 返回“新建项目”页面，选中“ARM 输出”标签下方的复选框，然后单击“创建项目”  
+#### <a name="task-2-skip-if-done-import-eshoponweb-git-repository"></a>任务 2：（如果已完成，请跳过此任务）导入 eShopOnWeb Git 存储库
 
-    > **注意**：等待此过程完成。 这大约需要 2 分钟。 如果该过程失败，请导航到你的 DevOps 组织，删除项目并重试。
+在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在“新建项目”页面上，单击“导航到项目” 。
+1.  在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。  在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
 
-### <a name="exercise-1-integrate-azure-key-vault-with-azure-devops"></a>练习 1：将 Azure Key Vault 与 Azure DevOps 集成
+    ![导入存储库](images/import-repo.png)
 
-- 创建 Azure 服务主体以提供对 Azure 密钥保管库中机密的访问权限。
-- 创建 Azure 密钥保管库以将 MySQL 服务器密码作为机密存储。
-- 配置权限以允许服务主体读取机密。
-- 配置管道，以从 Azure Key Vault 检索密码并将其传递到后续任务。
+1.  存储库按以下方式组织：
+    - .ado 文件夹包含 Azure DevOps YAML 管道
+    - .devcontainer 文件夹容器设置，用于使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发
+    - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
+    - .github 文件夹容器 YAML GitHub 工作流定义。
+    - src 文件夹包含用于实验室方案的 .NET 6 网站。
 
-#### <a name="task-1-create-a-service-principal"></a>任务 1：创建服务主体
+### <a name="exercise-1-setup-ci-pipeline-to-build-eshoponweb-container"></a>练习 1：设置 CI 管道以生成 eShopOnWeb 容器
 
-在本任务中，你将使用 Azure CLI 创建服务主体。
+设置 CI YAML 管道，用于：
+- 创建 Azure 容器注册表以保留容器映像
+- 使用 Docker Compose 生成和推送 eshoppublicapi 和 eshopwebmvc 容器映像。  将仅部署 eshopwebmvc 容器。
 
-> **注意**：如果你已有一个服务主体，则可以直接进行下一个任务。
+#### <a name="task-1-skip-if-done-create-a-service-principal"></a>任务 1：（如果已完成，请跳过此任务）创建服务主体
 
-你需要服务主体才能将应用从 Azure Pipelines 部署到 Azure 资源。 由于我们要检索管道中的机密，因此创建 Azure 密钥保管库时，我们需要为该服务授予权限。
+在此任务中，你将使用 Azure CLI 创建服务主体，这将允许 Azure DevOps：
+- 在 Azure 订阅上部署资源
+- 对稍后创建的密钥保管库机密具有读取访问权限。
 
-从管道定义内部连接到 Azure 订阅或从项目设置页面新建服务连接时，Azure Pipeline 会自动创建服务主体。 你也可以从门户或使用 Azure CLI 手动创建服务主体，然后在项目中重复使用。 如果要获取一组预定义的权限，建议使用现有的服务主体。
+> 注意：如果你已有一个服务主体，则可以直接进行下一个任务。
 
-1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室中将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Azure AD 租户中具有全局管理员角色。
-1. 在 Azure 门户中，单击页面顶部搜索文本框右侧的 Cloud Shell 图标。
-1. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
+你需要一个服务主体从 Azure Pipelines 部署 Azure 资源。 由于我们要检索管道中的机密，因此创建 Azure 密钥保管库时，我们需要为该服务授予权限。
+
+从管道定义内部连接到 Azure 订阅或从项目设置页面（自动选项）新建服务连接时，Azure Pipelines 会自动创建服务主体。 你也可以从门户或使用 Azure CLI 手动创建服务主体，然后在项目中重复使用。
+
+1.  从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室中将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Azure AD 租户中具有全局管理员角色。
+1.  在 Azure 门户中，单击页面顶部搜索文本框右侧的 Cloud Shell 图标。
+1.  如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
 
    >**注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
 
-1. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体（将 `<service-principal-name>` 替换为任意由字母和数字组成的唯一字符串） ：
-
-    ```
-    SUB_ID=$(az account show --query id --output tsv)
-    az ad sp create-for-rbac --name <service-principal-name> --role contributor --scope /subscriptions/$SUB_ID
-    ```
-
-    > **注意**：此命令将生成 JSON 输出。 将输出复制到文本文件中。 本实验室中稍后会用到它。
-
-1. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以检索 Azure 订阅 ID 和订阅名称属性的值 ：
+1.  在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以检索 Azure 订阅 ID 和订阅名称属性的值 ：
 
     ```
     az account show --query id --output tsv
@@ -104,103 +98,157 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
     > **注意**：将两个值都复制到文本文件中。 稍后将在本实验室用到它们。
 
+1.  在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体（将 myServicePrincipalName 替换为任意由字母和数字组成的唯一字符串）和 mySubscriptionID（替换为你的 Azure subscriptionId）：   
+
+    ```
+    az ad sp create-for-rbac --name myServicePrincipalName \
+                         --role contributor \
+                         --scopes /subscriptions/mySubscriptionID
+    ```
+
+    > **注意**：此命令将生成 JSON 输出。 将输出复制到文本文件中。 本实验室中稍后会用到它。
+
+1. 接下来，从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 单击“项目设置 > 服务连接”（在“管道”下）和“新建服务连接”。 
+
+    ![新建服务连接](images/new-service-connection.png)
+
+1. 在“新建服务连接”边栏选项卡上，选择“Azure 资源管理器”和“下一步”（可能需要向下滚动）。  
+
+1. 选择“服务主体(手动)”并单击“下一步”。 
+
+1. 使用在前面的步骤中收集的信息填写空字段：
+    - 订阅 ID 和名称
+    - 服务主体 ID（或 clientId）、密钥（或密码）和 TenantId。
+    - 在“服务连接名称”中，键入 azure subs。  需要 Azure DevOps 服务连接来与 Azure 订阅通信时，将在 YAML 管道中引用此名称。
+
+    ![Azure 服务连接](images/azure-service-connection.png)
+
+1. 单击“验证并保存”。
+
+#### <a name="task-2-setup-and-run-ci-pipeline"></a>任务 2：设置和运行 CI 管道
+
+在此任务中，你将导入现有的 CI YAML 管道定义、修改并运行它。 它将创建新的 Azure 容器注册表 (ACR) 并生成/发布 eShopOnWeb 容器映像。
+
+1. 从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 转到“管道 > 管道”，然后单击“创建管道”（或“新建管道”）。  
+
+1.  在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。  
+
+1.  在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。  提供以下路径 /.ado/eshoponweb-ci-dockercompose.yml，然后单击“继续”。 
+
+    ![选择“管道”](images/select-ci-container-compose.png)
+
+1. 在 YAML 管道定义中，通过替换 AZ400-EWebShop-NAME 中的 NAME 来自定义资源组名称，并将 YOUR-SUBSCRIPTION-ID 替换为你自己的 Azure subscriptionId。  
+
+1. 单击“保存并运行”，等待管道成功执行。
+
+    > **注意**：此生成可能需要花费几分钟时间完成。 生成定义由以下任务构成：
+    - AzureResourceManagerTemplateDeployment 使用 bicep 部署 Azure 容器注册表。 
+    - PowerShell 任务获取 bicep 输出（ACR 登录服务器）并创建管道变量。
+    - DockerCompose 任务生成 eShopOnWeb 的容器映像并将其推送到 Azure 容器注册表。
+
+1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-ci-dockercompose，然后单击“保存”。 
+
+
+1. 执行完成后，在 Azure 门户中打开以前定义的资源组，应找到 Azure 容器注册表 (ACR)，其中包含创建的容器映像 eshoppublicapi 和 eshopwebmvc。  仅在部署阶段使用 eshopwebmvc。
+
+    ![ACR 中的容器映像](images/azure-container-registry.png)
+
+1. 单击“访问密钥”并复制密码值，该值将用于以下任务，因为我们会在 Azure 密钥保管库中将其保留为机密。 
+
+    ![ACR 密码](images/acr-password.png)
+
+
 #### <a name="task-2-create-an-azure-key-vault"></a>任务 2：创建 Azure 密钥保管库
 
 在本任务中，你将使用 Azure 门户创建 Azure 密钥保管库。
 
-对于本实验室方案，我们使用可连接到 MySQL 数据库的应用。 我们打算将 MySQL 数据库的密码作为机密存储到密钥保管库中。
+对于本实验室场景，我们将有一个 Azure 容器实例 (ACI)，用于拉取并运行存储在 Azure 容器注册表 (ACR) 中的容器映像。 我们打算将 ACR 的密码作为机密存储到密钥保管库中。
 
-1. 在 Azure 门户中的“搜索资源、服务和文档”文本框中，键入“Key vaults”，然后按 Enter 键  。
-1. 在“密钥保管库”边栏选项卡上，单击“+ 创建” 。
-1. 在“创建密钥保管库”边栏选项卡的“基本信息”选项卡中，指定以下设置 ，然后单击“下一步: 访问策略”：
+1.  在 Azure 门户中的“搜索资源、服务和文档”文本框中，键入“密钥保管库”，然后按 Enter 键。   
+1.  选择“密钥保管库”边栏选项卡，单击“创建 > 密钥保管库”。  
+1.  在“创建密钥保管库”边栏选项卡的“基本信息”选项卡中，指定以下设置，然后单击“下一步”：  
 
     | 设置 | 值 |
     | --- | --- |
     | 订阅 | 你在此实验室中使用的 Azure 订阅的名称 |
-    | 资源组 | 新资源组名称 az400m07l01-RG |
-    | 密钥保管库名称 | 任何唯一有效的名称 |
+    | 资源组 | 新资源组 AZ400-EWebShop-NAME 的名称 |
+    | 密钥保管库名称 | 任何唯一的有效名称，如 ewebshop-kv-NAME（替换 NAME） |
     | 区域 | 靠近实验室环境位置的 Azure 区域 |
     | 定价层 | **标准** |
     | 保留已删除保管库的天数 | **7** |
     | 清除保护 | **禁用清除保护** |
 
-1. 在“创建密钥保管库”边栏选项卡的“访问策略”选项卡上，单击“+ 创建”设置新策略  。
+1.  在“创建密钥保管库”边栏选项卡的“访问策略”选项卡上，在“访问策略”部分，单击“+ 创建”以设置新策略。   
 
-    > **注意**：你需要保护对密钥保管库的访问，只允许得到授权的应用程序和用户进行访问。 若要从保管库访问数据，你需要提供对服务主体的读取（获取）权限，以便在管道中进行身份验证。
+    > **注意**：你需要保护对密钥保管库的访问，只允许得到授权的应用程序和用户进行访问。 若要从保管库访问数据，你需要提供对先前创建的服务主体的读取（获取/列出）权限，以便在管道中进行身份验证。 
 
-1. 在“创建访问策略”边栏选项卡上，直接单击“选择主体”标签下的“未选择”链接  。
-1. 在“主体”边栏选项卡上，搜索在上一练习中创建的安全主体，将其选中，然后单击“选择” 。
+    1. 在“权限”边栏选项卡上，选中“机密权限”下的“获取”和“列出”权限。    单击“下一步”。
+    1. 在“主体”边栏选项卡上，使用给定的“ID”或“名称”搜索以前创建的服务主体。  单击“下一步”，再次单击“下一步”。 
+    1. 在“查看 + 创建”边栏选项卡上，单击“创建”。 
 
-    > **注意**：可以按主体的名称或 ID 进行搜索。
-
-1. 返回“创建访问策略”边栏选项卡，在“机密权限”下拉列表中，选中“获取”和“列出”权限旁的复选框，然后单击“添加”    。
-1. 返回“创建密钥保管库”边栏选项卡的“访问策略”选项卡，单击“查看 + 创建”，然后在“查看 + 创建”边栏选项卡上，单击“创建”    。
+1. 返回到“创建密钥保管库”边栏选项卡，单击“查看 + 创建”>“创建” 
 
     > **注意**：等待预配 Azure 密钥保管库。 此过程应该会在 1 分钟内完成。
 
-1. 在“部署完成”边栏选项卡上，单击“转到资源” 。
-1. 在“Azure 密钥保管库”边栏选项卡左侧垂直菜单中的“对象”部分，单击“机密” 。
-1. 在“机密”边栏选项卡上，单击“生成/导入” 。
-1. 在“创建机密”边栏选项卡上，指定以下设置并单击“创建”（将其他设置保留为默认值） ：
+1.  在“部署完成”边栏选项卡上，单击“转到资源”。 
+1.  在“Azure 密钥保管库”边栏选项卡左侧垂直菜单中的“对象”部分，单击“机密” 。
+1.  在“机密”边栏选项卡上，单击“生成/导入”。 
+1.  在“创建机密”边栏选项卡上，指定以下设置并单击“创建”（将其他设置保留为默认值）： 
 
     | 设置 | 值 |
     | --- | --- |
     | 上传选项 | **手动** |
-    | 名称 | sqldbpassword |
-    | 值 | 任何有效的 MySQL 密码值 |
+    | 名称 | acr-secret |
+    | 值 | 在上一任务中复制的 ACR 访问密码 |
 
-#### <a name="task-3-check-the-azure-pipeline"></a>任务 3：检查 Azure Pipeline
 
-在本任务中，将 Azure Pipeline 配置为从 Azure 密钥保管库检索机密。
+#### <a name="task-3-create-a-variable-group-connected-to-azure-key-vault"></a>任务 3：创建连接到 Azure 密钥保管库的变量组
 
-1. 在实验计算机上启动 Web 浏览器，然后导航到在上一练习中创建的 Azure DevOps 项目“将 Azure Key Vault 与 Azure DevOps 集成”。
-1. 在 Azure DevOps 门户的垂直导航窗格中，选择“管道”，然后验证是否显示了“管道”窗格 。
-1. 在“管道”窗格中，单击表示 SmartHotel-CouponManagement-CI 管道的条目 。 单击“编辑”。
-2. 在管道定义中，确保“管道” > “代理规范”为 ubuntu 18.04  。 单击“保存并排队” > “排队” > “运行”以触发生成  。
-3. 在 Azure DevOps 门户的垂直导航窗格中的“管道”部分，选择“版本” 。
-4. 在“SmartHotel-CouponManagement-CD”窗格上，单击右上角的“编辑” 。
-5. 在“所有管道 > SmartHotel-CouponManagement-CD”窗格上，选择“任务”选项卡，然后在下拉菜单中选择“开发”  。
+在此任务中，你将在 Azure DevOps 中创建一个变量组，该变量组将使用服务连接（服务主体）从密钥保管库中检索 ACR 密码机密
 
-    > **注意**：“开发”阶段的版本定义具有 Azure Key Vault 任务 。 此任务从 Azure Key Vault 下载机密。 你需要指向之前在实验室中创建的订阅和 Azure Key Vault 资源。
+1. 在实验室计算机上，启动 Web 浏览器并导航到 Azure DevOps 项目 eShopOnWeb。
 
-    > **注意**：你需要为管道授权才能部署到 Azure。 Azure 管道可以使用新的服务主体自动创建服务连接，但建议使用之前创建的服务连接，因为它已获得读取机密的权限。
+1.  在 Azure DevOps 门户的垂直导航窗格中，选择“管道 > 库”。 单击“+ 变量组”。
 
-1. 选择“在代理上运行”并将“代理池”字段修改为“Azure Pipelines”和代理规范“ubuntu 20.04”   。
-1. 选择“Azure Key Vault”任务，然后在右侧的“Azure Key Vault”任务属性的“Azure 订阅”标签旁，单击“管理”   。
-这将打开另一个浏览器标签页，该选项卡显示了 Azure DevOps 门户中的“服务连接”窗格。
-1. 在“服务连接”窗格上，单击“新建服务连接” 。
-1. 在“新建服务连接”窗格上，选择“Azure 资源管理器”选项，单击“下一步”，选择“服务主体(手动)”，然后再次单击“下一步”    。
-1. 在“新建服务连接”窗格上，使用 Azure CLI 创建服务主体，然后使用复制到本练习的第一个任务内的文本文件中的信息来指定以下设置：
+1. 在“新建变量组”边栏选项卡上，指定以下设置：
 
-    - 订阅 ID：通过运行 `az account show --query id --output tsv` 获得的值
-    - 订阅名称：通过运行 `az account show --query name --output tsv` 获得的值
-    - 服务主体 ID：通过运行 `az ad sp create-for-rbac` 生成的输出中标记为 appId 的值
-    - 服务主体密钥：通过运行 `az ad sp create-for-rbac` 生成的输出中标记为 password 的值
-    - TenantId：通过运行 `az ad sp create-for-rbac` 生成的输出中标记为 tenant 的值
+    | 设置 | 值 |
+    | --- | --- |
+    | 变量组名称 | eshopweb-vg |
+    | 从 Azure KV 链接机密... | **enable** |
+    | Azure 订阅 | 可用 Azure 服务连接 > Azure 订阅 |
+    | 密钥保管库名称 | 你的密钥保管库名称|
 
-1. 在“新建服务连接”窗格上，单击“验证”以确定提供的信息是否有效 。
-1. 收到“验证成功”响应后，在“服务连接名称”文本框中，键入“kv-service-connection”，然后单击“验证并保存”   。
-1. 切换回显示管道定义和 Azure Key Vault 任务的 Web 浏览器标签页。
-1. 选中“Azure Key Vault”任务后，在“Azure Key Vault”窗格上，单击“刷新”按钮，在“Azure 订阅”下拉列表中，选择“kv-service-connection”条目，在“密钥保管库”下拉列表中，选择在第一个任务中创建的表示 Azure 密钥保管库的条目，然后在“机密筛选器”文本框中，键入“sqldbpassword”       。 最后，展开“输出变量”部分，然后在“参考名称”文本框中，键入“sqldbpassword”  。
+1. 在“变量”下，单击“+ 添加”，然后选择 acr-secret 机密。   单击“确定”。
+1. 单击“保存” 。
 
-    > **注意**：在运行时，Azure Pipelines 将提取最新的机密值，然后将其设置为任务变量 $(sqldbpassword)。 通过引用该变量，这些任务可以被后续任务使用。  
+    ![变量组创建](images/vg-create.png)
 
-1. 若要验证这一点，请选择下一个任务“Azure 部署”（部署 ARM 模板），并查看“覆盖模板参数”文本框中的内容 。
+#### <a name="task-4-setup-cd-pipeline-to-deploy-container-in-azure-container-instanceaci"></a>任务 4：设置 CD 管道以在 Azure 容器实例 (ACI) 中部署容器
 
-    ```
-    -webAppName $(webappName) -mySQLAdminLoginName "azureuser" -mySQLAdminLoginPassword $(sqldbpassword)
-    ```
+在此任务中，你将导入一个 CD 管道，对其进行自定义并运行，以部署之前在 Azure 容器实例中创建的容器映像。
 
-    > **注意**：“覆盖模板参数”内容会引用 sqldbpassword 变量来设置 mySQL 管理员密码 。 这将使用在密钥保管库中指定的密码来预配 ARM 模板中定义的 MySQL 数据库。
+1. 从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 转到“管道 > 管道”，然后单击“新建管道”。 
 
-1. 可以通过指定任务的订阅（如果在项目中使用了新的订阅，请单击“授权”）和位置来完成管道定义。 对“Azure 应用服务部署”管道中的最后一项任务重复相同的操作（从下拉列表中的“可用 Azure 服务连接”部分选择订阅）  。
+1.  在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。  
 
-    > **注意**：在“Azure 订阅”下拉列表中，你将看到已被授权连接到 Azure 的订阅的可用 Azure 服务连接。 如果再次从“可用 Azure 订阅”列表选择已授权的订阅并尝试“授权”，该过程会失败 。
+1.  在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。  提供以下路径 /.ado/eshoponweb-cd-aci.yml，然后单击“继续”。 
 
-1. 在“变量”选项卡上，将 resourcegroup 变量更改为纯文本（单击锁定）并在值字段中写入 az400m07l01-RG  。
-1. 最后，保存并单击“新建发布” > “创建”（保留默认值）以开始部署  。
+1. 在 YAML 管道定义中，自定义：
 
-1. 请确保管道成功运行，并在完成后通过在 Azure 门户中打开资源组 az400m07l01-RG 来查看创建的资源。 打开并浏览（“概述”->“浏览”）“应用服务”，查看已发布的网站 。
+    - YOUR-SUBSCRIPTION-ID，替换为你的 Azure 订阅 ID。
+    - az400eshop-NAME，替换 NAME 使其全局唯一。
+    - YOUR-ACR.azurecr.io 和 ACR-USERNAME 与 ACR 登录服务器（这两者都需要 ACR 名称，可以在“ACR > 访问密钥”上查看）。 
+    - AZ400-EWebShop-NAME，其中包含之前在实验室中定义的资源组名称。
+
+1. 单击“保存并运行”，等待管道成功执行。
+
+    > 注意：部署可能需要几分钟才能完成。 CD 定义由以下任务构成：
+    - 资源：已准备好根据 CI 管道完成自动触发。 它还会下载 bicep 文件的存储库。
+    - 变量（对于部署阶段）连接到变量组，以使用 Azure 密钥保管库机密 acr-secret 
+    - AzureResourceManagerTemplateDeployment 使用 bicep 模板部署 Azure 容器实例 (ACI)，并提供 ACR 登录参数以允许 ACI 从 Azure 容器注册表 (ACR) 下载以前创建的容器映像。
+
+1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-cd-aci，然后单击“保存”。 
 
 ### <a name="exercise-2-remove-the-azure-lab-resources"></a>练习 2：删除 Azure 实验室资源
 
@@ -212,26 +260,13 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 在此任务中，你将使用 Azure Cloud Shell 删除在本实验室中预配的 Azure 资源，避免产生不必要的费用。
 
-1. 在 Azure 门户中，在 Cloud Shell 窗格中打开 Bash Shell 会话 。
-1. 运行以下命令，列出在本模块各实验室中创建的所有资源组：
-
-    ```sh
-    az group list --query "[?starts_with(name,'az400m07l01-RG')].name" --output tsv
-    ```
-
-1. 通过运行以下命令，删除在此模块的实验室中创建的所有资源组：
-
-    ```sh
-    az group list --query "[?starts_with(name,'az400m07l01-RG')].[name]" --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
-    ```
-
-    >**注意**：该命令以异步方式执行（由 --nowait 参数确定），因此，尽管可立即在同一 Bash 会话中运行另一个 Azure CLI 命令，但实际上要花几分钟才能删除资源组。
+1.  在 Azure 门户中，打开创建的资源组，然后单击“删除资源组”。
 
 ## <a name="review"></a>审阅
 
-在本实验室中，你已使用以下步骤将 Azure Key Vault 与 Azure Pipeline 集成：
+在本实验室中，你已使用以下步骤将 Azure Key Vault 与 Azure DevOps 管道集成：
 
-- 创建 Azure Key Vault 以将 MySQL 服务器密码作为机密存储。
-- 创建 Azure 服务主体以提供对 Azure Key Vault 中机密的访问权限。
-- 配置权限以允许服务主体读取机密。
-- 配置管道以从 Azure Key Vault 检索密码并将其传递到后续任务。
+
+- 创建了一个 Azure 服务主体，用于提供对 Azure 密钥保管库中机密的访问权限，并验证从 Azure DevOps 到 Azure 的部署。
+- 运行从 Git 存储库导入的 2 个 YAML 管道。
+- 配置了管道，以使用 ADO 变量组从 Azure 密钥保管库检索密码并将其用于后续任务。
