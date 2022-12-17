@@ -1,10 +1,10 @@
 ---
 lab:
-  title: 实验室 09：使用发布入口控制部署
+  title: 使用发布入口控制部署
   module: 'Module 04: Design and implement a release strategy'
 ---
 
-# <a name="lab-09-controlling-deployments-using-release-gates"></a>实验室 09：使用发布入口控制部署
+# <a name="controlling-deployments-using-release-gates"></a>使用发布入口控制部署
 
 # <a name="student-lab-manual"></a>学生实验室手册
 
@@ -54,25 +54,31 @@ lab:
 
 ### <a name="exercise-0-configure-the-lab-prerequisites"></a>练习 0：配置实验室先决条件
 
-在本练习中，你将设置实验室先决条件，其中包括基于 Azure DevOps 演示生成器模板预配置的 Parts Unlimited 团队项目和两个分别代表 Canary 和“生产”环境的 Azure Web 应用，你将通过 Azure Pipelines 将应用程序部署到其中 。
+在本练习中，你将设置实验室先决条件，其中包括设置新的 Azure DevOps 项目，该项目的存储库基于 [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb)。
 
-#### <a name="task-1-configure-the-team-project"></a>任务 1：配置团队项目
+#### <a name="task-1--skip-if-done-create-and-configure-the-team-project"></a>任务 1：（如果已完成，请跳过此任务）创建和配置团队项目
 
-在此任务中，你将使用 Azure DevOps 演示生成器基于 ReleaseGates 模板生成一个新项目。
+在此任务中，你将创建一个 eShopOnWeb_ReleaseGates Azure DevOps 项目，供多个实验室使用。
 
-1. 在实验室计算机上，启动 Web 浏览器并导航到 [Azure DevOps 演示生成器](https://azuredevopsdemogenerator.azurewebsites.net)。 此实用工具将对以下过程进行自动化：在你的帐户中创建预填充了实验室所需内容（工作项、存储库等）的 Azure DevOps 项目。
+1.  在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb_ReleaseGates，并将其他字段保留默认值。 单击“创建”。
 
-    > **注意**：有关此站点的详细信息，请参阅 <https://docs.microsoft.com/en-us/azure/devops/demo-gen> 。
+    ![创建项目](images/create-project.png)
 
-1. 单击“登录”，并使用与你的 Azure DevOps 订阅相关联的 Microsoft 帐户登录。
-1. 如果需要，在“Azure DevOps 演示生成器”页面上，单击“接受”以接受访问 Azure DevOps 订阅的权限请求 。
-1. 在“新建项目”页面上的页面上的“新建项目名称”文本框中，键入“使用发布入口控制部署”，在“选择组织”下拉列表中选择你的 Azure DevOps 组织，然后单击“选择模板”    。
-1. 在模板列表中，在工具栏中，单击“DevOps 实验室”，选择 ReleaseGates 模板，然后单击“选择模板”  。
-1. 返回“新建项目”页面，单击“创建项目” 
+#### <a name="task-2--skip-if-done-import-eshoponweb-git-repository"></a>任务 2：（如果已完成，请跳过此任务）导入 eShopOnWeb Git 存储库
 
-    > **注意**：等待此过程完成。 这大约需要 2 分钟。 如果该过程失败，请导航到你的 DevOps 组织，删除项目并重试。
+在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在“新建项目”页面上，单击“导航到项目” 。
+1.  在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb_ReleaseGates 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。  选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+
+    ![导入存储库](images/import-repo.png)
+
+1.  存储库按以下方式组织：
+    - .ado 文件夹包含 Azure DevOps YAML 管道
+    - .devcontainer 文件夹容器设置，用于使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发
+    - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
+    - .github 文件夹容器 YAML GitHub 工作流定义。
+    - src 文件夹包含用于实验室方案的 .NET 6 网站。
+
 
 #### <a name="task-2-create-two-azure-web-apps"></a>任务 2：创建两个 Azure Web 应用
 
@@ -84,19 +90,20 @@ lab:
 
     >**注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
 
-1. 在 Cloud Shell 窗格中的 Bash 提示符下，运行以下命令以创建资源组（将 `<region>` 占位符替换为将托管两个 Azure Web 应用的 Azure 区域的名称，例如“westeurope”或“eastus”） ：
+1. 在 Cloud Shell 窗格中的 Bash 提示符下，运行以下命令以创建资源组（将 `<region>` 变量占位符替换为将托管两个 Azure Web 应用的 Azure 区域的名称，例如“westeurope”、“centralus”或你选择的任何其他可用区域）： 
 
     > **注意**：可以通过运行以下命令找到可能的位置，使用 `<region>` 上的“Name”：`az account list-locations -o table`
 
     ```bash
-    RESOURCEGROUPNAME='az400m10l01-RG'
-    az group create -n $RESOURCEGROUPNAME -l '<region>'
+    REGION='centralus'
+    RESOURCEGROUPNAME='az400m04l09-RG'
+    az group create -n $RESOURCEGROUPNAME -l $REGION
     ```
 
 1. 创建应用服务计划
 
     ```bash
-    SERVICEPLANNAME='az400m01l01-sp1'
+    SERVICEPLANNAME='az400m04l09-sp1'
     az appservice plan create -g $RESOURCEGROUPNAME -n $SERVICEPLANNAME --sku S1
     ```
 
@@ -104,13 +111,13 @@ lab:
  
      ```bash
      SUFFIX=$RANDOM$RANDOM
-     az webapp create -g $RESOURCEGROUPNAME -p $SERVICEPLANNAME -n PU$SUFFIX-Canary
-     az webapp create -g $RESOURCEGROUPNAME -p $SERVICEPLANNAME -n PU$SUFFIX-Prod
+     az webapp create -g $RESOURCEGROUPNAME -p $SERVICEPLANNAME -n RGATES$SUFFIX-Canary
+     az webapp create -g $RESOURCEGROUPNAME -p $SERVICEPLANNAME -n RGATES$SUFFIX-Prod
      ```
 
     > **注意**：记录 Canary Web 应用的名称。 本实验室中稍后会用到它。
 
-1. 请等待预配过程完成，然后关闭 Cloud Shell 窗格。
+1. 请等待 Web 应用服务器资源预配过程完成，然后关闭 Cloud Shell 窗格。
 
 #### <a name="task-3-configure-an-application-insights-resource"></a>任务 3：配置 Application Insights 资源
 
@@ -120,7 +127,7 @@ lab:
 
     | 设置 | 值 |
     | --- | --- |
-    | 资源组 | az400m10l01-RG |
+    | 资源组 | az400m04l09-RG |
     | 名称 | 在上一个任务中记录的 Canary Web 应用的名称 |
     | 区域 | 之前在上一个任务中部署 Web 应用的同一 Azure 区域 |
     | 资源模式 | **经典** |
@@ -129,135 +136,139 @@ lab:
 
 1. 依次单击“查看 + 创建”、“创建”。 
 1. 等待预配过程完成。
-1. 在 Azure 门户中，导航到你在上一任务中创建的资源组“az400m10l01-RG”。
+1. 在 Azure 门户中，导航到你在上一任务中创建的资源组“az400m04l09-RG”。
 1. 在资源列表中，单击 Canary Web 应用。
 1. 在 Canary Web 应用页面左侧垂直菜单中的“设置”部分，单击 Application Insights  。
 1. 在“Application Insights”边栏选项卡上，单击“打开 Application Insights” 。
 1. 在“更改资源”部分中，单击“选择现有资源”选项，在现有资源列表中，选择新创建的 Application Insight 资源，单击“应用”，提示确认后单击“是”   。
-1. 等待更改生效，然后在“Application Insights”边栏选项卡上单击“查看 Application Insights 数据”链接。
+1. 等待更改生效。
 
     > **注意**：你将在此处创建监视器警报，并将在本实验室的后续部分使用。
-
+1. 在同一“设置” / “Application Insights”菜单选项中，选择“查看 Application Insight 数据”。   这会将你重定向到 Azure 门户中的 Application Insights 边栏选项卡。
 1.  在 Application Insights 资源边栏选项卡上的“监视”部分中，单击“警报”，然后单击“创建”>“警报规则”  。
-1.  在“创建警报规则”边栏选项卡上的“条件”部分，单击“添加条件”链接  。 
 1.  在“选择信号”边栏选项卡上的“按信号名称搜索”文本框中，键入“失败的请求”并选择它  。 
-1.  在“配置信号逻辑”边栏选项卡上的“警报逻辑”部分中，将“阈值”保留设置为“静态”，在“阈值”文本框中，键入 0，然后单击“完成”      。
-
-    > **注意**：每当最近 5 分钟内失败的请求数大于 0 时，该规则将生成警报。
-
-1.  返回“创建警报规则”窗格，转到“详细信息”，指定以下设置并填写信息（其他设置保留默认值），然后单击“查看 + 创建”>“创建”  ：
+1.  在“创建警报规则”边栏选项卡上的“条件”部分中，将“阈值”的设置保留为“静态”，验证其他默认设置，如下所示：   
+- 聚合类型：计数
+- 运算符：大于
+- 单位：计数
+1. 在“阈值”文本框中，键入 0，然后单击“下一步: 操作”。   不要在“操作”设置边栏选项卡中进行任何更改，并在“详细信息”部分下定义以下参数： 
 
     | 设置 | 值 |
     | --- | --- |
-    | 警报规则名称 | PartsUnlimited_FailedRequests |
     | 严重性 | **2- 警告** |
-    | 自动解决警报 | 已清除 |
+    | 警报规则名称 | RGATESCanary_FailedRequests |
+    | 高级选项：自动解决警报 | **已清除** |
 
     > **注意**：指标警报规则最多可能需要 10 分钟才能激活。
 
     > **注意**：你可以根据不同的指标创建多个警报规则，例如可用性小于 99%、服务器响应时间大于 5 秒或服务器异常大于 0 个
 
-### <a name="exercise-1-configure-the-release-pipeline"></a>练习 1：配置发布管道
+1. 单击“查看 + 创建”确认创建警报规则，然后单击“创建”再次确认。  等待警报规则成功创建。
+
+### <a name="exercise-1-configure-the-build-pipeline"></a>练习 1：配置生成管道
+
+在本练习中，你将为 .NET 6 eShopOnWeb Web 应用程序源代码准备发布项目（Web 部署 zip 包）。
+
+1. 在 [Azure DevOps 门户](https://dev.azure.com)中，导航到之前在本实验室中创建的 eShopOnWeb_ReleaseGates 项目。
+1. 在项目中，导航到“管道”。
+1. 单击“创建管道”。
+1. 在“你的代码在哪里”步骤中，选择“Azure Repos (Git)”。 
+1. 在“选择存储库”中，选择“eShopOnWeb_ReleaseGates”。 
+1. 在“配置管道”步骤中，向下滚动列表并选择“现有 Azure Pipelines YAML 文件” 
+1. 在“选择现有 YAML 文件”下，选择“main”作为“分支”，然后选择“/.ado/eshoponweb-ci.yml”作为“路径”。  
+1. 单击 **“继续”** 。
+1. 在 YAML 管道屏幕中，单击“运行”以启动生成管道。
+1. 几秒钟后，作业的状态将切换到“正在运行”。 忽略有关源代码的任何警告。
+1. 单击“生成”状态行，导航到详细的“运行作业”窗口。  
+1. 等待所有步骤成功完成（显示绿色对勾）。 这平均需要大约 2-3 分钟。
+1. 生成管道作业成功完成后，验证生成工件。 在“作业状态”页中，导航到“摘要”选项卡。在“相关”下，它显示“2 个已发布”。   选择此链接。 
+1. 在显示的“项目”页中，请参阅“>Bicep”和“>网站”。  
+1. 打开“网站”。 请注意 BlazorAdmin.zip 和 Web.zip。  我们将在即将发布的发布管道中使用 Web.zip 项目。
+
+### <a name="exercise-2-configure-the-release-pipeline"></a>练习 2：配置发布管道
 
 在本练习中，你将配置发布管道。
 
-#### <a name="task-1-update-release-tasks"></a>任务 1：更新发布任务
+#### <a name="task-1-set-up-release-tasks"></a>任务 1：设置发布任务
 
-在此任务中，你将更新发布任务。
+在此任务中，你会将发布任务设置为发布管道的一部分。
 
-1. 在实验室计算机上，在 Azure DevOps 门户中切换到显示“使用发布入口控制部署”项目的浏览器窗口，在垂直导航窗格中，选择 Pipelines ，然后在 Pipelines 部分，单击“发布”   。
-1. 在“发布”视图的 PartsUnlimited-CD 窗格中，单击“编辑”  。
+1. 在 Azure DevOps 门户中的 eShopOnWeb_ReleaseGates 项目中，在垂直导航窗格中，选择“管道”，然后在“管道”部分中单击“发布”。   
+1. 单击“新建管道”。
+1. 在“选择模板”窗口中，在模板的“特别推荐”列表下选择“Azure 应用服务部署（将应用程序部署到 Azure 应用服务。   从 Windows、Linux、容器、函数应用或 WebJobs 中选择）。
+1. 单击“应用”。
+1. 在显示的“阶段”窗口中，将默认的“阶段 1”阶段名称更新为“Canary”。  使用“X”按钮关闭弹出窗口。 现在，你位于发布管道的图形编辑器中，其中显示了 Canary 阶段。
+1. 将鼠标悬停在 Canary 阶段上，然后单击“克隆”按钮，将 Canary 阶段复制到其他阶段。 将此阶段命名为“生产”。
 
-    > **注意**：此管道包含两个阶段，分别叫做“Canary 环境”和“生产” 。
+    > 注意：此管道现在包含两个阶段，即“Canary”和“生产”。  
 
-1. 在“管道”选项卡上的“项目”矩形中，单击 PartsUnlimited-CI 生成项目右上角的“持续部署触发器”按钮   。
-1. 如果 PartsUnlimited-CI 生成的持续部署触发器处于禁用状态，请切换开关以启用它。 将所有其他设置保留为默认值，并单击右上角的 x 标记关闭“持续部署触发器”窗格 。
+1. 在“管道”选项卡上，选择“添加项目”矩形，然后在“源(生成管道)”字段中选择“eShopOnWeb_ReleaseGates”。    单击“添加”以确认选择项目。
+1. 在“项目”矩形中，可以看到“持续集成触发器”(闪电符号)出现。  单击它可打开“持续部署触发器”设置。 单击“连续部署触发器”切换开关以启用它。 将所有其他设置保留为默认值，并单击右上角的 x 标记关闭“持续部署触发器”窗格 。
 1. 在“Canary 环境”阶段中，单击“1 个作业, 2 个任务”标签，并查看此阶段中的任务 。
 
-    > **注意**：Canary 环境有 2 个任务，一个是将包发布到 Azure Web 应用，另一个是在部署后启用对应用程序的持续监视。
+    > 注意：Canary 环境有 1 个任务，分别将项目包发布到 Azure Web 应用。
 
-1. 在“所有管道”>“PartsUnlimited-CD”窗格上，确保已选择“Canary 环境”阶段 。 在“Azure 订阅”下拉列表中，选择你的 Azure 订阅，然后单击“授权” 。 如果出现提示，请使用在 Azure 订阅中具有所有者角色的用户帐户进行身份验证。
-1. 在“应用服务名称”下拉列表中，选择 Canary Web 应用的名称 。
+1. 在“所有管道 > 新建发布管道”窗格上，确保已选择“Canary”阶段。  在“Azure 订阅”下拉列表中，选择你的 Azure 订阅，然后单击“授权” 。 如果出现提示，请使用在 Azure 订阅中具有所有者角色的用户帐户进行身份验证。
+1. 确认“应用类型”设置为“Windows 上的 Web 应用”。 接下来，在“应用服务名称”下拉列表中，选择“Canary”Web 应用的名称。 
+1. 选择“部署 Azure 应用服务”任务。 在“包或文件夹”字段中，将“$(System.DefaultWorkingDirectory)/ **/*.zip”的默认值更新为“$(System.DefaultWorkingDirectory)/** /Web.zip”** 
 
-    > **注意**：你可能需要单击“刷新”按钮。
+    > 请注意“任务”选项卡旁边的感叹号。这是预期的，因为我们需要配置生产阶段的设置。
 
-1.  在“Application Insights 资源组名称”下拉列表中，选择 az400m10l01-RG 条目 。
-1.  在“Application Insights 资源名称”下拉列表中，选择 Canary Application Insights 资源的名称，该名称应与 Canary Web 应用的名称匹配  。 
-1.  在 Canary 环境的代理阶段，右键单击“启用连续监视”和“禁用所选任务”   
-1.  在“所有管道”>“PartsUnlimited-CD”窗格上，单击“任务”选项卡，然后在下拉列表中选择“生产”  。
-1.  选中“生产”阶段后，在“Azure 订阅”下拉列表中，选择“可用 Azure 服务连接”下显示的用于“Canary 环境”阶段的 Azure 订阅，因为我们在授权订阅使用之前就已经创建了服务连接   。
+1. 在“所有管道 > 新建发布管道”窗格中，导航到“管道”选项卡，这次在“生产”阶段中单击“1 个作业，2 个任务”标签。    与之前的 Canary 阶段类似，请完成管道设置。 在“任务”选项卡/生产部署过程下的“Azure 订阅”下拉列表中，选择“可用 Azure 服务连接”下显示的用于“Canary 环境”阶段的 Azure 订阅，因为我们在授权订阅使用之前就已经创建了服务连接。  
 1. 在“应用服务名称”下拉列表中，选择 Prod Web 应用的名称 。
-1. 在“所有管道”>“PartsUnlimited-CD”窗格上，单击“保存”，然后在“保存”对话框中，单击“确定”   。
-1. 在显示“使用发布入口控制部署”项目的浏览器窗口中，在垂直导航窗格的“管道”部分，单击“管道”  。
-1. 在“管道”窗格上，单击代表 PartsUnlimited-CI 生成管道的条目，然后在 PartsUnlimited-CI 窗格上单击“运行管道”   。
+1. 选择“部署 Azure 应用服务”任务。 在“包或文件夹”字段中，将“$(System.DefaultWorkingDirectory)/ **/*.zip”的默认值更新为“$(System.DefaultWorkingDirectory)/** /Web.zip”** 
+1. 在“所有管道 > 新建发布管道”窗格上，单击“保存”，然后在“保存”对话框中，单击“确定”。   
+
+现已成功配置发布管道。
+
+1. 在显示“EshopOnWeb_ReleaseGates”项目的浏览器窗口中，在垂直导航窗格的“管道”部分，单击“管道”。  
+1. 在“管道”窗格上，单击代表 eShopOnWeb_ReleaseGates 生成管道的条目，然后在“eShopOnWeb_ReleaseGates”窗格上单击“运行管道”。   
 1. 在“运行管道”窗格上，接受默认设置，然后单击“运行”以触发管道 。 等待生成管道完成。
 
-    > **注意**：生成成功后，将自动触发发布，并将应用程序部署到两个环境中。
+    > **注意**：生成成功后，将自动触发发布，并将应用程序部署到两个环境中。 生成管道成功完成后，验证发布操作。
 
-1. 在垂直导航窗格的 Pipelines 部分，单击“发布”，然后在 PartsUnlimited-CD 窗格中，单击代表最新发布的条目  。
-1. 在“PartsUnlimited-CD”>“Release-1”边栏选项卡上，跟踪发布进度并验证两个 Web 应用的部署是否成功完成。
-1. 切换到 Azure 门户界面，导航到资源组 az400m10l01-RG，在资源列表中，单击 Canary Web 应用，在 Web 应用边栏选项卡上，单击“浏览”，并验证网页是否在新的 Web 浏览器选项卡中成功加载  。
-1. 关闭显示 Parts Unlimited 网站的 Web 浏览器选项卡。
-1. 切换到 Azure 门户界面，导航到资源组 az400m10l01-RG，在资源列表中，单击“生产”Web 应用，在 Web 应用边栏选项卡上，单击“浏览”，并验证网页是否在新的 Web 浏览器选项卡中成功加载  。
-1. 关闭显示 Parts Unlimited 网站的 Web 浏览器选项卡。
+1. 在垂直导航窗格的“管道”部分中，单击“发布”，然后在“eShopOnWeb_ReleaseGates”窗格中，单击代表最新发布的条目。  
+1. 在“eShopOnWeb_ReleaseGates > Release-1”边栏选项卡上，跟踪发布进度并验证这两个 Web 应用的部署是否成功完成。
+1. 切换到 Azure 门户界面，导航到资源组 az400m04l09-RG，在资源列表中，单击“Canary”Web 应用，在 Web 应用边栏选项卡上，单击“浏览”，并验证网页（电子商务网站）是否在新的 Web 浏览器标签页中成功加载。  
+1. 切换回 Azure 门户界面，这次导航到资源组 az400m04l09-RG，在资源列表中，单击“生产”Web 应用，在 Web 应用边栏选项卡上，单击“浏览”，并验证网页是否在新的 Web 浏览器标签页中成功加载。  
+1. 关闭显示 EShopOnWeb 网站的 Web 浏览器标签页。
 
-    > **注意**：现在，应用程序已经配置了 CI/CD。 在下一个练习中，我们将在发布管道中设置入口。
+    > **注意**：现在，应用程序已经配置了 CI/CD。 在下一个练习中，我们将设置质量入口作为更高级发布管道的一部分。
 
-### <a name="exercise-2-configure-release-gates"></a>练习 2：配置发布入口
+### <a name="exercise-3-configure-release-gates"></a>练习 3：配置发布入口
 
-在本练习中，你将在发布管道中设置入口。
+在本练习中，你将在发布管道中设置质量入口。
 
-#### <a name="task-1-configure-pre-deployment-gates"></a>任务 1：配置部署前入口
+#### <a name="task-1-configure-pre-deployment-gates-for-approvals"></a>任务 1：配置部署前入口以获得审批
 
 在此任务中，你将配置部署前入口。
 
-1. 切换到显示 Azure DevOps 门户的 Web 浏览器窗口，在垂直导航窗格中的 Pipelines 部分，单击“发布”，然后在 PartsUnlimited-CD 窗格中单击“编辑”   。
-1. 在“所有管道”>“PartsUnlimited-CD”窗格上，在代表“Canary 环境”阶段的矩形的左边缘上，单击代表“部署前条件”的椭圆形  。
+1. 切换到显示 Azure DevOps 门户的 Web 浏览器窗口，然后打开 EshopOnWeb_ReleaseGates 项目。 在垂直导航窗格中的“管道”部分中，单击“发布”，然后在“新建发布管道”窗格中，单击“编辑”。   
+1. 在“所有管道 > 新建发布管道”窗格上，在代表“Canary 环境”阶段的矩形的左边缘上，单击代表“部署前条件”的椭圆形。  
 1. 在“部署前条件”窗格上，将“部署前审批”滑块设置为“启用”，然后在“审批者”文本框中，键入并选择你的 Azure DevOps 帐户名称   。
-1. 在“预部署条件”窗格中，将“入口”滑块设置为“启用”，单击“+ 添加”，然后单击弹出窗口中的“查询工作项”    。
-1. 在“部署前条件”窗格上“查询工作项”部分的“查询”下拉列表中，选择“共享查询”下的 Bug，将“上限阈值”的值设置为 0      。
 
-    > **注意**：基于“上限阈值”设置的值，如果此查询返回任何活动的 bug 工作项，则发布入口将失败。
+    > 注意：在实际场景中，这应该是 DevOps 团队名称别名，而不是你自己的名称。
 
-1.  在“部署前条件”窗格上，将“评估前的延迟时间”设置的值保留为“0 分钟”  。 
+1. 保存预批准设置并关闭弹出窗口。
+1. 单击“创建发布”，然后按弹出窗口中的“创建”按钮进行确认。 
+1. 请注意绿色确认消息，指出“Release-2”已创建。 单击“Release-2”链接导航到其详细信息。
+1. 请注意，“Canary”阶段处于“待审批”状态。  单击“批准”按钮。 这会再次触发 Canary 阶段。
 
-    > **注意**：“评估前的延迟时间”表示第一次评估添加的入口之前的时间。 如果未添加任何入口，则部署将等待一段时间，然后再继续。 要使入口函数可以初始化且稳定（它可能需要一些时间才能开始返回准确的结果），我们在评估结果之前配置一个延迟，然后将其用于确定应批准还是拒绝部署。
-
-1. 在“部署前条件”窗格上，展开“评估选项”部分并配置以下选项 ：
-
-    - 将“重新评估入口的间隔时间”值设置为“5 分钟” 。
-
-    > **注意**：“重新评估入口的间隔时间”表示所有入口的每次评估时间间隔。 在每个采样间隔，新请求将同时发送到每个入口以获取新结果。 采样间隔必须大于任何已配置入口的最长典型响应时间，以便有时间接收所有响应。
-
-    - 将“入口失败后超时时间”值设置为“8 分钟” 。
-
-    > **注意**：“入口失败后超时时间”表示所有入口的最大评估周期。 如果在同一采样间隔内所有入口都成功之前已达到超时时间，则部署将被拒绝。 我们可以为超时指定的最小值为 6 分钟，可为采样间隔指定的最小值为 5 分钟。
-
-    > **注意**：在这种情况下，触发发布时，入口将在 0 到 5 分钟之内验证样本 。 如果结果为“通过”，则将发送通知以供审批。 如果结果为“失败”，则发布将在 8 分钟后超时。
-
-    > **注意**：实际上，这些值可能跨越几个小时。
-
-1. 在“部署前条件”窗格上，选择“在成功的入口上，请求批准”单选按钮 。
-1. 单击右上角的 x 标记，关闭“部署前条件”窗格 。 保存发布管道中的更改。
-1. 为了使“查询工作项”入口正常工作，项目生成服务需要对 Azure Boards 查询具有“读取”权限 。
-1. 在 Azure DevOps 门户的垂直导航窗格中，将鼠标指针悬停在 Boards 上，在按住 Ctrl 键的同时单击“查询”，以使用“查询”窗格打开单独的浏览器选项卡   。
-1. 在 Boards 视图的“查询”窗格上，单击“全部”以获取包含所有查询的列表  。
-1. 右键单击“共享查询”文件夹，然后选择“安全性…”打开“共享查询权限”窗格  。
-1. 在“共享查询权限”窗格上的“搜索用户或组”字段中，键入或粘贴“使用发布入口生成服务控制部署”（[项目名称] 生成服务），然后单击找到的一个标识  。
-
-    > **注意**：必须按照如上所述搜索“使用发布入口生成服务控制部署”用户，因为该用户尚未显示为“用户”列表的成员 。 不要将“项目集合生成服务”用户与“项目生成服务”混淆 。
-
-1. 在“用户”列表中选择“使用发布入口生成服务控制部署”用户，然后在右侧将“读取”权限设置为“允许”   。
-1. 单击右上角的 x 标记，关闭“共享查询权限”窗格 。
-1. 导航回到浏览器选项卡，其中发布管道仍处于打开状态。
-
-#### <a name="task-2-configure-post-deployment-gates"></a>任务 2：配置部署后入口
+#### <a name="task-2-configure-post-deployment-gates-for-azure-monitor"></a>任务 2：为 Azure Monitor 配置部署后入口
 
 在此任务中，你将启用 Canary 环境的部署后入口。
 
-1.  返回“所有管道”>“PartsUnlimited-CD”窗格，在代表“Canary 环境”阶段的矩形的右边缘上，单击代表“部署后条件”的椭圆形  。
+1.  返回“所有管道 > 新建发布管道”窗格，在代表“Canary 环境”阶段的矩形的右边缘上，单击代表“部署后条件”的椭圆形。  
 1.  在“部署后条件”窗格中，将“入口”滑块设置为“启用”，单击“+ 添加”，然后单击弹出菜单中的“查询 Azure Monitor 警报”    。
-1.  在“部署后条件”窗格“查询 Azure Monitor 警报”部分的“Azure 订阅”下拉列表中，选择代表与 Azure 订阅的连接的“服务连接”条目，然后在“资源组”下拉列表中选择“az400m10l01-RG”条目     。
+1.  在“部署后条件”窗格“查询 Azure Monitor 警报”部分的“Azure 订阅”下拉列表中，选择代表与 Azure 订阅的连接的“服务连接”条目，然后在“资源组”下拉列表中选择“az400m04l09-RG”条目     。
+1. 在“部署后条件”窗格上，展开“高级”部分并配置以下选项： 
+
+- 筛选器类型：无
+- 严重性：Sev0、Sev1、Sev2、Sev3、Sev4
+- 时间范围：过去一小时
+- 警报状态：已确认、新建
+- 监视条件：已触发
+
 1.  在“部署后条件”窗格上，展开“评估选项”并配置以下选项 ：
 
 - 将“重新评估入口的间隔时间”值设置为“5 分钟” 。
@@ -267,9 +278,9 @@ lab:
     > **注意**：采样间隔和超时一起作用，确保入口以适当的间隔调用函数，如果在超时周期同一采样间隔内未成功执行函数，则将拒绝部署。
 
 1. 单击右上角的 x 标记，关闭“部署后条件”窗格 。
-1. 返回 PartsUnlimited-CD 窗格，单击“保存”，然后在“保存”对话框中，单击“确定”   。
+1. 返回到“新建发布管道”窗格，单击“保存”，然后在“保存”对话框中，单击“确定”。   
 
-### <a name="exercise-3-test-release-gates"></a>练习 3：测试发布入口
+### <a name="exercise-4-test-release-gates"></a>练习 4：测试发布入口
 
 在本练习中，你将通过更新应用程序来测试发布入口，这将触发部署。
 
@@ -277,45 +288,24 @@ lab:
 
 在此任务中，你将在启用发布入口的情况下跟踪发布过程。
 
-1. 在显示 Azure DevOps 门户的浏览器窗口的垂直导航窗格中，选择“发布”。
-1. 单击“创建发布”，然后在“创建新发布”窗格中，单击“创建”  。
-1. 在 Azure DevOps 门户中，在垂直导航窗格的“管道”部分，单击“发布” 。
-1. 在“发布”选项卡上，单击 PartsUnlimited-CD/Release-2 条目并查看部署到 Canary 环境的进度  。
-1. 在代表“Canary 环境”阶段的矩形的左边缘上，单击代表“预部署条件”的椭圆，这时可能会被标记为“评估入口”或“部署前入口失败”   。
-1. 在“Canary 环境”窗格上，请注意“查询工作项”入口已失败 。
+1. 在 Azure 门户的“搜索资源、服务和文档”字段中，输入“警报”以打开 Azure Monitor 的警报服务。
+1. 请注意，列表中应至少有“1 个警报”显示为“严重性 2 - 警告”。  在上一练习中验证网站时，会触发此警报。
 
-    > **注意**：这表明存在活动的工作项。 需要关闭这些工作项后才能继续。 下一次采样时间将在 5 分钟后。
+    > 注意：如果尚未显示警报，请再等待几分钟。**** 可以通过从浏览器再次导航到 Canary-URL 来加快显示警报的速度。
 
-1. 打开一个新的浏览器选项卡，导航到 Azure DevOps 门户，在垂直导航窗格中，选择 Boards，然后在 Boards 部分选择“查询”  。
-1. 在 Boards 视图的“查询”窗格上，单击“所有”选项卡  。
-1. 在“查询”窗格“所有”选项卡上的“共享查询”部分，单击 Bug 条目，然后在“查询”>“共享查询”>“Bug”窗格中，单击“运行查询”     。
-1. 验证查询是否返回名为“Canary 环境中的磁盘空间不足”的工作项，并且该工作项的状态为“新建” 。
-
-    > **注意**：我们假设基础结构团队已解决磁盘空间问题。
-
-1. 单击“Canary 环境中的磁盘空间不足”条目。
-1. 在“Canary 环境中的磁盘空间不足”窗格左上角的“状态”标签旁边，单击“新建”，然后在下拉列表中，单击“关闭”，再单击“保存”    。
-1. 切换回“Canary 环境”窗格，并等待通过第二次评估。
-
-    > **注意**：如果第二次评估已失败，则将鼠标指针悬停在代表“Canary 环境”阶段的矩形上以显示“重新部署”选项，单击“重新部署”，然后在“Canary 环境”边栏选项卡上单击“部署”并监视部署前入口的处理状态    。
-
-    > **注意**：评估成功后，你将看到部署前审批请求。
-
-1. 单击“审批者”，然后单击“批准”将部署排入 Canary 环境的队列 
-
-    > **注意**：成功部署到 Canary 环境后，我们将看到部署后入口正在运行，该入口使用 Application Insights 来检测是否存在针对新部署应用程序的失败请求。
-
-1. 要触发失败的请求，请切换到显示 Azure 门户的 Web 浏览器窗口，导航到 Canary Azure Web 应用边栏选项卡，然后单击“浏览” 。 这将打开一个新的浏览器选项卡，其中显示 PartsUnlimited 网站。
-1. 在 PartsUnlimited 网站上，单击“更多”。
-
-    > **注意**：网站的此部分故意配置错误，以便触发失败的请求。
-
-1. 返回到 PartsUnlimited 网站的主页，再次单击“更多”，然后重复此步骤几次。
-1. 验证 Application Insights 是否检测到失败的请求，操作方法：导航到 Canary Web 应用页面的 Application Insights 边栏选项卡，然后在 Application Insights 边栏选项卡上单击“警报”，并验证该页面是否列出了一个或多个 Sev 2 警报  。
+1. 返回到 Azure DevOps 门户，打开“EShopOnWeb-Release Gates”项目。 导航到“管道”，选择“发布”，然后选择“新建发布管道”。  
+1. 单击“创建发布”按钮。
+1. 等待发布管道启动，并批准 Canary 阶段发布操作。
+1. 等待 Canary 发布阶段成功完成。 请注意“部署后入口”如何切换到“评估入口”状态。   单击“评估入口”图标。
+1. 对于“查询 Azure Monitor 警报”，请注意初始失败状态。
+1. 让发布管道在接下来的 5 分钟内处于挂起状态。 5 分钟过后，请注意第 2 次评估再次失败。
+1. 这是预期行为，因为有针对 Canary Web 应用触发的 Application Insights 警报。
 
     > **注意**：由于异常触发了警报，因此“查询 Azure Monitor”入口将失败。 反过来，这将阻止部署到“生产”环境。
 
-### <a name="exercise-4-remove-the-azure-lab-resources"></a>练习 4：删除 Azure 实验室资源
+1. 再等待 3 分钟，然后再次验证发布入口的状态。 由于检查初始发布入口后已过去 +8 分钟，并且自初始 Application Insight 警报触发操作“已触发”已超过 8 分钟，因此它应会产生成功的发布入口，同时允许部署生产发布阶段。
+
+### <a name="exercise-5-remove-the-azure-lab-resources"></a>练习 5：删除 Azure 实验室资源
 
 在本练习中，你将删除在本实验室中预配的 Azure 资源，避免产生意外费用。
 
@@ -329,13 +319,13 @@ lab:
 1. 运行以下命令，列出在本模块各实验室中创建的所有资源组：
 
     ```sh
-    az group list --query "[?starts_with(name,'az400m10l01-RG')].name" --output tsv
+    az group list --query "[?starts_with(name,'az400m04l09-RG')].name" --output tsv
     ```
 
 1. 通过运行以下命令，删除在此模块的实验室中创建的所有资源组：
 
     ```sh
-    az group list --query "[?starts_with(name,'az400m10l01-RG')].[name]" --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
+    az group list --query "[?starts_with(name,'az400m04l09-RG')].[name]" --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
     ```
 
     >**注意**：该命令以异步方式执行（由 --nowait 参数确定），因此，尽管可立即在同一 Bash 会话中运行另一个 Azure CLI 命令，但实际上要花几分钟才能删除资源组。

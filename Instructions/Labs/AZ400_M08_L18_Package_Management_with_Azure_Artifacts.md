@@ -146,7 +146,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 1. 在同一文件资源管理器窗口中，选择“文件”菜单标题，在下拉菜单中选择“打开 Windows PowerShell”，然后在级联菜单中单击“以管理员身份打开 Windows PowerShell”  。
 1. 在“管理员:Windows PowerShell”窗口中，运行以下命令以从项目创建一个 .nupkg 文件。
 
-    > **注意**：这是打包 NuGet 位以进行部署的快捷方式。 NuGet 高度可自定义。 若要了解详细信息，请参阅 [NuGet 包创建页面](https://docs.microsoft.com/en-us/nuget/create-packages/overview-and-workflowhttps:/docs.microsoft.com/en-us/nuget/create-packages/overview-and-workflow)。
+    > **注意**：这是打包 NuGet 位以进行部署的快捷方式。 NuGet 高度可自定义。 若要了解详细信息，请参阅 [NuGet 包创建页面](https://docs.microsoft.com/en-us/nuget/create-packages/overview-and-workflow)。
 
     ```
     ./nuget.exe pack ./PartsUnlimited.Shared.csproj
