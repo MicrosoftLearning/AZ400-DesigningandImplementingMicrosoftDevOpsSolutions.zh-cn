@@ -140,6 +140,8 @@ lab:
 
 #### <a name="task-3-import-and-run-the-cd-pipeline"></a>任务 3：导入并运行 CD 管道
 
+让我们导入名为 [eshoponweb-cd-webapp-code.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-cd-webapp-code.yml) 的 CD 管道。
+
 1. 转到“管道 > 管道”
 
 1. 单击“新建管道”按钮
@@ -150,7 +152,7 @@ lab:
 
 1. 选择“现有 Azure Pipelines YAML 文件”
 
-1. 选择 /.ado/eshoponweb-ci.yml 文件，然后单击“继续” 
+1. 选择 /.ado/eshoponweb-cd-webapp-code.yml 文件，然后单击“继续” 
 
 1. 在 YAML 管道定义中，自定义：
 - YOUR-SUBSCRIPTION-ID，替换为你的 Azure 订阅 ID。
