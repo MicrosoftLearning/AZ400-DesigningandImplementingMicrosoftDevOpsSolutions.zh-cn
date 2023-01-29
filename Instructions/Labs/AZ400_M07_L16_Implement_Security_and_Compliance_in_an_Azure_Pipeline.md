@@ -42,7 +42,7 @@ Azure DevOps 与 Mend Bolt 的集成将使你能够：
 
 ### <a name="exercise-0-configure-the-lab-prerequisites"></a>练习 0：配置实验室先决条件
 
-在本练习中，你将设置实验室先决条件，其中包括设置新的 Azure DevOps 项目，该项目的存储库基于 [eShopOnWeb](https://dev.azure.com/unhueteb/_git/eshopweb-az400)。
+在本练习中，你将设置实验室先决条件，其中包括设置新的 Azure DevOps 项目，该项目的存储库基于 [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb)。
 
 #### <a name="task-1--skip-if-done-create-and-configure-the-team-project"></a>任务 1：（如果已完成，请跳过此任务）创建和配置团队项目
 
