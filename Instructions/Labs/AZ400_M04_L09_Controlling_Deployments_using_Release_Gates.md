@@ -80,7 +80,7 @@ lab:
     - src 文件夹包含用于实验室方案的 .NET 6 网站。
 
 
-#### <a name="task-2-create-two-azure-web-apps"></a>任务 2：创建两个 Azure Web 应用
+#### <a name="task-3-create-two-azure-web-apps"></a>任务 3：创建两个 Azure Web 应用
 
 在此任务中，你将创建两个分别代表 Canary 和“生产”环境的 Azure Web 应用，你将通过 Azure Pipelines 将应用程序部署到其中 。
 
@@ -119,7 +119,7 @@ lab:
 
 1. 请等待 Web 应用服务器资源预配过程完成，然后关闭 Cloud Shell 窗格。
 
-#### <a name="task-3-configure-an-application-insights-resource"></a>任务 3：配置 Application Insights 资源
+#### <a name="task-4-configure-an-application-insights-resource"></a>任务 4：配置 Application Insights 资源
 
 1. 在 Azure 门户中，使用页面顶部的“搜索资源、服务和文档”文本框搜索“Application Insights”，然后在结果列表中选择“Application Insights”  。
 1. 在“Application Insights”边栏选项卡上，选择“+ 创建” 。
@@ -210,13 +210,13 @@ lab:
 
 1. 在“所有管道 > 新建发布管道”窗格上，确保已选择“Canary”阶段。  在“Azure 订阅”下拉列表中，选择你的 Azure 订阅，然后单击“授权” 。 如果出现提示，请使用在 Azure 订阅中具有所有者角色的用户帐户进行身份验证。
 1. 确认“应用类型”设置为“Windows 上的 Web 应用”。 接下来，在“应用服务名称”下拉列表中，选择“Canary”Web 应用的名称。 
-1. 选择“部署 Azure 应用服务”任务。 在“包或文件夹”字段中，将“$(System.DefaultWorkingDirectory)/ **/*.zip”的默认值更新为“$(System.DefaultWorkingDirectory)/** /Web.zip”** 
+1. 选择“部署 Azure 应用服务”任务。 在“包或文件夹”字段中，将“$(System.DefaultWorkingDirectory)/\*\*/\*.zip”的默认值更新为“$(System.DefaultWorkingDirectory)/\*\*/Web.zip”** 
 
     > 请注意“任务”选项卡旁边的感叹号。这是预期的，因为我们需要配置生产阶段的设置。
 
 1. 在“所有管道 > 新建发布管道”窗格中，导航到“管道”选项卡，这次在“生产”阶段中单击“1 个作业，2 个任务”标签。    与之前的 Canary 阶段类似，请完成管道设置。 在“任务”选项卡/生产部署过程下的“Azure 订阅”下拉列表中，选择“可用 Azure 服务连接”下显示的用于“Canary 环境”阶段的 Azure 订阅，因为我们在授权订阅使用之前就已经创建了服务连接。  
 1. 在“应用服务名称”下拉列表中，选择 Prod Web 应用的名称 。
-1. 选择“部署 Azure 应用服务”任务。 在“包或文件夹”字段中，将“$(System.DefaultWorkingDirectory)/ **/*.zip”的默认值更新为“$(System.DefaultWorkingDirectory)/** /Web.zip”** 
+1. 选择“部署 Azure 应用服务”任务。 在“包或文件夹”字段中，将“$(System.DefaultWorkingDirectory)/\*\*/\*.zip”的默认值更新为“$(System.DefaultWorkingDirectory)/\*\*/Web.zip”** 
 1. 在“所有管道 > 新建发布管道”窗格上，单击“保存”，然后在“保存”对话框中，单击“确定”。   
 
 现已成功配置发布管道。
