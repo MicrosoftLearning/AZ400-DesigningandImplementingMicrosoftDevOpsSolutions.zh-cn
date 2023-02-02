@@ -83,7 +83,7 @@ lab:
 1. 在实验室计算机上的浏览器窗口中，打开 Azure 门户 (https://portal.azure.com/) 。
 1. 在门户中，查找“资源组”并单击它。
 1. 单击“+ 创建”为练习创建新的资源组。
-1. 在“创建资源组”选项卡上，为资源组提供以下名称：rg-az400-eshopeonweb-NAME（替换 NAME 以获得某些唯一别名）。  单击“查看 + 创建”>“创建”。
+1. 在“创建资源组”选项卡上，为资源组提供以下名称：rg-az400-eshoponweb-NAME（将 NAME 替换为某些唯一别名） 。 单击“查看 + 创建”>“创建”。
 1. 在 Azure 门户中，打开 Cloud Shell（搜索栏旁边）。
 
     > 注意：如果这是你第一次打开 Cloud Shell，则需要配置[永久性存储](https://learn.microsoft.com/en-us/azure/cloud-shell/persisting-shell-storage#create-new-storage)
@@ -182,13 +182,13 @@ lab:
 1. 运行以下命令，列出在本模块各实验室中创建的所有资源组：
 
     ```sh
-    az group list --query "[?starts_with(name,'rg-az400-eshopeonweb')].name" --output tsv
+    az group list --query "[?starts_with(name,'rg-az400-eshoponweb')].name" --output tsv
     ```
 
 1. 通过运行以下命令，删除在此模块的实验室中创建的所有资源组：
 
     ```sh
-    az group list --query "[?starts_with(name,'rg-az400-eshopeonweb')].[name]" --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
+    az group list --query "[?starts_with(name,'rg-az400-eshoponweb')].[name]" --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
     ```
 
     >**注意**：该命令以异步方式执行（由 --nowait 参数确定），因此，尽管可立即在同一 Bash 会话中运行另一个 Azure CLI 命令，但实际上要花几分钟才能删除资源组。
