@@ -153,7 +153,7 @@ lab:
     - [**Docker**](https://learn.microsoft.com/azure/devops/pipelines/tasks/reference/docker-v0?view=azure-pipelines) **- 生成**：生成 Docker 映像并创建两个标记（最新和当前 BuildID）
     - Docker - 推送：向 Azure 容器注册表推送映像
 
-1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-ci-docker，然后单击“保存”。 
+1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/移动”选项。 将其命名为 eshoponweb-ci-docker，然后单击“保存”。 
 
 1. 导航到 [Azure 门户](https://portal.azure.com)，在最近创建的资源组中搜索 Azure 容器注册表（它应名为 rg-az400-container-NAME）。  请确保已创建 eshoponweb/web，并且包含两个标记（其中一个标记为“最新”）。 
 
@@ -215,7 +215,7 @@ lab:
     - AzureResourceManagerTemplateDeployment：使用 bicep 模板部署 Azure 应用服务。
     - AzureResourceManagerTemplateDeployment：使用 Bicep 添加角色分配
 
-1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-cd-webapp-docker，然后单击“保存”。 
+1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/移动”选项。 将其命名为 eshoponweb-cd-webapp-docker，然后单击“保存”。 
 
     > 注意 1：使用 /.azure/bicep/webapp-docker.bicep 模板会创建应用服务计划、启用了系统分配的托管标识的 Web 应用，并引用之前推送的 Docker 映像：${acr.properties.loginServer}/eshoponweb/web:latest。  
 
