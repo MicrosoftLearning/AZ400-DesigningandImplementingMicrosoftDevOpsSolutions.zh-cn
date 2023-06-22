@@ -4,11 +4,11 @@ lab:
   module: 'Module 0: Welcome'
 ---
 
-# <a name="validate-lab-environment"></a>验证实验室环境
+# 验证实验室环境
 
-# <a name="student-lab-manual"></a>学生实验室手册
+## 学生实验室手册
 
-## <a name="instructions"></a>说明
+## 创建 Azure DevOps 组织的说明（只需执行此操作一次）
 
 > **注意**：如果已有“个人 Microsoft 帐户”设置和与该帐户相关联的有效 Microsoft Azure Pass 订阅，请从步骤 4 开始。
 
@@ -34,3 +34,42 @@ lab:
 18. 将“允许公共项目”的开关切换为“开启” 
     > 注意：某些实验室中使用的扩展可能需要公共项目才能使用免费版本。
 19. 至少等待 3 个小时再使用 CI/CD 功能，以便在后端反映新的设置。 否则，仍会看到消息“未购买或授予托管并行”。
+
+## 创建 Azure DevOps 示例项目的说明（只需执行此操作一次）
+
+### 练习 0：配置实验室先决条件
+
+> 注意：在继续执行这些步骤之前，请确保已完成创建 Azure DevOps 组织的步骤。
+
+在本练习中，你将设置实验室先决条件，其中包括设置新的 Azure DevOps 项目，该项目的存储库基于 [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb)。
+
+#### 任务 1：创建和配置团队项目
+
+在此任务中，你将创建一个 eShopOnWeb Azure DevOps 项目，供多个实验室使用。
+
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 为项目提供以下设置：
+    - 名称：eShopOnWeb
+    - 可见性：专用
+    - 高级：版本控制：Git
+    - 高级：工作项流程：Scrum
+
+2. 单击“创建”。
+
+    ![创建项目](images/create-project.png)
+
+#### 任务 2：导入 eShopOnWeb Git 存储库
+
+在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
+
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。  选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+
+    ![导入存储库](images/import-repo.png)
+
+2. 存储库按以下方式组织：
+    - .ado 文件夹包含 Azure DevOps YAML 管道。
+    - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
+    - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
+    - .github 文件夹容器 YAML GitHub 工作流定义。
+    - src 文件夹包含用于实验室方案的 .NET 6 网站。
+
+现在，你已完成必要的先决条件步骤，可以继续练习本 AZ-400 课程的其他实验室。
