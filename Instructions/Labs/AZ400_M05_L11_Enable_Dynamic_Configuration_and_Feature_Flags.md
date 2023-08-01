@@ -71,7 +71,7 @@ lab:
 让我们首先导入名为 [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml) 的 CI 管道。
 
 1. 转到“管道”>“管道”。
-2. 单击“创建管道”按钮。
+2. 单击“创建管道”按钮（如果没有管道）或“新建管道”按钮（如果已有已创建的管道） 。
 3. 选择“Azure Repos Git (YAML)”。
 4. 选择“eShopOnWeb”存储库。
 5. 选择“现有 Azure Pipelines YAML 文件”。

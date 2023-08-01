@@ -105,13 +105,16 @@ lab:
             (...)
         }
     ```
-
-8. 在浏览器窗口中，返回到 eShopOnWeb GitHub 存储库。
-9. 在存储库页上，转到“设置”，单击“机密和变量”>“操作”。  单击“新建存储库机密”
+8. 还需要运行以下命令，为稍后将部署的 Azure 应用服务注册资源提供程序：
+   ```bash
+   az provider register --namespace Microsoft.Web
+   ``` 
+10. 在浏览器窗口中，返回到 eShopOnWeb GitHub 存储库。
+11. 在存储库页上，转到“设置”，单击“机密和变量”>“操作”。  单击“新建存储库机密”
     - 名称：AZURE_CREDENTIALS
     - 机密：粘贴以前复制的 JSON 对象（GitHub 能够以相同的名称保存多个机密，由 [azure/login](https://github.com/Azure/login) 操作使用）
 
-10. 单击“添加机密”。 现在，GitHub Actions 将能够使用存储库机密来引用服务主体。
+12. 单击“添加机密”。 现在，GitHub Actions 将能够使用存储库机密来引用服务主体。
 
 #### 任务 2：修改和执行 GitHub 工作流
 

@@ -157,7 +157,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
 #### 任务 3：将开源的 NuGet 包导入 Azure DevOps 包源
 
-除了开发自己的包之外，是不是也可以使用开源 Nuget (https://www.nuget.org) DotNet 包库呢？ 由于有几百万个包可用，总会有一些对你的应用程序有用的包。
+除了开发自己的包之外，是不是也可以使用开源 NuGet (https://www.nuget.org) DotNet 包库呢？ 由于有几百万个包可用，总会有一些对你的应用程序有用的包。
 
 在此任务中，我们将使用通用的“Hello World”示例包，但你可以对库中的其他包使用相同的方法。
 
@@ -224,14 +224,14 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
 1. 导航到 Azure DevOps 门户，浏览到“项目”，然后选择“EShopOnWebShared 源”。 
 2. 单击“搜索上游源”
-3. 在“转到上游包”窗口中，选择“Nuget”作为“包类型”，然后在搜索字段中输入“HelloWorld”。  
+3. 在“转到上游包”窗口中，选择“NuGet”作为“包类型”，然后在搜索字段中输入“HelloWorld”。  
 4. 按“搜索”按钮进行确认。
 5. 这会生成一个具有不同可用版本的所有 HelloWorld 包的列表。
 6. 单击向左箭头键可返回到 EShopOnWebShared 源。 
 7. 单击齿轮，打开“源设置”。 在“源设置”页中，选择“上游源”。
-8. 注意到不同开发语言的不同上游包管理器。 从列表中选择“Nuget.org”。 按“删除”按钮，然后按“保存”按钮。 
+8. 注意到不同开发语言的不同上游包管理器。 从列表中选择“NuGet 库”。 按“删除”按钮，然后按“保存”按钮。 
 
-9. 保存这些更改后，可以通过重新启动以下命令，从 PowerShell 窗口使用 Nuget.exe 上传 HelloWorld 包：
+9. 保存这些更改后，可以通过重新启动以下命令，从 PowerShell 窗口使用 NuGet.exe 上传 HelloWorld 包：
 
     ```text
      .\nuget.exe push -source "EShopOnWebShared" -ApiKey AzDO c:\EShopOnWeb\EShopOnWeb.Shared\HelloWorld\HelloWorld.nupkg
@@ -249,9 +249,9 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
     ```
 
 10. 在 Azure DevOps 门户中，刷新“项目包源”页。 包列表同时显示了 EShopOnWeb.Shared 自定义开发的包，以及 HelloWorld 公共源代码包。 
-11. 在 Visual Studio 的 EShopOnWeb.Shared 解决方案中，右键单击“EShopOnWeb.Shared”项目，然后从上下文菜单中选择“管理 Nuget 包”。  
-12. 在“Nuget 包管理器”窗口中，验证“包源”是否已设置为“EShopOnWebShared”。 
-13. 单击“浏览”，并等待 Nuget 包列表加载完成。
+11. 在 Visual Studio 的 EShopOnWeb.Shared 解决方案中，右键单击“EShopOnWeb.Shared”项目，然后从上下文菜单中选择“管理 NuGet 包”。  
+12. 在“NuGet 包管理器”窗口中，验证“包源”是否已设置为“EShopOnWebShared”。 
+13. 单击“浏览”，并等待 NuGet 包列表加载完成。
 14. 此列表还会同时显示 EShopOnWeb.Shared 自定义开发的包，以及 HelloWorld 公共源代码包。 
 
 ## 审阅
