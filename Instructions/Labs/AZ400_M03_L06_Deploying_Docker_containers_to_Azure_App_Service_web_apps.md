@@ -113,7 +113,7 @@ lab:
 8. 选择“服务主体(手动)”并单击“下一步”。 
 9. 使用在前面的步骤中收集的信息填写空字段：
     - 订阅 ID 和名称。
-    - 服务主体 ID（或 clientId）、密钥（或密码）和 TenantId。
+    - 服务主体 ID (appId)、服务主体密钥（密码）和租户 ID（租户）。
     - 在“服务连接名称”中，键入 azure-connection。  需要 Azure DevOps 服务连接来与 Azure 订阅通信时，将在 YAML 管道中引用此名称。
 
 10. 单击“验证并保存”。
@@ -126,9 +126,9 @@ lab:
 
 1. 转到“管道 > 管道”
 2. 单击“新建管道”按钮
-3. 选择“Azure Repos Git (Yaml)”
+3. 选择“Azure Repos Git (YAML)”
 4. 选择 eShopOnWeb 存储库
-5. 选择“现有 Azure Pipelines YAML 文件”
+5. 选择**现有 Azure Pipelines YAML 文件**
 6. 选择 /.ado/eshoponweb-ci-docker.yml 文件，然后单击“继续” 
 7. 在 YAML 管道定义中，自定义：
    - YOUR-SUBSCRIPTION-ID，替换为你的 Azure 订阅 ID。
@@ -147,7 +147,7 @@ lab:
 
 9. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/移动”选项。 将其命名为 eshoponweb-ci-docker，然后单击“保存”。 
 
-10. 导航到 [Azure 门户](https://portal.azure.com)，在最近创建的资源组中搜索 Azure 容器注册表（它应名为 rg-az400-container-NAME）。  请确保已创建 eshoponweb/web，并且包含两个标记（其中一个标记为“最新”）。 
+10. 导航到 [Azure 门户](https://portal.azure.com)，在最近创建的资源组中搜索 Azure 容器注册表（它应名为 rg-az400-container-NAME）。  在左侧单击“服务”下的“存储库”，并确保已创建存储库 eshoponweb/web  。 单击存储库链接时，应看到两个标记（其中一个是最新的），这些是推送的映像。 如果没有看到，请检查管道的状态。
 
 ### 练习 3：导入并运行 CD 管道
 
@@ -179,11 +179,11 @@ lab:
 
 #### 任务 2：导入并运行 CD 管道
 
-在本任务中，你将导入并运行 CI 管道。
+在本任务中，你将导入并运行 CD 管道。
 
 1. 转到“管道 > 管道”
 2. 单击“新建管道”按钮
-3. 选择“Azure Repos Git (Yaml)”
+3. 选择“Azure Repos Git (YAML)”
 4. 选择 eShopOnWeb 存储库
 5. 选择“现有 Azure Pipelines YAML 文件”
 6. 选择 /.ado/eshoponweb-cd-webapp-docker.yml 文件，然后单击“继续” 
@@ -195,7 +195,7 @@ lab:
 
     > 注意：部署可能需要几分钟才能完成。
 
-    CI 定义由以下任务构成：
+    CD 定义由以下任务构成：
     - 资源：它下载的存储库文件将用于后续任务。
     - AzureResourceManagerTemplateDeployment：使用 bicep 模板部署 Azure 应用服务。
     - AzureResourceManagerTemplateDeployment：使用 Bicep 添加角色分配

@@ -54,7 +54,7 @@ lab:
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
     - .azure 文件夹包含某些实验室方案中使用的 Bicep & ARM 基础结构即代码模板。
     - .github 文件夹容器 YAML GitHub 工作流定义。
-    - src 文件夹包含实验室方案中使用的 .NET 6 网站。
+    - src 文件夹包含实验室方案中使用的 .NET 网站。
 
 ### 练习 1：将生成验证包含在拉取请求中
 

@@ -206,7 +206,7 @@ lab:
    - 模板模块使用的是相对路径。
    - 使用参数将值从主模板传递到模板模块。
 
-    > 注意：使用 Azure ARM 模板时，会使用一个存储帐户来上传链接的模板，以方便他人使用。 使用 Azure Bicep 模块，可以选择将其上传到 Azure Bicep 模块注册表，该注册表具有公共和专用注册表选项。 有关详细信息，请参阅 [Azure Bicep 文档](https://learn.microsoft.com/azure/azure-resource-manager/bicep/modules)。
+   > 注意：使用 Azure ARM 模板时，会使用一个存储帐户来上传链接的模板，以方便他人使用。 使用 Azure Bicep 模块，可以选择将其上传到 Azure Bicep 模块注册表，该注册表具有公共和专用注册表选项。 有关详细信息，请参阅 [Azure Bicep 文档](https://learn.microsoft.com/azure/azure-resource-manager/bicep/modules)。
 
 6. 保存模板。
 
@@ -229,6 +229,16 @@ lab:
 6. 在 Cloud Shell 窗格的 Bash 会话中，运行以下命令以使用新上传的模板进行部署：
 
    ```bash
+   LOCATION='<region>'
+   ```
+
+   > 注意：将区域名称替换为靠近你的位置的区域。 如果你不知道哪些位置可用，请运行 `az account list-locations -o table` 命令。
+
+   ```bash
+   az group create --name az400m06l15-RG --location $LOCATION
+   ```
+
+   ```bash
    az deployment group what-if --name az400m06l15deployment --resource-group az400m06l15-RG --template-file main.bicep
    ```
 
@@ -238,19 +248,9 @@ lab:
 
 10. 在 Cloud Shell 窗格的 Bash 会话中，运行以下命令以使用新上传的模板进行部署：
 
-       ```bash
-       LOCATION='<region>'
-       ```
-
-       > 注意：将区域名称替换为靠近你的位置的区域。 如果你不知道哪些位置可用，请运行 `az account list-locations -o table` 命令。
-
-       ```bash
-       az group create --name az400m06l15-RG --location $LOCATION
-       ```
-
-       ```bash
-       az deployment group create --name az400m06l15deployment --resource-group az400m06l15-RG --template-file main.bicep
-       ```
+    ```bash
+    az deployment group create --name az400m06l15deployment --resource-group az400m06l15-RG --template-file main.bicep
+    ```
 
 11. 当系统提示为“adminUsername”输入值时，键入“Student”并按 Enter 键 。
 12. 当系统提示为“adminPassword”输入值时，键入“Pa55w.rd1234”并按 Enter 键 。 （不会显示键入密码）
