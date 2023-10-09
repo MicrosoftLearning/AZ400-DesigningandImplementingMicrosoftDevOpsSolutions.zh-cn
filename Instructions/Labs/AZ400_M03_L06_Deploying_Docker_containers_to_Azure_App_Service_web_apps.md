@@ -16,7 +16,7 @@ lab:
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
-- 验证你是否拥有 Microsoft 帐户或具有 Azure 订阅中参与者或所有者角色的 Azure AD 帐户。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://learn.microsoft.com/azure/active-directory/roles/manage-roles-portal)。
+- 验证你是否拥有 Microsoft 帐户或 Microsoft Entra 帐户以及 Azure 订阅中的参与者或所有者角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://learn.microsoft.com/azure/active-directory/roles/manage-roles-portal)。
 
 ## 实验室概述
 
@@ -83,7 +83,7 @@ lab:
 
 从管道定义内部连接到 Azure 订阅或从项目设置页面（自动选项）新建服务连接时，Azure Pipeline 会自动创建服务主体。 你也可以从门户或使用 Azure CLI 手动创建服务主体，然后在项目中重复使用。
 
-1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室中将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Azure AD 租户中具有全局管理员角色。
+1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Microsoft Entra 租户中具有全局管理员角色。
 2. 在 Azure 门户中，单击页面顶部搜索文本框右侧的 Cloud Shell 图标。
 3. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
 
@@ -194,6 +194,8 @@ lab:
 8. 单击“保存并运行”，等待管道成功执行。
 
     > 注意：部署可能需要几分钟才能完成。
+    
+    > 重要说明：如果收到错误消息“TF402455: 不允许推送到此分支；必须使用拉取请求更新此分支。”需要取消选中在前面的实验室中启用的”要求达到最小审阅者数量”分支保护规则。
 
     CD 定义由以下任务构成：
     - 资源：它下载的存储库文件将用于后续任务。

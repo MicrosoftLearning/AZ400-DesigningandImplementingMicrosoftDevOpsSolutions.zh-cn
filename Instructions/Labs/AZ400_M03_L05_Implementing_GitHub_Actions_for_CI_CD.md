@@ -14,7 +14,7 @@ lab:
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
-- 验证你是否拥有 Microsoft 帐户或具有 Azure 订阅中参与者或所有者角色的 Azure AD 帐户。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/azure/active-directory/roles/manage-roles-portal)。
+- 验证你是否拥有 Microsoft 帐户或 Microsoft Entra 帐户以及 Azure 订阅中的参与者或所有者角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/azure/active-directory/roles/manage-roles-portal)。
 
 - 如果还没有可用于此实验室的 GitHub 帐户，请按照[注册新的 GitHub 帐户](https://github.com/join)中的说明创建一个帐户。
 
@@ -94,7 +94,7 @@ lab:
     > 注意：请确保以单行键入或粘贴！
     > 注意：此命令将创建具有对之前创建的资源组的参与者访问权限的服务主体。 这样，我们可以确保 GitHub Actions 仅具有仅与此资源组（而不是订阅的其余部分）交互所需的权限
 
-7. 该命令将输出 JSON 对象，你稍后会将它用作工作流的 GitHub 机密。 复制 JSON。 JSON 包含用于以 Azure AD 应用程序标识（服务主体）的名称对 Azure 进行身份验证的标识符。
+7. 该命令将输出 JSON 对象，你稍后会将它用作工作流的 GitHub 机密。 复制 JSON。 JSON 包含用于以 Microsoft Entra 标识（服务主体）的名称对 Azure 进行身份验证的标识符。
 
     ```JSON
         {
@@ -158,6 +158,9 @@ lab:
 
 3. 在存储库页上，转到“设置”，打开“环境”，然后单击“新建环境”。  
 4. 将环境命名为“开发”，然后单击“配置环境”。 
+
+    > 注意：如果“环境”列表中已存在名为“开发”的环境，则单击该环境名称打开其配置。   
+    
 5. 在“配置开发”选项卡中，选中“必需审阅者”选项和作为审阅者的 GitHub 帐户。  单击“保存保护规则”。
 6. 现在，让我们测试保护规则。 在存储库页上，转到“操作”，单击“eShopOnWeb 生成和测试”工作流，然后单击“运行工作流”>“运行工作流”手动执行。  
 
