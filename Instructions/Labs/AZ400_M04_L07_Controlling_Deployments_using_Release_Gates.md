@@ -16,11 +16,11 @@ lab:
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
-- 验证你拥有 Microsoft 帐户或 Azure AD 帐户，该帐户在 Azure 订阅中具有所有者角色并且在与 Azure 订阅关联的 Azure AD 租户中具有全局管理员角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/azure/active-directory/roles/manage-roles-portal)。
+- 验证你拥有 Microsoft 帐户或 Microsoft Entra 帐户，该帐户在 Azure 订阅中具有所有者角色并且在与 Azure 订阅关联的 Microsoft Entra 租户中具有全局管理员角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/azure/active-directory/roles/manage-roles-portal)。
 
 ## 实验室概述
 
-本实验室涵盖部署入口的配置，并详细介绍如何使用这些配置来控制 Azure Pipelines 的执行。 为说明其实现，你将为 Azure Web 应用配置两个环境下的发布定义。 只有当应用没有阻碍性 bug 时，才会部署到 Canary 环境，只有当 Azure Monitor 的 Application Insights 中没有活动警报时，才会标记 Canary 环境完成。
+本实验室涵盖部署入口的配置，并详细介绍如何使用这些配置来控制 Azure Pipelines 的执行。 为说明其实现，你将为 Azure Web 应用配置两个环境下的发布定义。 只有当应用没有阻碍性 bug 时，才会部署到 DevTest 环境，只有当 Azure Monitor 的 Application Insights 中没有活动警报时，才会标记 DevTest 环境完成。
 
 发布管道指定了在各种环境中部署应用程序时的端到端发布过程。 通过使用作业和任务，可以完全自动化到各种环境的部署。 理想情况下，你不需要同时向所有用户公开应用程序的最新更新。 最佳做法是分阶段公开更新，即向部分用户公开，监视其使用情况，并根据最初的一组用户的体验向其他用户公开。
 
@@ -108,9 +108,9 @@ lab:
 
 #### 任务 1：创建两个 Azure Web 应用
 
-在此任务中，你将创建两个分别代表 Canary 和“生产”环境的 Azure Web 应用，你将通过 Azure Pipelines 将应用程序部署到其中 。
+在此任务中，你将创建两个分别代表 DevTest 和“生产”环境的 Azure Web 应用，你将通过 Azure Pipelines 将应用程序部署到其中 。
 
-1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室中将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Azure AD 租户中具有全局管理员角色。
+1. 从实验室计算机启动 Web 浏览器，导航到 [**Azure 门户**](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Microsoft Entra 租户中具有全局管理员角色。
 2. 在 Azure 门户中，单击页面顶部搜索文本框右侧的 Cloud Shell 图标。
 3. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
 
@@ -137,11 +137,11 @@ lab:
 
      ```bash
      SUFFIX=$RANDOM$RANDOM
-     az webapp create -g $RESOURCEGROUPNAME -p $SERVICEPLANNAME -n RGATES$SUFFIX-Canary
+     az webapp create -g $RESOURCEGROUPNAME -p $SERVICEPLANNAME -n RGATES$SUFFIX-DevTest
      az webapp create -g $RESOURCEGROUPNAME -p $SERVICEPLANNAME -n RGATES$SUFFIX-Prod
      ```
 
-    > **注意**：记录 Canary Web 应用的名称。 本实验室中稍后会用到它。
+    > 注意：记录 DevTest Web 应用的名称。 本实验室中稍后会用到它。
 
 7. 请等待 Web 应用服务器资源预配过程完成，然后关闭 Cloud Shell 窗格。
 
@@ -154,7 +154,7 @@ lab:
     | 设置 | 值 |
     | --- | --- |
     | 资源组 | az400m04l09-RG |
-    | 名称 | 在上一个任务中记录的 Canary Web 应用的名称 |
+    | 名称 | 在上一个任务中记录的 DevTest Web 应用的名称 |
     | 区域 | 之前在上一个任务中部署 Web 应用的同一 Azure 区域 |
     | 资源模式 | **经典** |
 
@@ -163,8 +163,8 @@ lab:
 4. 依次单击“查看 + 创建”、“创建”。 
 5. 等待预配过程完成。
 6. 在 Azure 门户中，导航到你在上一任务中创建的资源组“az400m04l09-RG”。
-7. 在资源列表中，单击 Canary Web 应用。
-8. 在 Canary Web 应用页面左侧垂直菜单中的“设置”部分，单击 Application Insights  。
+7. 在资源列表中，单击 DevTest Web 应用。
+8. 在 DevTest Web 应用页面中，在左侧垂直菜单中的“设置”部分，单击 Application Insights  。
 9. 在“Application Insights”边栏选项卡上，单击“打开 Application Insights” 。
 10. 在“更改资源”部分中，单击“选择现有资源”选项，在现有资源列表中，选择新创建的 Application Insight 资源，单击“应用”，提示确认后单击“是”   。
 11. 等待更改生效。
@@ -182,7 +182,7 @@ lab:
     | 设置 | 值 |
     | --- | --- |
     | 严重性 | **2- 警告** |
-    | 警报规则名称 | RGATESCanary_FailedRequests |
+    | 警报规则名称 | **RGATESDevTest_FailedRequests** |
     | 高级选项：自动解决警报 | **已清除** |
 
     > **注意**：指标警报规则最多可能需要 10 分钟才能激活。
@@ -203,25 +203,25 @@ lab:
 2. 单击“新建管道”。
 3. 在“选择模板”窗口中，在模板的“特别推荐”列表下选择“Azure 应用服务部署（将应用程序部署到 Azure 应用服务。   从 Windows、Linux、容器、函数应用或 WebJobs 中选择）。
 4. 单击“应用”。
-5. 在显示的“阶段”窗口中，将默认的“阶段 1”阶段名称更新为“Canary”。  使用“X”按钮关闭弹出窗口。 现在，你位于发布管道的图形编辑器中，其中显示了 Canary 阶段。
+5. 在显示的“阶段”窗口中，将默认的“阶段 1”阶段名称更新为“DevTest”。  使用“X”按钮关闭弹出窗口。 现在，你位于发布管道的图形编辑器中，它显示了 DevTest 阶段。
 6. 在页面顶部，将当前管道从“新建发布管道”重命名为 eshoponweb-cd 。
-7. 将鼠标悬停在 Canary 阶段上，然后单击“克隆”按钮，将 Canary 阶段复制到其他阶段。 将此阶段命名为“生产”。
+7. 将鼠标悬停在 DevTest 阶段上，然后单击“克隆”按钮，将 DevTest 阶段复制到其他阶段。 将此阶段命名为“生产”。
 
-    > 注意：此管道现在包含两个阶段，即“Canary”和“生产”。  
+    > 注意：此管道现在包含两个阶段，即“DevTest”和“生产”。  
 
 8. 在“管道”选项卡上，选择“添加项目”矩形，然后在“源(生成管道)”字段中选择“eshoponweb-ci”。    单击“添加”以确认选择项目。
 9. 在“项目”矩形中，请注意持续部署触发器（闪电） 。 单击它可打开“持续部署触发器”设置。 单击“已禁用”切换开关并启用它。 将所有其他设置保留为默认值，并单击右上角的 x 标记关闭“持续部署触发器”窗格 。
-10. 在“Canary 环境”阶段中，单击“1 个作业, 2 个任务”标签，并查看此阶段中的任务 。
+10. 在“DevTest 环境”阶段中，单击“1 个作业，2 个任务”标签，然后查看此阶段中的任务 。
 
-    > 注意：Canary 环境有 1 个任务，分别将项目包发布到 Azure Web 应用。
+    > 注意：DevTest 环境有 1 个任务，它分别将工件包发布到 Azure Web 应用。
 
-11. 在“所有管道 > eshoponweb-cd”窗格上，确保已选择“Canary”阶段。  在“Azure 订阅”下拉列表中，选择你的 Azure 订阅，然后单击“授权” 。 如果出现提示，请使用在 Azure 订阅中具有所有者角色的用户帐户进行身份验证。
-12. 确认“应用类型”设置为“Windows 上的 Web 应用”。 接下来，在“应用服务名称”下拉列表中，选择“Canary”Web 应用的名称。 
+11. 在“所有管道 > eshoponweb-cd”窗格上，确保已选择“DevTest”阶段。  在“Azure 订阅”下拉列表中，选择你的 Azure 订阅，然后单击“授权” 。 如果出现提示，请使用在 Azure 订阅中具有所有者角色的用户帐户进行身份验证。
+12. 确认“应用类型”设置为“Windows 上的 Web 应用”。 接下来，在“应用服务名称”下拉列表中，选择“DevTest”Web 应用的名称。 
 13. 选择“部署 Azure 应用服务”任务。 在“包或文件夹”字段中，将“$(System.DefaultWorkingDirectory)/\*\*/\*.zip”的默认值更新为“$(System.DefaultWorkingDirectory)/\*\*/Web.zip”**
 
     > 请注意“任务”选项卡旁边的感叹号。这是预期的，因为我们需要配置生产阶段的设置。
 
-14. 在“所有管道 > eshoponweb-cd”窗格中，导航到“管道”选项卡，这次在“生产”阶段中单击“1 个作业，2 个任务”标签。    与之前的 Canary 阶段类似，请完成管道设置。 在“任务”选项卡/生产部署过程下的“Azure 订阅”下拉列表中，选择“可用 Azure 服务连接”下显示的用于“Canary 环境”阶段的 Azure 订阅，因为我们在授权订阅使用之前就已经创建了服务连接。  
+14. 在“所有管道 > eshoponweb-cd”窗格中，导航到“管道”选项卡，这次在“生产”阶段中单击“1 个作业，2 个任务”标签。    与之前的 DevTest 阶段类似，完成管道设置。 在“任务”选项卡/生产部署过程下的“Azure 订阅”下拉列表中，选择“可用 Azure 服务连接”下显示的用于“DevTest 环境”阶段的 Azure 订阅，因为我们在授权订阅使用之前就已经创建了服务连接。  
 15. 在“应用服务名称”下拉列表中，选择 Prod Web 应用的名称 。
 16. 选择“部署 Azure 应用服务”任务。 在“包或文件夹”字段中，将“$(System.DefaultWorkingDirectory)/\*\*/\*.zip”的默认值更新为“$(System.DefaultWorkingDirectory)/\*\*/Web.zip”**
 17. 在“所有管道 > eshoponweb-cd”窗格上，单击“保存”，然后在“保存”对话框中，单击“确定”   。
@@ -236,7 +236,7 @@ lab:
 
 21. 在垂直导航窗格的“管道”部分中，单击“发布”，然后在“eshoponweb-cd”窗格中，单击代表最新发布的条目。  
 22. 在“eshoponweb-cd > Release-1”边栏选项卡上，跟踪发布进度并验证这两个 Web 应用的部署是否成功完成。
-23. 切换到 Azure 门户界面，导航到资源组 az400m04l09-RG，在资源列表中，单击“Canary”Web 应用，在 Web 应用边栏选项卡上，单击“浏览”，并验证网页（电子商务网站）是否在新的 Web 浏览器标签页中成功加载。  
+23. 切换到 Azure 门户界面，导航到资源组 az400m04l09-RG，在资源列表中，单击“DevTest”Web 应用，在 Web 应用边栏选项卡上，单击“浏览”，并验证网页（电子商务网站）是否在新的 Web 浏览器标签页中成功加载。  
 24. 切换回 Azure 门户界面，这次导航到资源组 az400m04l09-RG，在资源列表中，单击“生产”Web 应用，在 Web 应用边栏选项卡上，单击“浏览”，并验证网页是否在新的 Web 浏览器标签页中成功加载。  
 25. 关闭显示 EShopOnWeb 网站的 Web 浏览器标签页。
 
@@ -251,7 +251,7 @@ lab:
 在此任务中，你将配置部署前入口。
 
 1. 切换到显示 Azure DevOps 门户的 Web 浏览器窗口，然后打开 eShopOnWeb 项目。 在垂直导航窗格中的“管道”部分中，单击“发布”，然后在“eshoponweb-cd”窗格中，单击“编辑”。   
-2. 在“所有管道”>“eshoponweb-cd”窗格上，在代表“Canary 环境”阶段的矩形的左边缘上，单击代表“部署前条件”的椭圆形。  
+2. 在“所有管道”>“eshoponweb-cd”窗格上，在代表“DevTest 环境”阶段的矩形的左边缘上，单击代表“部署前条件”的椭圆形。  
 3. 在“部署前条件”窗格上，将“部署前审批”滑块设置为“启用”，然后在“审批者”文本框中，键入并选择你的 Azure DevOps 帐户名称   。
 
     > 注意：在实际场景中，这应该是 DevOps 团队名称别名，而不是你自己的名称。
@@ -259,13 +259,13 @@ lab:
 4. 保存预批准设置并关闭弹出窗口。
 5. 单击“创建发布”，然后按弹出窗口中的“创建”按钮进行确认。 
 6. 请注意绿色确认消息，指出“Release-2”已创建。 单击“Release-2”链接导航到其详细信息。
-7. 请注意，“Canary”阶段处于“待审批”状态。  单击“批准”按钮。 这会再次触发 Canary 阶段。
+7. 请注意，“DevTest”阶段处于“待审批”状态。  单击“批准”按钮。 这会再次触发 DevTest 阶段。
 
 #### 任务 2：为 Azure Monitor 配置部署后入口
 
-在此任务中，你将启用 Canary 环境的部署后入口。
+在此任务中，你将启用 DevTest 环境的部署后入口。
 
-1. 返回“所有管道”>“eshoponweb-cd”窗格，在代表“Canary 环境”阶段的矩形的右边缘上，单击代表“部署后条件”的椭圆形。  
+1. 返回“所有管道”>“eshoponweb-cd”窗格，在代表“DevTest 环境”阶段的矩形的右边缘上，单击代表“部署后条件”的椭圆形。  
 2. 在“部署后条件”窗格中，将“入口”滑块设置为“启用”，单击“+ 添加”，然后单击弹出菜单中的“查询 Azure Monitor 警报”    。
 3. 在“部署后条件”窗格“查询 Azure Monitor 警报”部分的“Azure 订阅”下拉列表中，选择代表与 Azure 订阅的连接的“服务连接”条目，然后在“资源组”下拉列表中选择“az400m04l09-RG”条目     。
 4. 在“部署后条件”窗格上，展开“高级”部分并配置以下选项： 
@@ -293,12 +293,12 @@ lab:
 
 #### 任务 1：添加发布入口后更新和部署应用程序
 
-在此任务中，你将首先为 Canary Web 应用生成一些警报，然后跟踪启用了发布入口的发布过程。
+在此任务中，你将首先为 DevTest Web 应用生成一些警报，然后跟踪启用了发布入口的发布过程。
 
-1. 在 Azure 门户中，浏览到之前部署的 Canary Web 应用资源。
+1. 在 Azure 门户中，浏览到之前部署的 DevTest Web 应用资源。
 2. 在“概述”窗格中，注意到显示 Web 应用程序的超链接的“URL”字段。 单击此链接会将你重定向到浏览器中的 eShopOnWeb Web 应用程序。
 3. 若要模拟失败的请求，请将 /discount 添加到 URL 中，这将导致出现错误消息，因为该页面不存在。  多次刷新此页面以生成多个事件。
-4. 在 Azure 门户中的“搜索资源、服务和文档”字段中，输入“Application Insights”，并选择在上一练习中创建的 Canary-AppInsights 资源。  接下来，导航到“警报”。
+4. 在 Azure 门户中的“搜索资源、服务和文档”字段中，输入“Application Insights”，并选择在上一练习中创建的 DevTest-AppInsights 资源。  接下来，导航到“警报”。
 5. 结果列表中应至少有 1 个新警报，具有“严重性 2”，输入“警报”可打开 Azure Monitor 的警报服务。  
 6. 请注意，列表中应至少有“1 个失败的警报”显示为“严重性 2 - 警告”。  在上一练习中验证不存在的网站 URL 地址时，会触发此警报。
 
@@ -306,15 +306,17 @@ lab:
 
 7. 返回到 Azure DevOps 门户，打开“EShopOnWeb”项目。 导航到“管道”，选择“发布”，然后选择“eshoponweb-cd”。  
 8. 单击“创建发布”按钮。
-9. 等待发布管道启动，并批准 Canary 阶段发布操作。
-10. 等待 Canary 发布阶段成功完成。 请注意“部署后入口”如何切换到“评估入口”状态。   单击“评估入口”图标。
+9. 等待发布管道启动，并批准 DevTest 阶段发布操作。
+10. 等待 DevTest 发布阶段成功完成。 请注意“部署后入口”如何切换到“评估入口”状态。   单击“评估入口”图标。
 11. 对于“查询 Azure Monitor 警报”，请注意初始失败状态。
 12. 让发布管道在接下来的 5 分钟内处于挂起状态。 5 分钟过后，请注意第 2 次评估再次失败。
-13. 这是预期行为，因为有针对 Canary Web 应用触发的 Application Insights 警报。
+13. 这是预期行为，因为有针对 DevTest Web 应用触发的 Application Insights 警报。
 
     > **注意**：由于异常触发了警报，因此“查询 Azure Monitor”入口将失败。 反过来，这将阻止部署到“生产”环境。
 
-14. 再等待 3 分钟，然后再次验证发布入口的状态。 由于检查初始发布入口后已过去 +8 分钟，并且自初始 Application Insight 警报触发操作“已触发”已超过 8 分钟，因此它应会产生成功的发布入口，同时允许部署生产发布阶段。
+14. 等待两分钟，然后再次验证发布入口的状态。 检查完初始发布入口几分钟后，由于初始 Application Insights 警报被触发且操作变为“已触发”，它应会产生成功的发布入口，从而允许部署生产发布阶段。
+
+    > 注意：如果入口发生故障，请关闭警报。
 
 ### 练习 6：移除 Azure 实验室资源
 
