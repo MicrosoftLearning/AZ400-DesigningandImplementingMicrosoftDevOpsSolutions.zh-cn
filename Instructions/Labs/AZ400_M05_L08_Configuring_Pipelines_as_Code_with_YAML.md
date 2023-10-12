@@ -16,7 +16,7 @@ lab:
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
-- 验证你拥有 Microsoft 帐户或 Azure AD 帐户，该帐户在 Azure 订阅中具有所有者角色并且在与 Azure 订阅关联的 Azure AD 租户中具有全局管理员角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/azure/active-directory/roles/manage-roles-portal)。
+- 验证你是否拥有 Microsoft 帐户或 Microsoft Entra 帐户，并且该帐户在 Azure 订阅中具有所有者角色，在与 Azure 订阅关联的 Microsoft Entra 租户中具有全局管理员角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/azure/active-directory/roles/manage-roles-portal)。
 
 ## 实验室概述
 
@@ -63,7 +63,7 @@ lab:
 
 在本任务中，你将使用 Azure 门户创建 Azure Web 应用。
 
-1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室中将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Azure AD 租户中具有全局管理员角色。
+1. 从实验室计算机启动 Web 浏览器，导航到 [**Azure 门户**](https://portal.azure.com)，并通过用户帐户登录，该帐户在本实验室将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Microsoft Entra 租户中具有全局管理员角色。
 2. 在 Azure 门户的工具栏中，单击搜索文本框右侧的“Cloud Shell”图标。
 3. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
 
@@ -188,7 +188,7 @@ lab:
 12. 为此任务指定以下参数：
     - 下载以下作业生成的项目：当前生成
     - 下载类型：特定项目
-    - 项目名称：从列表中选择“网站”
+    - 项目名称：**从列表中选择“网站”** （或如果它未自动显示在列表中，则直接 **键入“网站”** ）
     - 目标目录：$(Build.ArtifactStagingDirectory)
 13. 单击“添加”。
 14. 添加的代码片段应如下所示：

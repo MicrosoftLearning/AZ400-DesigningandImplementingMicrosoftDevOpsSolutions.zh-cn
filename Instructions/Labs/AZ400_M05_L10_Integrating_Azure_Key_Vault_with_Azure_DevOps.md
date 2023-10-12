@@ -31,7 +31,7 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 完成本实验室后，你将能够：
 
-- 创建 Azure Active Directory (Azure AD) 服务主体。
+- 创建 Microsoft Entra 服务主体。
 - 创建 Azure 密钥保管库。
 
 ## 预计用时：40 分钟
@@ -85,7 +85,7 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 从管道定义内部连接到 Azure 订阅或从项目设置页面（自动选项）新建服务连接时，Azure Pipelines 会自动创建服务主体。 你也可以从门户或使用 Azure CLI 手动创建服务主体，然后在项目中重复使用。
 
-1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室中将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Azure AD 租户中具有全局管理员角色。
+1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Microsoft Entra 租户中具有全局管理员角色。
 2. 在 Azure 门户中，单击页面顶部搜索文本框右侧的 Cloud Shell 图标。
 3. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
 
@@ -240,14 +240,17 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
     - YOUR-ACR.azurecr.io 和 ACR-USERNAME 与 ACR 登录服务器（这两者都需要 ACR 名称，可以在“ACR > 访问密钥”上查看）。 
     - AZ400-EWebShop-NAME，其中包含之前在实验室中定义的资源组名称。
 
-5. 单击“保存并运行”，等待管道成功执行。
+5. 单击“保存并运行”。
+6. 打开管道并等待成功执行。
+
+    > 重要说明：如果看到消息“此管道需要访问资源的权限，然后才能继续运行 Docker Compose to ACI”，请再次单击“查看”、“允许”和“允许”。 这是允许管道创建资源所必需的。
 
     > 注意：部署可能需要几分钟才能完成。 CD 定义由以下任务构成：
     - 资源：已准备好根据 CI 管道完成自动触发。 它还会下载 bicep 文件的存储库。
     - 变量（对于部署阶段）连接到变量组，以使用 Azure 密钥保管库机密 acr-secret 
     - AzureResourceManagerTemplateDeployment 使用 bicep 模板部署 Azure 容器实例 (ACI)，并提供 ACR 登录参数以允许 ACI 从 Azure 容器注册表 (ACR) 下载以前创建的容器映像。
 
-6. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-cd-aci，然后单击“保存”。 
+7. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-cd-aci，然后单击“保存”。 
 
 ### 练习 2：删除 Azure 实验室资源
 
