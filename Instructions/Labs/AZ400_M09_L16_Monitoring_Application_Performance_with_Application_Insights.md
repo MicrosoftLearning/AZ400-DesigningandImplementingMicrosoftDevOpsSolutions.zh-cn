@@ -1,10 +1,10 @@
 ---
 lab:
-  title: 使用 Application Insights 监视应用程序性能
+  title: 使用 Azure 负载测试监视应用程序性能
   module: 'Module 09: Implement continuous feedback'
 ---
 
-# 使用 Application Insights 监视应用程序性能
+# 使用 Application Insights 和 Azure 负载测试监视应用程序性能
 
 ## 学生实验室手册
 
@@ -16,23 +16,25 @@ lab:
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
-- 验证你拥有 Microsoft 帐户或 Azure AD 帐户，该帐户在 Azure 订阅中具有所有者角色并且在与 Azure 订阅关联的 Azure AD 租户中具有全局管理员角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/azure/active-directory/roles/manage-roles-portal#view-my-roles)。
+- 验证你拥有 Microsoft 帐户或 Microsoft Entra 帐户，该帐户在 Azure 订阅中具有所有者角色并且在与 Azure 订阅关联的 Microsoft Entra 租户中具有全局管理员角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/azure/active-directory/roles/manage-roles-portal#view-my-roles)。
 
 ## 实验室概述
 
-Application Insights 是多个平台上面向 Web 开发人员的可扩展应用程序性能管理 (APM) 服务。 你可以使用它来监视实时 Web 应用程序。 它将自动检测性能异常，并且包含了强大的分析工具来帮助诊断问题，并帮助持续改进性能和可用性。 它适用于托管在本地云、混合云或任何公有云中的各种平台，包括 .NET、Node.js 和 Java EE。 它通过各种开发工具中的可用连接点与 DevOps 流程集成。 它还允许通过与 Visual Studio App Center 集成来监视和分析来自移动应用的遥测。
+**Azure 负载测试**是一项完全托管的负载测试服务，可用于生成大规模负载。 该服务可以模拟应用程序的流量，且无需其托管位置。 开发人员、测试人员和质量保证 (QA) 工程师可以使用该服务来优化应用程序性能、可缩放性或容量。
+使用 URL 快速为 Web 应用程序创建负载测试，而无需事先了解测试工具。 Azure 负载测试抽取了大规模运行负载测试的复杂性和基础设施。
+对于更高级的负载测试方案，可以通过重用现有的 Apache JMeter 测试脚本（一种常用的开源负载和性能工具）来创建负载测试。 例如，测试计划可能包含多个应用程序请求、你要调用非 HTTP 终结点，或者你要使用输入数据和参数使测试更加动态。
 
-在本实验室中，你将了解如何将 Application Insights 添加到现有 Web 应用程序，以及如何通过 Azure 门户监视应用程序。
+在本实验室中，可了解如何使用 Azure 负载测试来模拟针对具有不同负载方案的实时运行 Web 应用程序的性能测试。 最后，可了解如何将 Azure 负载测试集成到 CI/CD 管道中。 
 
 ## 目标
 
 完成本实验室后，你将能够：
 
 - 部署 Azure 应用服务 Web 应用。
-- 使用 Application Insights 生成和监视 Azure Web 应用的应用程序流量。
-- 使用 Application Insights 调查 Azure Web 应用性能。
-- 使用 Application Insights 跟踪 Azure Web 应用使用情况。
-- 使用 Application Insights 创建 Azure Web 应用警报。
+- 编写并运行基于 YAML 的 CI/CD 管道。
+- 部署 Azure 负载测试。
+- 使用 Azure 负载测试调查 Azure Web 应用性能。
+- 将 Azure 负载测试集成到 CI/CD 管道中。
 
 ## 预计用时：60 分钟
 
@@ -40,33 +42,36 @@ Application Insights 是多个平台上面向 Web 开发人员的可扩展应用
 
 ### 练习 0：配置实验室先决条件
 
-在本练习中，你将设置实验室先决条件，包括基于 Azure DevOps 演示生成器模板和 Azure 资源（包括 Azure Web 应用和 Azure SQL 数据库）的预配置的 Parts Unlimited 团队项目。
+在本练习中，你将设置实验室先决条件，其中包括设置新的 Azure DevOps 项目，该项目的存储库基于 [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb)。
 
-#### 任务 1：配置团队项目
+#### 任务 1：（如果已完成，请跳过此任务）创建和配置团队项目
 
-在此任务中，你将使用 Azure DevOps 演示生成器，基于 Parts Unlimited 模板生成一个新项目。
+在此任务中，你将创建一个 eShopOnWeb Azure DevOps 项目，供多个实验室使用。
 
-1. 在实验室计算机上，启动 Web 浏览器并导航到 [Azure DevOps 演示生成器](https://azuredevopsdemogenerator.azurewebsites.net)。 此实用工具将对以下过程进行自动化：在你的帐户中创建预填充了实验室所需内容（工作项、存储库等）的 Azure DevOps 项目。
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。   单击“创建”。
 
-    > **注意**：有关此站点的详细信息，请参阅 <https://docs.microsoft.com/en-us/azure/devops/demo-gen> 。
+    ![创建项目](images/create-project.png)
 
-2. 单击“登录”，并使用与你的 Azure DevOps 订阅相关联的 Microsoft 帐户登录。
-3. 如果需要，在“Azure DevOps 演示生成器”页面上，单击“接受”以接受访问 Azure DevOps 订阅的权限请求 。
-4. 在“新建项目”页面上的页面的“新建项目名称”文本框中，键入“监视应用程序性能”，在“选择组织”下拉列表中选择你的 Azure DevOps 组织，然后单击“选择模板”    。
-5. 在模板列表中，选择“PartsUnlimited”模板，然后单击“选择模板” 。
-6. 返回“新建项目”页面，单击“创建项目” 
+#### 任务 2：（如果已完成，请跳过此任务）导入 eShopOnWeb Git 存储库
 
-    > **注意**：等待此过程完成。 这大约需要 2 分钟。 如果该过程失败，请导航到你的 DevOps 组织，删除项目并重试。
+在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-7. 在“新建项目”页面上，单击“导航到项目” 。
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。  在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+
+    ![导入存储库](images/import-repo.png)
+
+2. 存储库按以下方式组织：
+    - .ado 文件夹包含 Azure DevOps YAML 管道
+    - .devcontainer 文件夹容器设置，用于使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发
+    - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
+    - .github 文件夹容器 YAML GitHub 工作流定义。
+    - src 文件夹包含用于实验室方案的 .NET 6 网站。
 
 #### 任务 2：创建 Azure 资源
 
-在此任务中，你将使用 Azure 门户的 Cloud Shell 创建 Azure Web 应用和 Azure SQL 数据库。
+在本任务中，你将在 Azure 门户中使用 Cloud Shell 创建 Azure Web 应用。
 
-> **注意**：本实验室涉及将 Parts Unlimited 站点部署到 Azure 应用服务。 为满足此需求，你需要启动必要的基础结构。
-
-1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室中将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Azure AD 租户中具有全局管理员角色。
+1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Microsoft Entra 租户中具有全局管理员角色。
 2. 在 Azure 门户的工具栏中，单击搜索文本框右侧的“Cloud Shell”图标。
 3. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
     >**注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
@@ -74,7 +79,7 @@ Application Insights 是多个平台上面向 Web 开发人员的可扩展应用
 4. 在 Cloud Shell 窗格中的 Bash 提示符下，运行以下命令以创建资源组（将 `<region>` 占位符替换为离你最近的 Azure 区域的名称，例如“eastus”） 。
 
     ```bash
-    RESOURCEGROUPNAME='az400m17l01a-RG'
+    RESOURCEGROUPNAME='az400m09l16-RG'
     LOCATION='<region>'
     az group create --name $RESOURCEGROUPNAME --location $LOCATION
     ```
@@ -82,7 +87,7 @@ Application Insights 是多个平台上面向 Web 开发人员的可扩展应用
 5. 若要创建 Windows 应用服务计划，请运行以下命令：
 
     ```bash
-    SERVICEPLANNAME='az400l17-sp'
+    SERVICEPLANNAME='az400l16-sp'
     az appservice plan create --resource-group $RESOURCEGROUPNAME \
         --name $SERVICEPLANNAME --sku B3 
     ```
@@ -96,323 +101,399 @@ Application Insights 是多个平台上面向 Web 开发人员的可扩展应用
 
     > **注意**：记录 Web 应用的名称。 本实验室中稍后会用到它。
 
-7. 现在该创建 Application Insights 实例了。
+### 练习 1：在 Azure DevOps 中使用 YAML 将 CI/CD 管道配置为代码
 
-    ```bash
-    az monitor app-insights component create --app $WEBAPPNAME \
-        --location $LOCATION \
-        --kind web --application-type web \
-        --resource-group $RESOURCEGROUPNAME
-    ```
+在本练习中，你将在 Azure DevOps 中使用 YAML 将 CI/CD 管道配置为代码。
 
-    > **注意**：如果收到“该命令需要扩展应用程序见解。 是否立即安装?”的提示，请键入“是”，然后按 Enter。
+#### 任务 1：添加 YAML 生成和部署定义
 
-8. 让我们将 Application Insights 连接到 Web 应用程序。
+在此任务中，你将向现有项目添加 YAML 生成定义。
 
-    ```bash
-    az monitor app-insights component connect-webapp --app $WEBAPPNAME \
-        --resource-group $RESOURCEGROUPNAME --web-app $WEBAPPNAME
-    ```
+1. 导航回“管道”中心的“管道”窗格 。
+2. 在“创建首个管道”窗口中，单击“创建管道” 。
 
-9. 接下来，创建一个 Azure SQL Server。
+    > 注意：我们将使用向导并基于项目创建新的 YAML 管道定义。
 
-    ```bash
-    USERNAME="Student"
-    SQLSERVERPASSWORD="Pa55w.rd1234"
-    SERVERNAME="partsunlimitedserver$RANDOM"
+3. 在“你的代码在哪里?”窗格上，单击“Azure Repos Git (YAML)”选项 。
+4. 在“选择存储库”窗格中，单击“eShopOnWeb”。 
+5. 在“配置管道”窗格上，向下滚动并选择“入门管道” 。
+6. 选择入门管道中的所有行，然后将其删除。
+7. 从下面复制完整的模板管道，知道需要先修改参数再保存更改 ：
+
+```
+#Template Pipeline for CI/CD 
+# trigger:
+# - main
+
+resources:
+  repositories:
+    - repository: self
+      trigger: none
+
+stages:
+- stage: Build
+  displayName: Build .Net Core Solution
+  jobs:
+  - job: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: Restore
+      inputs:
+        command: 'restore'
+        projects: '**/*.sln'
+        feedsToUse: 'select'
+
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: 'build'
+        projects: '**/*.sln'
     
-    az sql server create --name $SERVERNAME --resource-group $RESOURCEGROUPNAME \
-    --location $LOCATION --admin-user $USERNAME --admin-password $SQLSERVERPASSWORD
+    - task: DotNetCoreCLI@2
+      displayName: Publish
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        arguments: '-o $(Build.ArtifactStagingDirectory)'
+    
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Artifacts ADO - Website
+      inputs:
+        pathToPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: Website
+    
+- stage: Deploy
+  displayName: Deploy to an Azure Web App
+  jobs:
+  - job: Deploy
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'Website'
+        downloadPath: '$(Build.ArtifactStagingDirectory)'
+
+```
+4. 将光标置于 YAML 定义末尾的新行上（第 69 行）。
+
+    > **注意**：这将是添加新任务的位置。
+
+5. 在代码窗格右侧的任务列表中，搜索并选择“Azure 应用服务部署”任务。
+6. 在“Azure 应用服务部署”窗格中，指定以下设置，并单击“添加”：
+
+    - 在“Azure 订阅”下拉列表中，选择之前在实验室中已部署 Azure 资源的 Azure 订阅，单击“授权”，然后在出现提示时，使用在 Azure 资源部署期间使用的同一用户帐户进行身份验证 。
+    - 在“应用服务名称”下拉列表中，选择之前在实验室中部署的 Web 应用的名称。
+    - 在“包或文件夹”文本框中，将默认值更新为 `$(Build.ArtifactStagingDirectory)/**/Web.zip`。 
+7. 单击“添加”按钮，确认“助手”窗格中的设置。
+
+    > **注意**：这会自动将部署任务添加到 YAML 管道定义。
+
+8. 添加到编辑器的代码片段应如下所示，它反映了 azureSubscription 和 WebappName 参数的名称：
+
+> **注意**：在本实验室的上下文中，packageForLinux 参数具有误导性，但是对于 Windows 或 Linux，它是有效的。
+
+    ```yaml
+        - task: AzureRmWebAppDeployment@4
+          inputs:
+            ConnectionType: 'AzureRM'
+            azureSubscription: 'AZURE SUBSCRIPTION HERE (b999999abc-1234-987a-a1e0-27fb2ea7f9f4)'
+            appType: 'webApp'
+            WebAppName: 'eshoponWebYAML369825031'
+            packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
+    ```
+9. 单击“保存”，在“保存”窗格上，再次单击“保存”，以直接将更改提交到主分支  。
+
+    > 注意：由于原始 CI-YAML 未配置为自动触发新的生成，因此必须手动启动此生成。
+
+10. 在 Azure DevOps 左侧菜单中，导航到“管道”，然后再次选择“管道”。
+11. 打开“EShopOnWeb_MultiStageYAML”管道，然后单击“运行管道”。
+12. 从显示的窗格中确认“运行”。
+13. 请注意，此时出现了两个不同的阶段，即“生成 .Net Core 解决方案”和“部署到 Azure Web 应用”。
+14. 等待管道启动，并等待它成功完成生成阶段。
+15. 一旦部署阶段需要启动，系统会提示你“需要权限”，并显示一个橙色条：
+
+    ```text
+    This pipeline needs permission to access a resource before this run can continue to Deploy to an Azure Web App
     ```
 
-10. Web 应用需要能够访问 SQL Server，因此我们需要在 SQL Server 防火墙规则中允许访问 Azure 资源。
+16. 单击“查看”
+17. 在“正在等待审阅”窗格中，单击“允许”。
+18. 验证“允许弹出”窗口中的消息，然后单击“允许”进行确认。
+19. 这将启动部署阶段。 等待该过程成功完成。
 
-    ```bash
-    STARTIP="0.0.0.0"
-    ENDIP="0.0.0.0"
-    az sql server firewall-rule create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME \
-    --name AllowAzureResources --start-ip-address $STARTIP --end-ip-address $ENDIP
-    ```
+#### 任务 2：查看已部署的站点
 
-11. 现在，在该服务器中创建数据库。
+1. 切换回显示 Azure 门户的 Web 浏览器窗口，导航到显示 Azure Web 应用的属性的边栏选项卡。
+2. 在 Azure Web 应用边栏选项卡上，单击“概述”，然后在“概述”边栏选项卡上，单击“浏览”以在新的 Web 浏览器选项卡中打开站点 。
+3. 验证新浏览器选项卡中的已部署站点是否按预期加载，显示 EShopOnWeb 电子商务网站。
 
-    ```bash
-    az sql db create --server $SERVERNAME --resource-group $RESOURCEGROUPNAME --name PartsUnlimited \
-    --service-objective S0
-    ```
+### 练习 2：部署和设置 Azure 负载测试
 
-12. 创建的 Web 应用需要其配置中的数据库连接字符串，因此，请运行以下命令来准备并将其添加到 Web 应用的应用设置中。
+在本练习中，在 Azure 中部署 Azure 负载测试资源，并为实时运行的 Azure 应用服务配置不同的负载测试方案。
+
+#### 任务 1：部署 Azure 负载测试
 
-    ```bash
-    CONNSTRING=$(az sql db show-connection-string --name PartsUnlimited --server $SERVERNAME \
-    --client ado.net --output tsv)
-    CONNSTRING=${CONNSTRING//<username>/$USERNAME}
-    CONNSTRING=${CONNSTRING//<password>/$SQLSERVERPASSWORD}
-    az webapp config connection-string set --name $WEBAPPNAME --resource-group $RESOURCEGROUPNAME \
-    -t SQLAzure --settings "DefaultConnectionString=$CONNSTRING" 
-    ```
+在此任务中，将 Azure 负载测试资源部署到 Azure 订阅中。
 
-### 练习 1：使用 Azure Application Insights 监视 Azure 应用服务 Web 应用
+1. 在 Azure 门户 (https://portal.azure.com) 中，导航到“创建 Azure 资源”。
+2. 在“搜索服务和市场”搜索字段中，输入“Azure 负载测试”。
+3. 从搜索结果中选择 Microsoft 发布的“Azure 负载测试”。
+4. 在“Azure 负载测试”页中，单击“创建”以启动部署过程。
+5. 在“创建负载测试资源”页中，提供资源部署所需的详细信息：
+- 订阅：选择自己的 Azure 订阅
+- 资源组：选择在前面的练习中用于部署 Web 应用服务的资源组
+- 名称：EShopOnWebLoadTesting
+- 区域：选择一个靠近你所在区域的区域
 
-在本练习中，你将使用 Azure Pipelines 将 Web 应用部署到 Azure 应用服务，生成针对 Web 应用的流量，并使用 Application Insights 查看 Web 流量、调查应用程序性能、跟踪应用程序使用情况和配置警报。
+    > 注意：Azure 负载测试服务并非在所有 Azure 区域中都可用。
 
-#### 任务 1：使用 Azure DevOps 将 Web 应用部署到 Azure 应用服务
+6. 单击“查看和创建”，以验证设置。
+7. 单击“创建”进行确认，并部署 Azure 负载测试资源。
+8. 随即会切换到“正在进行部署”页。 请等待几分钟，直到部署成功完成。
+9. 在部署进度页中单击“转到资源”，导航到“EShopOnWebLoadTesting”Azure 负载测试资源 。 
 
-在此任务中，你将使用 Azure Pipelines 将 Web 应用部署到 Azure。
+    > 注意：如果在部署 Azure 负载测试资源期间关闭了边栏选项卡或关闭了 Azure 门户，则可以从 Azure 门户的“搜索”字段或“资源”/“最近使用的资源列表”中再次找到该资源。 
 
-> **注意**：我们在本实验室中使用的示例项目包括一个持续集成生成，我们将在不进行任何修改的情况下使用该生成。 此外，还有一个持续交付发布管道，该管道需要进行一些细微更改，才能部署到你在上一任务中实现的 Azure 资源。
+#### 任务 2：创建“Azure 负载测试”测试
 
-1. 切换到显示 Azure DevOps 门户中“监视应用程序性能”项目的 Web 浏览器窗口，在垂直导航窗格中，选择“管道”，然后在“管道”部分中选择“发布”   。
-2. 在发布管道列表中的“PartsUnlimitedE2E”窗格上，单击“编辑” 。
-3. 在“所有管道 > PartsUnlimitedE2E”窗格上，单击表示“开发”阶段的矩形，在“开发”窗格上，单击“删除”，然后在“删除阶段”对话框中，单击“确认”     。
-4. 返回“所有管道 > PartsUnlimitedE2E”窗格，单击表示 QA 阶段的矩形，在“QA”窗格上，单击“删除”，然后在“删除阶段”对话框中，单击“确认”     。
-5. 返回“所有管道 > PartsUnlimitedE2E”窗格，在表示“生产”阶段的矩形中，单击“1 个作业，1 项任务”链接  。
-6. 在显示“生产”*阶段任务列表的窗格中，单击表示“Azure 应用服务部署”任务的条目 。
-7. 在“Azure 应用服务部署”窗格的“Azure 订阅”下拉列表中，选择表示你在本实验室中使用的 Azure 订阅的条目，然后单击“授权”以创建相应的服务连接  。 出现提示时，使用在 Azure 订阅中具有所有者角色并且在与 Azure 订阅关联的 Azure AD 租户中具有全局管理员角色的帐户登录。
-8. 在“所有管道 > PartsUnlimitedE2E”窗格的“任务”选项卡处于活动状态后，单击“管道”选项卡标头以返回管道图表  。
-9. 在图表中，单击矩形左侧表示“生产”阶段的“预部署条件”椭圆符号 。
-10. 在“预部署条件”窗格的“选择触发器”部分中，选择“发布后”  。
+在此任务中，使用不同的负载配置设置创建不同的“Azure 负载测试”测试。 
 
-    > **注意**：这将在项目的生成管道成功后调用发布管道。
-
-11. 在“所有管道 > PartsUnlimitedE2E”窗格的“管道”选项卡处于活动状态后，单击“变量”选项卡标头  。
-12. 在变量列表中，将 WebsiteName 变量的值设置为与你先前在本实验室中创建的 Azure 应用服务 Web 应用的名称匹配。
-13. 在窗格右上角，单击“保存”，出现提示时，在“保存”对话框中再次单击“确定”  。
-
-    > **注意**：现在，发布管道已就位，我们可以预料对主分支的任何提交都将触发生成和发布管道。
-
-14. 在显示 Azure DevOps 门户的 Web 浏览器窗口中，在垂直导航窗格中单击“存储库”。
-15. 在“文件”窗格中，导航到并选择 PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite/Web.config 文件 。
-
-    > **注意**：此应用程序已有 Application Insights 密钥和 SQL 连接的配置设置。
-
-16. 在 Web.config 窗格上，查看引用 Application Insights 密钥以及 SQL 连接的行：
-
-    ```xml
-    <add key="Keys:ApplicationInsights:InstrumentationKey" value="0839cc6f-b99b-44b1-9d74-4e408b7aee29" />
-    ```
-
-    ```xml
-    <connectionStrings>
-       <add name="DefaultConnectionString" connectionString="Server=(localdb)\mssqllocaldb;Database=PartsUnlimitedWebsite;Integrated Security=True;" providerName="System.Data.SqlClient" />
-    </connectionStrings>
-    ```
-
-    > **注意**：部署后，你将在 Azure 门户中修改这些设置的值，以表示你先前在实验室中部署的 Azure Application Insights 和 Azure SQL 数据库。
-
-    > **注意**：现在，只需在文件末尾添加一个空行，即可触发生成和发布过程，而无需修改任何相关代码
-
-17. 在“Web.config”窗格上，单击“编辑”，在文件末尾添加一个空行，单击“提交”，然后在“提交”窗格中再次单击“提交”    。
-
-    > **注意**：将开始新的生成并最终导致部署到 Azure。 不要等待它完成，而是继续执行下一步。
-
-18. 切换到显示 Azure 门户的 Web 浏览器，并导航到你先前在实验室中预配的应用服务 Web 应用。
-19. 在应用服务 Web 应用边栏选项卡上，在左侧的垂直菜单中单击，在“设置”部分中，单击“配置”选项卡 。
-20. 在“应用程序设置”列表中，单击 APPINSIGHTS_INSTRUMENTATIONKEY 条目 。 （如果未看到此条目，请在“设置”下选择 Application Insights 并启用 Aplication Insights，然后选择“应用”）  
-21. 在“添加/编辑应用程序设置”边栏选项卡上，复制“值”文本框中的文本，然后单击“取消”  。
-
-    > **注意**：这是在部署应用服务 Web 应用期间添加的默认设置，已包含 Application Insights ID。 我们需要添加应用预期的新设置，赋予其不同的名称和相同的值。 这是本示例的特殊要求。
-
-22. 在“应用程序设置”部分，单击“+ 新建应用程序设置” 。
-23. 在“添加/编辑应用程序设置”边栏选项卡的“名称”文本框中，键入 Keys:ApplicationInsights:InstrumentationKey，在“值”文本框中，键入复制到剪贴板中的字符串，然后单击“确定”    。 选择“保存”。
-
-    > **注意**：对应用程序设置和连接字符串进行更改将触发重启 Web 应用。
-
-24. 切换回显示 Azure DevOps 门户的 Web 浏览器窗口，在垂直导航窗格中，选择“管道”，然后在“管道”部分中单击表示最近运行的生成管道的条目 。
-25. 如果生成尚未完成，跟踪生成直至完成，然后在垂直导航窗格中的“管道”部分中单击“发布”，在“PartsUnlimitedE2E”窗格中单击“Release-1”，并按照发布管道进行操作直至发布完成。   
-26. 切换到显示 Azure 门户的 Web 浏览器窗口，然后在“应用服务 Web 应用”边栏选项卡左侧的垂直菜单栏中单击“概述” 。
-27. 在右侧的“Essentials”部分中，单击 URL 链接 。 这将自动打开另一显示 Parts Unlimited 网站的 Web 浏览器标签页。
-28. 验证 Parts Unlimited 网站是否按预期加载。
-
-#### 任务 2：生成和查看应用程序流量
-
-在此任务中，你将生成针对你在上一任务中部署的应用服务 Web 应用的流量，并查看由与 Web 应用关联的 Application Insights 资源收集的数据。
-
-1. 在显示 Parts Unlimited 网站的 Web 浏览器窗口中，浏览其页面以生成一些流量。
-2. 在 Parts Unlimited 网站上，单击“Brakes”菜单项 。
-3. 在浏览器窗口顶部的 URL 文本框中，将 1 附加到 URL 字符串的末尾，然后按 Enter，有效将 CategoryId 参数设置为 11   。
-
-    > **注意**：这将触发服务器错误，因为该类别不存在。 请多次刷新页面以生成更多错误。
-
-4. 返回显示 Azure 门户的 Web 浏览器标签页。
-5. 在显示 Azure 门户的 Web 浏览器标签页中，在“应用服务”Web 应用边栏选项卡左侧的垂直菜单栏中的“设置”部分，单击“Application Insights”条目以显示“Application Insights”配置边栏选项卡   。
-
-    > **注意**：此边栏选项卡包括用于将 Application Insights 与不同类型的应用集成的设置。 虽然默认体验为跟踪和监视应用生成了大量数据，但 API 为更专业的场景和自定义事件跟踪提供了支持。
-
-6. 在“Application Insights”配置边栏选项卡上，单击“查看 Application Insights 数据”链接 。
-7. 查看生成的“Application Insights”边栏选项卡，该边栏选项卡显示了其中显示所收集数据的不同特征的图表，包括生成的流量和你在此任务早期触发的失败请求。
-
-    > **注意**：如果没有立即看到任何内容，只需等待几分钟并刷新页面，直到日志开始显示在概述部分。
-
-#### 任务 3：调查应用程序性能
-
-在此任务中，你将使用 Application Insights 来调查应用服务 Web 应用的性能。
-
-1. 在“Application Insights”边栏选项卡左侧垂直菜单中的“调查”部分，单击“应用程序映射”  。
-
-    > **注意**：应用程序映射可帮助你发现分布式应用程序的所有组件的性能瓶颈或热点失败。 映射的每个节点表示应用程序组件或其依赖项，以及运行状况 KPI 和警报状态。 可从任何组件单击以获得更详细的诊断，如 Application Insights 事件。 如果你的应用使用了 Azure 服务，你还可以单击进入与这些服务相关的 Azure 诊断，例如 SQL 数据库顾问建议。
-
-2. 在“Application Insights”边栏选项卡左侧垂直菜单中的“调查”部分，单击“智能检测”  。
-
-    > **注意**：当 Web 应用程序中存在潜在性能问题时，智能检测会自动向你发出警告。 它会对应用发送至 Application Insights 的遥测数据执行主动分析。 如果失败率中存在骤升或者客户端或服务器性能中存在异常模式，将收到警报。 此功能不需要任何配置。 它会在应用程序发送足够的遥测时运行。 但是，由于应用刚刚才部署完毕，因此还没有任何数据。
-
-3. 在“Application Insights”边栏选项卡左侧垂直菜单中的“调查”部分，单击“实时指标”  。
-
-    > **注意**：实时指标流让你能够探测生产中的实时 Web 应用程序的检测信号。 你可以选择并筛选指标和性能计数器进行实时监视，且服务不会受到任何影响。 还可以检查来自示例失败请求和异常的堆栈跟踪。
-
-4. 返回显示 Parts Unlimited 网站的 Web 浏览器，浏览其页面以生成一些流量，包括一些服务器错误。
-5. 返回显示 Azure 门户的 Web 浏览器，以在实时流量到达时查看该流量。
-6. 在“Application Insights”边栏选项卡左侧垂直菜单中的“调查”部分，单击“事务搜索”  。
-
-    > **注意**：事务搜索提供了一个灵活的界面来定位你需要回答问题的确切遥测。
-
-7. 在“事务搜索”边栏选项卡上，单击“查看最近 24 小时内的所有数据” 。
-
-    > **注意**：结果包括所有遥测数据，可按多种属性对这些数据进行筛选。
-
-8. 在“事务搜索”边栏选项卡上，在边栏选项卡中间，结果列表的正上方，单击“分组的结果” 。
-
-    > **注意**：这些结果根据常见属性进行了分组。
-
-9. 在“事务搜索”边栏选项卡上，在边栏选项卡中间，结果列表的正上方，单击“结果”以返回原始视图，列出所有结果 。
-10. 在“事务搜索”边栏选项卡顶部，单击“事件类型 = 选择的所有项”，在下拉列表中，清除“全选”复选框，然后在事件类型列表中选择“异常”复选框   。
-
-    > **注意**：应显示一些表示你之前生成的错误的异常。
-
-11. 在结果列表中，单击其中一项异常。 这将显示“端到端事务详细信息”边栏选项卡，其中提供了请求上下文中异常的完整时间线视图。
-12. 在“端到端事务详细信息”边栏选项卡底部，单击“查看所有遥测” 。
-
-    > **注意**：“遥测”视图提供了相同的数据，但数据格式不同。 在“端到端事务详细信息”边栏选项卡右侧，还可以查看异常本身的详细信息，例如其属性和调用堆栈。
-
-13. 关闭“端到端事务详细信息”边栏选项卡，返回“事务搜索”边栏选项卡，在左侧的垂直菜单中，在“调查”部分中单击“可用性”   。
-
-    > **注意**：将 Web 应用或网站部署到任何服务器后，可以设置测试，以监视其可用性和响应性。 Application Insights 将来自全球各地的 Web 请求定期发送到应用程序。 如果应用程序无响应或响应慢，它会提醒你。
-
-14. 在“可用性”边栏选项卡的工具栏中，单击“+ 添加经典测试” 。
-15. 在“创建测试”边栏选项卡的“测试名称”文本框中，键入“主页”，将 URL 设置为应用服务 Web 应用的根目录，然后单击“创建”    。
-
-    > **注意**：测试不会立即运行，因此不会有任何数据。 如果稍后再返回查看，应可看到已更新可用性数据，反映针对实时站点的测试。 现在不要等待更新。
-
-16. 在“可用性”边栏选项卡左侧垂直菜单中的“调查”部分，单击“失败”  。
-
-    > **注意**：“失败”视图将所有异常报表聚合到单个仪表板中。 在这里，你可以根据依赖项或异常等筛选条件轻松定位相关数据。
-
-17. 在“失败”边栏选项卡右上角的“排名前 3 的响应代码”列表中，单击表示 500 错误数的链接  。
-
-    > **注意**：这将显示一个与此 HTTP 响应代码匹配的异常列表。 选择建议的异常将显示与你先前查看的异常视图相同的异常视图。
-
-18. 在“失败”边栏选项卡左侧垂直菜单中的“调查”部分，单击“性能”  。
-
-    > **注意**：“性能”视图提供了一个仪表板，该仪表板根据收集的遥测数据简化了应用程序性能的详细信息。
-
-19. 在“性能”边栏选项卡左侧垂直菜单中的“监视”部分，单击“指标”  。
-
-    > **注意**：Application Insights 中的指标是从应用程序遥测功能发送的度量值和事件计数。 它们可帮助检测性能问题，观察应用程序的用法趋势。 标准指标的范围很广泛，也可以创建自己的自定义指标和事件。
-
-20. 在“指标”边栏选项卡的筛选器部分中，单击“选择指标”，然后在下拉列表中选择“服务器请求”  。
-
-    > **注意**：还可以使用拆分对数据进行分段。
-
-21. 在新显示的图表顶部，单击“应用拆分”，在生成的筛选器中的“选择值”下拉列表中，选择“操作名称”  。
-
-    > **注意**：这将根据服务器请求引用的页面（由图表中的不同颜色表示）拆分服务器请求。
-
-#### 任务 4：跟踪应用程序使用情况
-
-> **注意**：Application Insights 提供了一组广泛的功能来跟踪应用程序使用情况。
-
-1. 在“指标”边栏选项卡左侧垂直菜单中的“使用情况”部分，单击“用户”  。
-
-    > **注意**：虽然应用程序的用户还不多，但有一些可用数据。
-
-2. 在“用户”边栏选项卡上的主图下，单击“查看更多见解” 。 这将显示额外的数据，向下扩展边栏选项卡。
-3. 向下滚动以查看有关地理位置、操作系统和浏览器的详细信息。
-
-    > **注意**：还可以深入了解特定于用户的数据，以更好地了解特定于用户的使用模式。
-
-4. 在“用户”边栏选项卡左侧垂直菜单中的“使用情况”部分，单击“事件”  。
-5. 在“事件”边栏选项卡上的主图下，单击“查看更多见解” 。
-
-    > **注意**：显示内容将包括目前基于站点使用情况引发的一系列内置事件。 可以通过编程方式添加包含自定义数据的自定义事件，以满足你的需要。
-
-6. 在“事件”边栏选项卡左侧垂直菜单中的“使用情况”部分，单击“漏斗图”  。
-
-    > **注意**：了解客户体验对你的业务而言至关重要。 如果应用程序的使用涉及多个步骤，则你需要了解大多数客户是否遵循了预期的流程。 Web 应用程序中通过一系列步骤完成的进度被称为“漏斗图”。 Azure Application Insights 漏斗图可用于深入了解你的用户，并监视分步转换率。
-
-7. 在“漏斗图”边栏选项卡左侧垂直菜单中的“使用情况”部分，单击“用户流”  。
-
-    > **注意**：用户流工具从你指定的初始页面视图、自定义事件或异常启动。 基于此给定的初始事件，用户流显示相应用户会话期间发生在其之前和之后的事件。 不同粗细的线显示用户遵循每条路径的次数。 “会话启动”节点表示会话的开始。 “会话结束”节点显示有多少用户在上一个节点之后没有生成页面视图或自定义事件，这可能与离开你的站点的用户相对应。
-
-8. 在“用户流”边栏选项卡上，单击“选择事件”，在“编辑”窗格的“初始事件”下拉列表中的“页面视图”部分，选择“主页 - Parts Unlimited”条目，然后单击“创建图”      。
-
-9. 在“用户流”边栏选项卡左侧垂直菜单中的“使用情况”部分，单击“保留期”  。
-
-    > **注意**：Application Insights 中的“留存情况”功能可以帮助分析有多少用户回归到应用，以及他们以何频率执行特定的任务或达成目标。 例如，如果运行游戏网站，则可以会在输掉游戏后回归到网站的用户数与在获胜后回归的用户数进行比较。 此信息有助于改进用户体验和业务策略。
-
-    > **注意**：“用户保留期分析”体验已转换为 Azure 工作簿
-
-10. 在“保留期”边栏选项卡上，单击“保留期分析工作簿”，查看“整体保留期”图表，然后关闭边栏选项卡  。
-11. 在“保留期”边栏选项卡左侧垂直菜单中的“使用情况”部分，单击“影响”  。
-
-    > **注意**：“影响”分析网站属性（如加载时间）如何影响应用各个部件的转换率。 更准确地说，它可以发现页面视图的任何维度、自定义事件或请求对页面视图或自定义事件造成的影响。
-
-    > **注意**：“影响分析”体验已转换为 Azure 工作簿
-
-12. 在“影响”边栏选项卡上，单击“影响分析工作簿”，在“影响”边栏选项卡上的“选择的事件”下拉列表中的“页面视图”部分，选择“主页 - Parts Unlimited”，在“影响事件”中，选择“浏览产品 - Parts Unlimited”，查看结果，然后关闭边栏选项卡       。
-13. 在“影响”边栏选项卡左侧垂直菜单中的“使用情况”部分，单击“队列”  。
-
-    > **注意**：队列是具有某种共性的用户、会话、事件或操作集。 在 Application Insights 中，队列由分析查询定义。 如果你要反复分析特定的用户或事件集，队列可让你更灵活地准确表达所需的集。 队列的使用方式类似于筛选器，但队列的定义基于自定义分析查询，因此它们更具适应性且更复杂。 与筛选器不同，队列可以保存，因此可供其他团队成员重复使用。
-
-14. 在“队列”边栏选项卡左侧垂直菜单中的“使用情况”部分，单击“更多”  。
-
-    > **注意**：此边栏选项卡包括供查看的各种报表和模板。
-
-15. 在“更多 \| 库”边栏选项卡的“使用情况”部分，单击“页面浏览量分析”并查看相应边栏选项卡的内容  。
-
-    > **注意**：此特定报表提供了有关页面视图的见解。 默认情况下，还有许多其他可用报表，你可以自定义和保存新的报表。
-
-#### 任务 5：配置 Web 应用警报
-
-1. 在“更多 \| 库”边栏选项卡的左侧垂直菜单的“监视”部分，单击“警报”  。
-
-    > **注意**：通过警报，可以设置在 Application Insights 度量值达到指定条件时执行操作的触发器。
-
-2. 在“警报”边栏选项卡的工具栏中，单击“+ 新建警报规则” 。
-3. 在“创建警报规则”边栏选项卡上，请注意，在“范围”部分，默认情况下将选中当前 Application Insights 资源 。
-4. 在“创建警报规则”边栏选项卡的“条件”部分，单击“添加条件”  。
-5. 在“配置信号逻辑”边栏选项卡上，搜索并选择“失败的请求”指标 。
-6. 在“配置信号逻辑”边栏选项卡上，向下滚动到“警报逻辑”部分，确保“阈值”设置为“静态”并将“阈值的值”设置为 1     。
-
-    > **注意**：这将在报告第二个失败的请求时触发警报。 默认情况下，将基于过去 5 分钟内的度量值聚合每分钟评估一次条件。
-
-7. 在“配置信号逻辑”边栏选项卡上，单击“完成” 。
-
-    > **注意**：创建条件后，需要为它定义一个要执行的“操作组”。
-
-8. 返回“创建预警规则”边栏选项卡，在“操作”部分中，单击“选择操作组”，然后在“选择要附加到此预警规则的操作组”上，单击“+ 创建操作组**”。   
-9. 在“创建操作组”边栏选项卡的“基本信息”选项卡上，指定以下设置并单击“下一步:   通知 >”：
-
-    | 设置 | 值 |
-    | --- | --- |
-    | 订阅 | 你在此实验室中使用的 Azure 订阅的名称 |
-    | 资源组 | 新资源组名称 az400m17l01b-RG |
-    | 操作组名称 | az400m17-action-group |
-    | 显示名称 | az400m17-ag |
-
-10. 在“创建操作组”边栏选项卡的“通知”选项卡上，在“通知类型”下拉列表中选择“电子邮件/短信消息/推送/语音”。 “电子邮件/短信消息/推送/语音”边栏选项卡随即打开。
-11. 在“电子邮件/短信消息/推送/语音”边栏选项卡上，选择“电子邮件”复选框，在“电子邮件”文本框中，键入电子邮件地址，然后单击“确定”。
-12. 返回到“创建操作组”边栏选项卡的“通知”选项卡，在“名称”文本框中，键入“电子邮件”并单击“下一步:     操作 >”：
-13. 在“创建操作组”边栏选项卡的“操作”选项卡上，选择“操作组”下拉列表，查看可用选项而不进行任何更改，然后单击“查看 + 创建”。
-14. 在“创建操作组”边栏选项卡的“查看 + 创建”选项卡中，单击“创建”
-15. 返回“创建警报规则”边栏选项卡，在“警报规则详细信息”部分的“警报规则名称”文本框中，键入“az400m17 实验室警报规则”，查看其余警报规则设置而不修改它们，然后单击“创建警报规则”。
-16. 切换到显示“Parts Unlimited”网站的 Web 浏览器窗口，在“Parts Unlimited”网站上，单击“Brakes”菜单项。
-17. 在浏览器窗口顶部的 URL 文本框中，将 1 附加到 URL 字符串的末尾，然后按 Enter，有效将 CategoryId 参数设置为 11   。
-
-    > **注意**：这将触发服务器错误，因为该类别不存在。 请多次刷新页面以生成更多错误。
-
-18. 大约五分钟后，检查你的电子邮件帐户，验证是否收到一封指示你定义的警报已触发的电子邮件。
-
-### 练习 2：删除 Azure 实验室资源
+10. 在“EShopOnWebLoadTesting”Azure 负载测试资源边栏选项卡中，注意“快速测试入门”，然后单击“快速测试”按钮  。
+11. 完成以下参数和设置以创建负载测试：
+- 测试 URL：输入在上一练习中部署的 Azure 应用服务的 URL (EShopOnWeb...azurewebsites.net)，包括 https:// 
+- 指定负载：虚拟用户
+- 虚拟用户数：50
+- 测试持续时间（秒）：120
+- 加速时间（秒）：0
+12. 单击“运行测试”，确认测试的配置。
+13. 测试将运行约 2 分钟。 
+14. 运行测试后，导航回“EShopOnWebLoadTesting”Azure 负载测试资源页，然后导航到“测试”，选择“测试”并查看测试“Get_eshoponweb...”   
+15. 在顶部菜单中，单击“创建”、“创建快速测试”，创建第二个负载测试 。
+16. 完成以下参数和设置以创建另一个负载测试：
+- 测试 URL：输入在上一练习中部署的 Azure 应用服务的 URL (EShopOnWeb...azurewebsites.net)，包括 https:// 
+- 指定负载：每秒请求数 (RPS)
+- 每秒请求数 (RPS)：100
+- 响应时间（毫秒）：500
+- 测试持续时间（秒）：120
+- 加速时间（秒）：0
+17. 单击“运行测试”，确认测试的配置。
+18. 测试将运行约 2 分钟。
+
+#### 任务 3：验证 Azure 负载测试结果
+
+在此任务中，验证 Azure 负载测试 TestRun 的结果。 
+
+完成这两个快速测试后，让我们对它们进行一些更改，并验证结果。
+
+19. 在“EShopOnWebLoadTesting”资源边栏选项卡中，导航到“测试”，然后选择第一个“Get_eshoponwebyaml...”测试 。 在顶部菜单中单击“编辑”。
+20. 在这里，门户允许你将测试名称从默认生成的名称更改为更具描述性的名称。 还可以在其中更改之前定义的任何参数。
+21. 在“编辑测试”边栏选项卡中，导航到“测试计划”选项卡 。 
+22. 可在其中管理 Apache JMeter 负载测试脚本文件，Azure 负载测试将其用作框架。 请注意文件 quick_test.jmx。 选择此文件，以在实验室虚拟机上打开它。 在弹出窗口中，选择“Visual Studio Code”作为编辑器来打开文件。
+23. 请注意文件的 XML 语言结构。
+
+    > 注意：如需了解其他信息和 Apache JMeter 的更高级语法，请查看下面的 [Azure 负载测试 - Jmeter](https://learn.microsoft.com/en-us/azure/load-testing/how-to-create-and-run-load-test-with-jmeter-script) 链接。
+
+24. 返回“测试”视图（其中显示了这两个测试），选择其中一个测试，通过单击其中一个测试打开更详细的视图 。 随即会重定向到更详细的测试页。 在此处，可以通过从生成的列表中选择“TestRun_mm/dd/yy-hh:hh”来验证实际运行的详细信息。
+25. 在详细的 TestRun 页中，确定 Azure 负载测试模拟的实际结果。 其中一些值为：
+- 负载请求数/总请求数
+- 持续时间
+- 响应时间（以秒为单位显示结果，反映第 90 个百分位的响应时间 - 这意味着，对于 90% 的请求，响应时间在给定结果内）
+- 吞吐量（以每秒请求数为单位）
+26. 其中一些值使用仪表板图形线视图和图表视图表示，详见下面的内容。
+27. 花几分钟时间比较两个模拟测试的结果，并确定更多用户对应用服务性能的影响 。
+
+### 练习 2：在 Azure DevOps 管道中使用 CI/CD 自动执行负载测试
+
+通过将负载测试添加到 CI/CD 管道，开始在 Azure 负载测试中自动执行负载测试。 在 Azure 门户中运行负载测试后，导出配置文件，并在 Azure Pipelines 中配置 CI/CD 管道（GitHub Actions 也有类似的功能）。
+
+完成本练习后，便有了一个 CI/CD 工作流，该工作流配置为使用 Azure 负载测试运行负载测试。
+
+#### 任务 1：标识 ADO 服务连接详细信息
+
+在此任务中，向 Azure DevOps 服务连接的服务主体授予所需的权限。
+
+1. 从 Azure DevOps 门户导航到 EShopOnWeb 项目https://dev.azure.com)。
+2. 在左下角，选择“项目设置”。
+3. 在“管道”部分下，选择“服务连接” 。
+4. 请注意服务连接，其中包含在实验室练习开始时用于部署 Azure 资源的 Azure 订阅的名称。
+5. 选择“服务连接”。 在“概述”选项卡中，导航到“详细信息”，然后选择“管理服务主体”  。
+6. 这可重定向到 Azure 门户，可从其中打开标识对象的“服务主体”详细信息。
+7. 将“显示名称”值（格式类似于 Name_of_ADO_Organization_EShopOnWeb_-b86d9ae1-7552-4b75-a1e0-27fb2ea7f9f4）复制到一边，因为后续步骤中需要使用此值。
+
+#### 任务 2：向服务主体授予权限
+
+Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活动的权限。 若要从 CI/CD 管道运行负载测试，请将负载测试参与者角色授予服务主体。
+
+1. 在 Azure 门户中，转到你的 Azure 负载测试资源 。
+2. 选择“访问控制(IAM)”>“添加”>“添加角色分配”。
+3. 在“角色”选项卡中，选择作业功能角色列表中的“负载测试参与者” 。
+4. 在“成员”选项卡中，选择“选择成员”，然后使用之前复制的显示名称搜索服务主体  。
+5. 选择服务主体，然后选择“选择” 。
+6. 在“查看 + 分配”选项卡中，选择“查看 + 分配”，以添加角色分配。
+
+现在可以使用 Azure Pipelines 工作流定义中的服务连接来访问 Azure 负载测试资源。
+
+#### 任务 3：导出负载测试输入文件并将其导入到 Azure DevOps 源代码管理
+
+若要在 CI/CD 工作流中使用 Azure 负载测试运行负载测试，则需要在源代码管理存储库中添加负载测试配置设置和任何输入文件。 如果有现成的负载测试，可以从 Azure 门户下载配置设置和所有输入文件。
+
+执行以下步骤，以在 Azure 门户中下载现有负载测试的输入文件：
+
+1. 在 Azure 门户中，转到你的 Azure 负载测试资源 。
+2. 在左窗格中，选择“测试”以查看负载测试列表，然后选择测试 。
+3. 选择使用的测试运行旁边的省略号 (...)，然后选择“下载输入文件” 。
+4. 浏览器会下载包含负载测试输入文件的压缩文件夹。
+5. 使用任何 zip 工具提取输入文件。 此文件夹包含以下文件：
+
+- config.yaml：负载测试 YAML 配置文件。 你将在 CI/CD 工作流定义中引用此文件。
+- quick_test.jmx：JMeter 测试脚本
+
+6. 将所有提取的输入文件提交到源代码管理存储库。 为此，请导航到 Azure DevOps 门户 (https://dev.azure.com) ，然后导航到“EShopOnWeb”DevOps 项目。 
+7. 选择“Repos”。 在源代码文件夹结构中，请注意 tests 子文件夹。 请注意省略号 (...)，然后选择“新建”>“文件夹”。
+8. 将 jmeter 指定为文件夹名称，并将 placeholder.txt 指定为文件名（注意：不能将文件夹创建为空文件夹） 
+9. 单击“提交”以确认创建占位符文件和 jmeter 文件夹。
+10. 在文件夹结构中，导航到新建的 jmeter 子文件夹 。 单击省略号 (...)，并选择“上传文件” 。
+11. 使用“浏览”选项导航到提取的 zip 文件的位置，并选择 config.yaml 和 quick_test.jmx  。
+12. 单击“提交”确认文件上传到源代码管理。
+
+#### 任务 4：更新 CI/CD 工作流 YAML 定义文件
+
+在此任务中，导入 Azure 负载测试 - Azure DevOps 市场扩展，并使用 AzureLoadTest 任务更新现有的 CI/CD 管道。
+
+1. 为了创建和运行负载测试，Azure Pipelines 工作流定义使用 Azure DevOps 市场中的 Azure 负载测试任务扩展。 打开 Azure DevOps 市场中的 [Azure 负载测试任务扩展](https://marketplace.visualstudio.com/items?itemName=AzloadTest.AzloadTesting)，然后选择“免费获取”。
+2. 选择你的 Azure DevOps 组织，然后选择“安装”以安装扩展。
+3. 在 Azure DevOps 门户和项目中，导航到“管道”并选择在本练习开始时创建的管道。 单击 **“编辑”** 。
+4. 在 YAML 脚本中，导航到第 56 行，然后按 Enter/RETURN 添加新的空行。 （这就在 YAML 文件的部署阶段之前）。
+5. 在第 57 行，选择右侧的“任务助手”，然后搜索“Azure 负载测试”。
+6. 使用方案的正确设置完成图形窗格：
+- Azure 订阅：选择运行 Azure 资源的订阅
+- 负载测试文件：“$(Build.SourcesDirectory)/tests/jmeter/config.yaml” 
+- 负载测试资源组：保存 Azure 负载测试资源的资源组
+- 负载测试资源名称：ESHopOnWebLoadTesting
+- 负载测试运行名称：ado_run
+- 负载测试运行说明：从 ADO 进行负载测试
+7. 单击“添加”，确认将参数注入为 YAML 的代码片段
+8. 如果 YAML 代码片段的缩进导致错误（红色快速线条），请通过添加 2 个空格或制表符来正确定位代码片段，以修复这些错误。  
+9. 下面的示例代码片段显示了 YAML 代码应该是什么样子
+```
+     - task: AzureLoadTest@1
+      inputs:
+        azureSubscription: 'AZURE DEMO SUBSCRIPTION(b86d9ae1-1234-4b75-a8e7-27fb2ea7f9f4)'
+        loadTestConfigFile: '$(Build.SourcesDirectory)/tests/jmeter/config.yaml'
+        resourceGroup: 'az400m05l11-RG'
+        loadTestResource: 'EShopOnWebLoadTesting'
+        loadTestRunName: 'ado_run'
+        loadTestRunDescription: 'load testing from ADO'
+```
+10. 在插入的 YAML 代码片段下方，按 ENTER/RETURN 添加新的空行。 
+11. 在此空行下方，为发布任务添加一个代码片段，其中显示了管道运行期间 Azure 负载测试任务的结果：
+
+```
+    - publish: $(System.DefaultWorkingDirectory)/loadTest
+      artifact: loadTestResults
+```
+12.  如果 YAML 代码片段的缩进导致错误（红色快速线条），请通过添加 2 个空格或制表符来正确定位代码片段，以修复这些错误。  
+13. 将这两个代码片段添加到 CI/CD 管道后，保存更改。 
+14. 保存后，单击“运行”以触发管道。
+15. 确认分支（主分支）并单击“运行”按钮启动管道运行。
+16. 在管道状态页中，单击“生成”阶段以打开管道中不同任务的详细日志记录详细信息。
+17. 等待管道启动生成阶段，并到达管道流中的 AzureLoadTest 任务。 
+18. 在任务运行时，浏览到 Azure 门户中的 Azure 负载测试，并查看管道如何创建名为 adoloadtest1 的新 RunTest 。 可以选择它以显示 TestRun 作业的结果值。
+19. 导航回 Azure DevOps CI/CD 管道运行视图，其中 AzureLoadTest 任务已成功完成。 在详细日志记录输出中，负载测试的结果值也可见：
+
+```
+Task         : Azure Load Testing
+Description  : Automate performance regression testing with Azure Load Testing
+Version      : 1.2.30
+Author       : Microsoft Corporation
+Help         : https://docs.microsoft.com/azure/load-testing/tutorial-cicd-azure-pipelines#azure-load-testing-task
+==============================================================================
+Test '0d295119-12d0-482d-94be-a7b84787c004' already exists
+Uploaded test plan for the test
+Creating and running a testRun for the test
+View the load test run in progress at: https://portal.azure.com/#blade/Microsoft_Azure_CloudNativeTesting/NewReport//resourceId/%2fsubscriptions%4b75-a1e0-27fb2ea7f9f4%2fresourcegroups%2faz400m05l11-rg%2fproviders%2fmicrosoft.loadtestservice%2floadtests%2feshoponwebloadtesting/testId/0d295119-12d0-787c004/testRunId/161046f1-d2d3-46f7-9d2b-c8a09478ce4c
+TestRun completed
+
+-------------------Summary ---------------
+TestRun start time: Mon Jul 24 2023 21:46:26 GMT+0000 (Coordinated Universal Time)
+TestRun end time: Mon Jul 24 2023 21:51:50 GMT+0000 (Coordinated Universal Time)
+Virtual Users: 50
+TestStatus: DONE
+
+------------------Client-side metrics------------
+
+Homepage
+response time        : avg=1359ms min=59ms med=539ms max=16629ms p(90)=3127ms p(95)=5478ms p(99)=13878ms
+requests per sec     : avg=37
+total requests       : 4500
+total errors         : 0
+total error rate     : 0
+Finishing: AzureLoadTest
+
+```
+20. 现已在管道运行过程中执行自动负载测试。 在上一个任务中，你会指定失败的条件，这意味着，如果 Web 应用的性能低于特定阈值，我们不允许启动部署阶段。 
+
+#### 任务 5：将失败/成功条件添加到负载测试管道
+
+在此任务中，你将使用负载测试失败条件在应用程序不符合质量要求时收到警报（结果是管道运行失败）。
+
+1. 在 Azure DevOps 中，导航到 EShopOnWeb 项目，然后打开 Repos。
+2. 在 Repos 中，浏览到之前创建和使用的 /tests/jmeter 子文件夹。
+3. 打开负载测试 config.yaml* 文件。 单击“编辑”以允许编辑文件。
+4. 在文件的末尾添加以下代码片段：
+
+```
+failureCriteria:
+  - avg(response_time_ms) > 300
+  - percentage(error) > 50
+```
+5. 再次单击“提交”进行提交，保存对 config.yaml 进行的更改。
+6. 导航回“管道”并再次运行 EShopOnWeb 管道 。 几分钟后，它将完成运行，并且 AzureLoadTest 任务的状态为“失败” 。 
+7. 打开管道的详细日志记录视图，并验证 AzureLoadtest 的详细信息。 类似的示例输出如下：
+
+```
+Creating and running a testRun for the test
+View the load test run in progress at: https://portal.azure.com/#blade/Microsoft_Azure_CloudNativeTesting/NewReport//resourceId/%2fsubscriptions%2fb86d9ae1-7552-47fb2ea7f9f4%2fresourcegroups%2faz400m05l11-rg%2fproviders%2fmicrosoft.loadtestservice%2floadtests%2feshoponwebloadtesting/testId/0d295119-12d0-a7b84787c004/testRunId/f4bec76a-8b49-44ee-a388-12af34f0d4ec
+TestRun completed
+
+-------------------Summary ---------------
+TestRun start time: Mon Jul 24 2023 23:00:31 GMT+0000 (Coordinated Universal Time)
+TestRun end time: Mon Jul 24 2023 23:06:02 GMT+0000 (Coordinated Universal Time)
+Virtual Users: 50
+TestStatus: DONE
+
+-------------------Test Criteria ---------------
+Results          :1 Pass 1 Fail
+
+Criteria                     :Actual Value        Result
+avg(response_time_ms) > 300                       1355.29               FAILED
+percentage(error) > 50                                                  PASSED
+
+
+------------------Client-side metrics------------
+
+Homepage
+response time        : avg=1355ms min=58ms med=666ms max=16524ms p(90)=2472ms p(95)=5819ms p(99)=13657ms
+requests per sec     : avg=37
+total requests       : 4531
+total errors         : 0
+total error rate     : 0
+##[error]TestResult: FAILED
+Finishing: AzureLoadTest
+```
+
+8. 请注意负载测试输出的最后一行显示 ##[error]TestResult: 失败；由于我们定义的 FailCriteria 为平均响应时间 > 300，或者错误百分比 > 20，而现在的平均响应时间超过了 300，因此任务被标记为失败 。 
+
+    > 注意：假设在现实场景中，你将验证应用服务的性能，如果性能低于特定阈值（通常意味着 Web 应用上有更多负载），则可以触发到其他Azure 应用服务的新部署。 由于我们无法控制 Azure 实验室环境的响应时间，因此我们决定还原逻辑来保证失败。
+
+9.  管道任务的“失败”状态实际上反映了 Azure 负载测试要求条件验证的成功。
+
+### 练习 3：删除 Azure 实验室资源
 
 在本练习中，你将删除在本实验室中预配的 Azure 资源，避免产生意外费用。
 
@@ -426,17 +507,17 @@ Application Insights 是多个平台上面向 Web 开发人员的可扩展应用
 2. 运行以下命令，列出在本模块各实验室中创建的所有资源组：
 
     ```sh
-    az group list --query "[?starts_with(name,'az400m17l01')].name" --output tsv
+    az group list --query "[?starts_with(name,'az400m16l01')].name" --output tsv
     ```
 
 3. 通过运行以下命令，删除在此模块的实验室中创建的所有资源组：
 
     ```sh
-    az group list --query "[?starts_with(name,'az400m17l01')].[name]" --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
+    az group list --query "[?starts_with(name,'az400m16l01')].[name]" --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
     ```
 
     >**注意**：该命令以异步方式执行（由 --nowait 参数确定），因此，尽管可立即在同一 Bash 会话中运行另一个 Azure CLI 命令，但实际上要花几分钟才能删除资源组。
 
 ## 审阅
 
-在本练习中，你已使用 Azure Pipelines 将 Web 应用部署到 Azure 应用服务，生成针对 Web 应用的流量，并使用 Application Insights 查看 Web 流量、调查应用程序性能、跟踪应用程序使用情况和配置警报。
+在本练习中，你使用了 Azure Pipelines 将 Web 应用部署到 Azure 应用服务，并使用 TestRuns 部署了 Azure 负载测试资源。 接下来，将 Jmeter 负载测试 config.yaml 文件集成到 Azure DevOps Repos 源代码管理，并使用 Azure 负载测试扩展 CI/CD 管道。 在上一个练习中，你学习了如何定义 LoadTest 的成功条件。
