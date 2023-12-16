@@ -12,7 +12,7 @@ lab:
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/azure/devops/server/compatibility)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
+- 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
 
 ## 实验室概述
 
@@ -50,7 +50,7 @@ lab:
 
 在此任务中，你将创建一个 eShopOnWeb Azure DevOps 项目，供多个实验室使用。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。   单击“创建”。
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。 单击“创建”。
 
     ![创建项目](images/create-project.png)
 
@@ -58,7 +58,7 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。  在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
     ![导入存储库](images/import-repo.png)
 
@@ -75,7 +75,7 @@ lab:
 
 在此任务中，你要将 Azure DevOps 项目的可见性更改为公共，因为 Sonarcloud 免费用于公共 ADO 项目。
 
-1. 在实验室计算机上，在显示 Azure DevOps 门户的 Web 浏览器窗口中，打开 eShopOnWeb 项目，然后单击“项目设置”（左下角）。  将“可见性”更改为“公共”。  单击“保存” 
+1. 在实验室计算机上，在显示 Azure DevOps 门户的 Web 浏览器窗口中，打开 eShopOnWeb 项目，然后单击“项目设置”（左下角）。 将“可见性”更改为“公共”。 单击“保存”
 
 ![将 ADO 项目更改为公共](images/ado-public.png)
 
@@ -115,8 +115,8 @@ lab:
 
 3. 在 Web 浏览器窗口中，导航到 SonarCloud 主页 ([https://sonarcloud.io/](https://sonarcloud.io/))。
 4. 在 SonarCloud 主页面上，单击“登录”。
-5. 在“登录或注册 SonarCloud”上，单击“Azure DevOps”选项。 
-6. 如果系统提示“是否允许此应用访问你的信息”，请单击“是”。  如果出现提示，请依次选择“代表组织同意”和“接受” 。
+5. 在“登录或注册 SonarCloud”上，单击“Azure DevOps”选项。
+6. 如果系统提示“是否允许此应用访问你的信息”，请单击“是”。 如果出现提示，请依次选择“代表组织同意”和“接受” 。
 
     > **注意**：在 SonarCloud 中，你将创建组织，并在其中新建项目。 在 SonarCloud 中设置的组织和项目将与在 Azure DevOps 中设置的组织和项目一样。
 
@@ -124,9 +124,9 @@ lab:
 
     ![将 ADO 组织导入 Sonarcloud](images/sonarcloud-import.png)
 
-8. 在“创建组织”页面上的“Azure DevOps 组织名称”文本框中，键入你的 Azure DevOps 组织的名称，在“个人访问令牌”文本框中，粘贴在上一任务中记下的 Azure DevOps 令牌的值，然后单击“继续”。    Sonarcloud 将使用此令牌来分析 Azure DevOps 中托管的代码
+8. 在“创建组织”页面上的“Azure DevOps 组织名称”文本框中，键入你的 Azure DevOps 组织的名称，在“个人访问令牌”文本框中，粘贴在上一任务中记下的 Azure DevOps 令牌的值，然后单击“继续”。 Sonarcloud 将使用此令牌来分析 Azure DevOps 中托管的代码
 
-9. 在“导入组织详细信息”部分的“密钥”文本框中，键入将用于指定 Sonarcloud 组织的字符串，为其指定与 Azure DevOps 组织相同的名称，然后单击“继续”。  
+9. 在“导入组织详细信息”部分的“密钥”文本框中，键入将用于指定 Sonarcloud 组织的字符串，为其指定与 Azure DevOps 组织相同的名称，然后单击“继续”。
 
     > **注意**：此密钥在 SonarCloud 系统中必须唯一。 确保“密钥”文本框的右侧显示了绿色对勾。 这表示密钥符合唯一性前提条件。
 
@@ -136,34 +136,34 @@ lab:
 
     > **注意**：接下来，在新创建的组织中，你将创建 SonarCloud 项目，该项目与 Azure DevOps 项目 SonarExamples 完全相同。
 
-11. 在“分析项目 - 选择存储库”页的 Azure DevOps 项目列表中，选中“eshoponweb / eshoponweb”项旁边的复选框，然后单击“设置”。 
-12. 在“选择分析方法”页上，单击“使用 Azure DevOps 管道”磁贴。 
+11. 在“分析项目 - 选择存储库”页的 Azure DevOps 项目列表中，选中“eshoponweb / eshoponweb”项旁边的复选框，然后单击“设置”。
+12. 在“选择分析方法”页上，单击“使用 Azure DevOps 管道”磁贴。
 
     ![使用 Azure DevOps 管道 ](images/sonar-setup.png)
 
     > **注意**：如果已安装扩展，可忽略创建扩展部分。
 
-13. 在“使用 Azure Pipelines 分析项目”页的“添加新的 Sonarcloud 服务终结点”上，按照 Azure DevOps 项目中所述的步骤将服务连接命名为 SonarSC，选中“授予对所有管道的访问权限”复选框，然后单击“验证并保存”。     
+13. 在“使用 Azure Pipelines 分析项目”页的“添加新的 Sonarcloud 服务终结点”上，按照 Azure DevOps 项目中所述的步骤将服务连接命名为 SonarSC，选中“授予对所有管道的访问权限”复选框，然后单击“验证并保存”。
 
     ![SonarCloud 服务连接](images/sonar-sc.png)
 
     > 注意：此步骤定义 Azure Pipeline 将如何与 Sonarcloud 通信。 Sonarcloud 提供了一个令牌，管道使用该令牌与服务通信。
 
-14. 在实验室计算机上，从 eShopOnWeb Azure DevOps 项目的左侧垂直菜单栏中，导航到“管道 > 管道”部分，单击“创建管道”（或“新建管道）”。   
+14. 在实验室计算机上，从 eShopOnWeb Azure DevOps 项目的左侧垂直菜单栏中，导航到“管道 > 管道”部分，单击“创建管道”（或“新建管道）”。
 
-15. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。  
+15. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。
 
-16. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。  提供路径 /.ado/eshoponweb-sonar-ci.yml，然后单击“继续”。  根据下一步中提到的详细信息检查管道（某些设置应进行替换）
+16. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 提供路径 /.ado/eshoponweb-sonar-ci.yml，然后单击“继续”。 根据下一步中提到的详细信息检查管道（某些设置应进行替换）
 
-17. 返回到 Sonarcloud 网站，在“使用 Azure Pipelines 分析项目”页上的“配置 Azure Pipelines”部分中，单击“.NET”。   这将显示“准备分析配置”、“运行代码分析”和“发布 Quality Gate 结果”所需执行的一系列步骤  。 需要这些说明才能修改上一步中提供的 YAML 管道上的“准备分析配置”任务。
+17. 返回到 Sonarcloud 网站，在“使用 Azure Pipelines 分析项目”页上的“配置 Azure Pipelines”部分中，单击“.NET”。 这将显示“准备分析配置”、“运行代码分析”和“发布 Quality Gate 结果”所需执行的一系列步骤  。 需要这些说明才能修改上一步中提供的 YAML 管道上的“准备分析配置”任务。
 
 18. 修改管道后，单击“运行”。
 
     ![Sonar CI 管道](images/sonar-pipeline.png)
 
-19. 可能需要将 Azure DevOps 项目的“可见性”更改回“专用”，以便让代理运行管道（“项目设置”>“概述”） 
+19. 可能需要将 Azure DevOps 项目的“可见性”更改回“专用”，以便让代理运行管道（“项目设置”>“概述”）
 
-20. 在 Azure DevOps“管道”>“管道”中，单击最近创建的管道，将其重命名为 eshoponweb-sonar-ci。 
+20. 在 Azure DevOps“管道”>“管道”中，单击最近创建的管道，将其重命名为 eshoponweb-sonar-ci。
 
     ![重命名管道](images/sonar-rename.png)
 
@@ -171,7 +171,7 @@ lab:
 
 在此任务中，你将检查管道结果。
 
-1. 等待管道执行完成，查看“摘要”选项卡的内容，然后单击“扩展”选项卡标题。 
+1. 等待管道执行完成，查看“摘要”选项卡的内容，然后单击“扩展”选项卡标题。
 
     > 注意：由于我们尚未在 Sonarcloud 中设置质量门信息（“无”），你将不会看到该信息。
 
@@ -183,11 +183,11 @@ lab:
 
     > **注意**：为了能够看到 Quality Gate 结果，在运行第一个报表后，我们需要设置“新建代码定义”。 这样，后续的管道运行将包含 Quality Gate 结果。 默认质量门将确保代码中没有新的漏洞/bug，并忽略以前存在的漏洞/bug。你可以创建自己的自定义质量门。
 
-4. 单击“设置新代码定义”，然后选择“上一版本”。 
+4. 单击“设置新代码定义”，然后选择“上一版本”。
 
     ![Sonarcloud 报告](images/sonar-qg.png)
 
-5. 切换到 Azure DevOps 门户中的 Web 浏览器，其中显示了最新的生成运行，单击“运行新的”，然后在“运行管道”窗格中，单击“运行”。   
+5. 切换到 Azure DevOps 门户中的 Web 浏览器，其中显示了最新的生成运行，单击“运行新的”，然后在“运行管道”窗格中，单击“运行”。
 6. 在生成运行窗格上，查看“摘要”选项卡的内容，然后单击“扩展”选项卡标头 。
 7. 在“扩展”选项卡上，单击“详细 SonarCloud 报表” 。 这将自动打开新的浏览器选项卡，其中显示了 SonarCloud 项目报表页。
 8. 验证报告和 Azure DevOps“扩展”选项卡现在是否“包含质量门结果” 。
@@ -202,7 +202,7 @@ lab:
 
 在本任务中，你将分析 SonarCloud 报表。
 
-1. 在 SonarCloud 项目的“概述”选项卡上，我们看到了关于主分支评估的报告摘要。  如果单击“主分支”图标（左侧栏）并选择“总体代码”，将看到更详细的报告 。
+1. 在 SonarCloud 项目的“概述”选项卡上，我们看到了关于主分支评估的报告摘要。 如果单击“主分支”图标（左侧栏）并选择“总体代码”，将看到更详细的报告 。
 
     ![Sonarcloud 报告](images/sonar-report.png)
 
@@ -237,11 +237,11 @@ lab:
 
 在此任务中，你将通过为 SonarCloud 项目分配 Azure DevOps 个人访问令牌来配置 SonarCloud 中的拉取请求集成。
 
-1. 切换到显示 SonarCloud 中 eShopOnWeb 项目的 Web 浏览器窗口。 
+1. 切换到显示 SonarCloud 中 eShopOnWeb 项目的 Web 浏览器窗口。
 2. 在项目的仪表板页面上，单击“管理”选项卡的图标，然后在下拉菜单中，单击“常规设置” 。
 3. 在“常规设置”页面，单击“拉取请求” 。
 4. 在“拉取请求”设置的“常规”部分的“提供程序”下拉列表中，选择“Azure DevOps Services”，然后单击“保存”    。
-5. 在“拉取请求”设置的“与 Azure DevOps Services 集成”部分的“个人访问令牌”文本框中，粘贴先前生成的 Azure DevOps 个人访问令牌，然后单击“保存”   
+5. 在“拉取请求”设置的“与 Azure DevOps Services 集成”部分的“个人访问令牌”文本框中，粘贴先前生成的 Azure DevOps 个人访问令牌，然后单击“保存”
 
     ![Sonarcloud 拉取请求设置](images/sonar-pr-setup.png)
 
@@ -249,13 +249,13 @@ lab:
 
 在此任务中，你将为与 SonarCloud 集成配置 Azure DevOps 分支策略。
 
-1. 切换到显示 Azure DevOps 门户中 eShopOnWeb 项目的 Web 浏览器窗口。 
+1. 切换到显示 Azure DevOps 门户中 eShopOnWeb 项目的 Web 浏览器窗口。
 2. 在 Azure DevOps 门户最左侧的垂直菜单栏中，单击“Repos”，然后在“存储库”部分，单击“分支”  。
-3. 在“分支”窗格的分支列表中，将鼠标指针悬停在主分支条目的右边缘上，这样会显示指示“更多选项”菜单的垂直省略号字符，单击省略号，然后在弹出的菜单中，单击“分支策略”。   
-4. 在主窗格上，单击“生成验证”部分右侧的“+”。  
+3. 在“分支”窗格的分支列表中，将鼠标指针悬停在主分支条目的右边缘上，这样会显示指示“更多选项”菜单的垂直省略号字符，单击省略号，然后在弹出的菜单中，单击“分支策略”。
+4. 在主窗格上，单击“生成验证”部分右侧的“+”。
 5. 在“添加生成策略”窗格的“生成管道”下拉列表中，选择在此实验室先前部分中创建的管道，然后在“显示名称”文本框中，键入“SonarCloud 分析”并单击“保存”    。
 
-    > 注意：Azure DevOps 现已配置为在创建针对主分支的任意拉取请求时触发 SonarCloud 分析。 
+    > 注意：Azure DevOps 现已配置为在创建针对主分支的任意拉取请求时触发 SonarCloud 分析。
 
 #### 任务 4：验证拉取请求集成
 
@@ -264,7 +264,7 @@ lab:
 > **注意**：你将更改存储库中的文件，并创建用于触发 SonarCloud 分析的请求。
 
 1. 在 Azure DevOps 门户左侧的垂直菜单栏中，单击“Repos”。 这将显示“文件”窗格。
-2. 在中央窗格中的文件夹层次结构中，导航到 src/Web/Services/BasketViewModelService.cs 文件夹中的 Program.cs 文件，然后单击“编辑”。  
+2. 在中央窗格中的文件夹层次结构中，导航到 src/Web/Services/BasketViewModelService.cs 文件夹中的 Program.cs 文件，然后单击“编辑”。
 3. 在“BasketViewModelService.cs”窗格上，将以下空方法添加到最后一个“}”之前的代码中：
 
     ```csharp
@@ -293,13 +293,13 @@ lab:
 
 1. 在 Azure Devops 门户的左下角，单击“项目设置”。
 2. 在“项目设置”垂直菜单的“Repos”部分，单击“存储库”  。
-3. 在“所有存储库”窗格中，单击“eShopOnWeb”。 
-4. 在“eShopOnWeb”窗格上，单击“策略”选项卡标题。 
-5. 在“策略”列表上，向下滚动到分支列表，然后单击表示主分支的条目。 
-6. 在主窗格上，向下滚动到“状态检查”部分并单击“+”。  
-7. 在“添加状态策略”窗格的“待检查的状态”下拉列表中，选择“SonarCloud/quality gate”条目，确保将“策略要求”选项设置为“必需”，然后单击“保存”     
+3. 在“所有存储库”窗格中，单击“eShopOnWeb”。
+4. 在“eShopOnWeb”窗格上，单击“策略”选项卡标题。
+5. 在“策略”列表上，向下滚动到分支列表，然后单击表示主分支的条目。
+6. 在主窗格上，向下滚动到“状态检查”部分并单击“+”。
+7. 在“添加状态策略”窗格的“待检查的状态”下拉列表中，选择“SonarCloud/quality gate”条目，确保将“策略要求”选项设置为“必需”，然后单击“保存”
 
-    > 注意：此时，用户只有在代码质量检查成功后才能合并拉取请求。  因此，需要在相应的 SonarCloud 项目中修复 SonarCloud 识别的所有问题，或将其标记为“已确认”或“已解决” 。
+    > 注意：此时，用户只有在代码质量检查成功后才能合并拉取请求。 因此，需要在相应的 SonarCloud 项目中修复 SonarCloud 识别的所有问题，或将其标记为“已确认”或“已解决” 。
 
 ## 审阅
 

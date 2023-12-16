@@ -12,7 +12,7 @@ lab:
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://learn.microsoft.com/azure/devops/server/compatibility)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
+- 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
@@ -42,13 +42,13 @@ lab:
 
 在此任务中，你将创建一个 eShopOnWeb Azure DevOps 项目，供多个实验室使用。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。   单击“创建”。
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。 单击“创建”。
 
 #### 任务 2：（如果已完成，请跳过此任务）导入 eShopOnWeb Git 存储库
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。  在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
 2. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
@@ -89,7 +89,7 @@ lab:
 
    >**注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
 
-4. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以检索 Azure 订阅 ID 属性的值： 
+4. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以检索 Azure 订阅 ID 属性的值：
 
     ```bash
     subscriptionName=$(az account show --query name --output tsv)
@@ -100,7 +100,7 @@ lab:
 
     > **注意**：将两个值都复制到文本文件中。 稍后将在本实验室用到它们。
 
-5. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体： 
+5. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体：
 
     ```bash
     az ad sp create-for-rbac --name sp-az400-azdo --role contributor --scopes /subscriptions/$subscriptionId
@@ -108,13 +108,13 @@ lab:
 
     > **注意**：此命令将生成 JSON 输出。 将输出复制到文本文件中。 本实验室中稍后会用到它。
 
-6. 接下来，从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 单击“项目设置 > 服务连接”（在“管道”下）和“新建服务连接”。 
-7. 在“新建服务连接”边栏选项卡上，选择“Azure 资源管理器”和“下一步”（可能需要向下滚动）。  
-8. 选择“服务主体(手动)”并单击“下一步”。 
+6. 接下来，从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 单击“项目设置 > 服务连接”（在“管道”下）和“新建服务连接”。
+7. 在“新建服务连接”边栏选项卡上，选择“Azure 资源管理器”和“下一步”（可能需要向下滚动）。
+8. 选择“服务主体(手动)”并单击“下一步”。
 9. 使用在前面的步骤中收集的信息填写空字段：
     - 订阅 ID 和名称。
     - 服务主体 ID (appId)、服务主体密钥（密码）和租户 ID（租户）。
-    - 在“服务连接名称”中，键入 azure-connection。  需要 Azure DevOps 服务连接来与 Azure 订阅通信时，将在 YAML 管道中引用此名称。
+    - 在“服务连接名称”中，键入 azure-connection。 需要 Azure DevOps 服务连接来与 Azure 订阅通信时，将在 YAML 管道中引用此名称。
 
 10. 单击“验证并保存”。
 
@@ -129,7 +129,7 @@ lab:
 3. 选择“Azure Repos Git (YAML)”
 4. 选择 eShopOnWeb 存储库
 5. 选择**现有 Azure Pipelines YAML 文件**
-6. 选择 /.ado/eshoponweb-ci-docker.yml 文件，然后单击“继续” 
+6. 选择 /.ado/eshoponweb-ci-docker.yml 文件，然后单击“继续”
 7. 在 YAML 管道定义中，自定义：
    - YOUR-SUBSCRIPTION-ID，替换为你的 Azure 订阅 ID。
    - rg-az400-container-NAME，其中包含将由管道创建的资源组名称（它可能也是现有资源组）。
@@ -141,13 +141,13 @@ lab:
     CI 定义由以下任务构成：
     - 资源：它下载的存储库文件将用于后续任务。
     - AzureResourceManagerTemplateDeployment：使用 bicep 模板部署 Azure 容器注册表。
-    - PowerShell：从上一任务的输出中检索“ACR 登录服务器”值并创建新的参数 acrLoginServer  
+    - PowerShell：从上一任务的输出中检索“ACR 登录服务器”值并创建新的参数 acrLoginServer
     - [**Docker**](https://learn.microsoft.com/azure/devops/pipelines/tasks/reference/docker-v0?view=azure-pipelines) **- 生成**：生成 Docker 映像并创建两个标记（最新和当前 BuildID）
     - Docker - 推送：向 Azure 容器注册表推送映像
 
-9. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/移动”选项。 将其命名为 eshoponweb-ci-docker，然后单击“保存”。 
+9. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/移动”选项。 将其命名为 eshoponweb-ci-docker，然后单击“保存”。
 
-10. 导航到 [Azure 门户](https://portal.azure.com)，在最近创建的资源组中搜索 Azure 容器注册表（它应名为 rg-az400-container-NAME）。  在左侧单击“服务”下的“存储库”，并确保已创建存储库 eshoponweb/web  。 单击存储库链接时，应看到两个标记（其中一个是最新的），这些是推送的映像。 如果没有看到，请检查管道的状态。
+10. 导航到 [Azure 门户](https://portal.azure.com)，在最近创建的资源组中搜索 Azure 容器注册表（它应名为 rg-az400-container-NAME）。 在左侧单击“服务”下的“存储库”，并确保已创建存储库 eshoponweb/web  。 单击存储库链接时，应看到两个标记（其中一个是最新的），这些是推送的映像。 如果没有看到，请检查管道的状态。
 
 ### 练习 3：导入并运行 CD 管道
 
@@ -160,7 +160,7 @@ lab:
 1. 导航到 [Azure 门户](https://portal.azure.com)。
 2. 在 Azure 门户中，单击页面顶部搜索文本框右侧的 Cloud Shell 图标。
 3. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
-4. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以检索 Azure 订阅 ID 属性的值： 
+4. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以检索 Azure 订阅 ID 属性的值：
 
     ```sh
     spId=$(az ad sp list --display-name sp-az400-azdo --query "[].id" --output tsv)
@@ -186,7 +186,7 @@ lab:
 3. 选择“Azure Repos Git (YAML)”
 4. 选择 eShopOnWeb 存储库
 5. 选择“现有 Azure Pipelines YAML 文件”
-6. 选择 /.ado/eshoponweb-cd-webapp-docker.yml 文件，然后单击“继续” 
+6. 选择 /.ado/eshoponweb-cd-webapp-docker.yml 文件，然后单击“继续”
 7. 在 YAML 管道定义中，自定义：
    - YOUR-SUBSCRIPTION-ID，替换为你的 Azure 订阅 ID。
    - rg-az400-container-NAME，其中包含之前在实验室中定义的资源组名称。
@@ -202,11 +202,11 @@ lab:
     - AzureResourceManagerTemplateDeployment：使用 bicep 模板部署 Azure 应用服务。
     - AzureResourceManagerTemplateDeployment：使用 Bicep 添加角色分配
 
-9. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道”>“管道”，然后将鼠标指针悬停在最近创建的管道上方。 单击省略号和“重命名/移动”选项。 将其命名为 eshoponweb-cd-webapp-docker，然后单击“保存”。 
+9. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道”>“管道”，然后将鼠标指针悬停在最近创建的管道上方。 单击省略号和“重命名/移动”选项。 将其命名为 eshoponweb-cd-webapp-docker，然后单击“保存”。
 
-    > 注意 1：使用 /.azure/bicep/webapp-docker.bicep 模板会创建应用服务计划、启用了系统分配的托管标识的 Web 应用，并引用之前推送的 Docker 映像：${acr.properties.loginServer}/eshoponweb/web:latest。  
+    > 注意 1：使用 /.azure/bicep/webapp-docker.bicep 模板会创建应用服务计划、启用了系统分配的托管标识的 Web 应用，并引用之前推送的 Docker 映像：${acr.properties.loginServer}/eshoponweb/web:latest。
 
-    > 注意 2：使用 /.azure/bicep/webapp-to-acr-roleassignment.bicep 模板为具有 AcrPull 角色的 Web 应用创建新的角色分配，以便能够检索 Docker 映像。  这可以在第一个模板中完成，但由于角色分配可能需要一些时间来传播，因此最好单独执行这两个任务。
+    > 注意 2：使用 /.azure/bicep/webapp-to-acr-roleassignment.bicep 模板为具有 AcrPull 角色的 Web 应用创建新的角色分配，以便能够检索 Docker 映像。 这可以在第一个模板中完成，但由于角色分配可能需要一些时间来传播，因此最好单独执行这两个任务。
 
 #### 任务 3：测试解决方案
 

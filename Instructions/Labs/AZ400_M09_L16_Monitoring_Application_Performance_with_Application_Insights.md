@@ -12,7 +12,7 @@ lab:
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/azure/devops/server/compatibility)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
+- 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
@@ -48,7 +48,7 @@ lab:
 
 在此任务中，你将创建一个 eShopOnWeb Azure DevOps 项目，供多个实验室使用。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。   单击“创建”。
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。 单击“创建”。
 
     ![创建项目](images/create-project.png)
 
@@ -56,7 +56,7 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。  在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
     ![导入存储库](images/import-repo.png)
 
@@ -115,7 +115,7 @@ lab:
     > 注意：我们将使用向导并基于项目创建新的 YAML 管道定义。
 
 3. 在“你的代码在哪里?”窗格上，单击“Azure Repos Git (YAML)”选项 。
-4. 在“选择存储库”窗格中，单击“eShopOnWeb”。 
+4. 在“选择存储库”窗格中，单击“eShopOnWeb”。
 5. 在“配置管道”窗格上，向下滚动并选择“入门管道” 。
 6. 选择入门管道中的所有行，然后将其删除。
 7. 从下面复制完整的模板管道，知道需要先修改参数再保存更改 ：
@@ -188,7 +188,7 @@ stages:
 
     - 在“Azure 订阅”下拉列表中，选择之前在实验室中已部署 Azure 资源的 Azure 订阅，单击“授权”，然后在出现提示时，使用在 Azure 资源部署期间使用的同一用户帐户进行身份验证 。
     - 在“应用服务名称”下拉列表中，选择之前在实验室中部署的 Web 应用的名称。
-    - 在“包或文件夹”文本框中，将默认值更新为 `$(Build.ArtifactStagingDirectory)/**/Web.zip`。 
+    - 在“包或文件夹”文本框中，将默认值更新为 `$(Build.ArtifactStagingDirectory)/**/Web.zip`。
 7. 单击“添加”按钮，确认“助手”窗格中的设置。
 
     > **注意**：这会自动将部署任务添加到 YAML 管道定义。
@@ -265,17 +265,17 @@ stages:
 
 10. 在“EShopOnWebLoadTesting”Azure 负载测试资源边栏选项卡中，注意“快速测试入门”，然后单击“快速测试”按钮  。
 11. 完成以下参数和设置以创建负载测试：
-- 测试 URL：输入在上一练习中部署的 Azure 应用服务的 URL (EShopOnWeb...azurewebsites.net)，包括 https:// 
+- 测试 URL：输入在上一练习中部署的 Azure 应用服务的 URL (EShopOnWeb...azurewebsites.net)，包括 https://
 - 指定负载：虚拟用户
 - 虚拟用户数：50
 - 测试持续时间（秒）：120
 - 加速时间（秒）：0
 12. 单击“运行测试”，确认测试的配置。
 13. 测试将运行约 2 分钟。 
-14. 运行测试后，导航回“EShopOnWebLoadTesting”Azure 负载测试资源页，然后导航到“测试”，选择“测试”并查看测试“Get_eshoponweb...”   
+14. 运行测试后，导航回“EShopOnWebLoadTesting”Azure 负载测试资源页，然后导航到“测试”，选择“测试”并查看测试“Get_eshoponweb...”
 15. 在顶部菜单中，单击“创建”、“创建快速测试”，创建第二个负载测试 。
 16. 完成以下参数和设置以创建另一个负载测试：
-- 测试 URL：输入在上一练习中部署的 Azure 应用服务的 URL (EShopOnWeb...azurewebsites.net)，包括 https:// 
+- 测试 URL：输入在上一练习中部署的 Azure 应用服务的 URL (EShopOnWeb...azurewebsites.net)，包括 https://
 - 指定负载：每秒请求数 (RPS)
 - 每秒请求数 (RPS)：100
 - 响应时间（毫秒）：500
@@ -355,7 +355,7 @@ Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活�
 
 6. 将所有提取的输入文件提交到源代码管理存储库。 为此，请导航到 Azure DevOps 门户 (https://dev.azure.com) ，然后导航到“EShopOnWeb”DevOps 项目。 
 7. 选择“Repos”。 在源代码文件夹结构中，请注意 tests 子文件夹。 请注意省略号 (...)，然后选择“新建”>“文件夹”。
-8. 将 jmeter 指定为文件夹名称，并将 placeholder.txt 指定为文件名（注意：不能将文件夹创建为空文件夹） 
+8. 将 jmeter 指定为文件夹名称，并将 placeholder.txt 指定为文件名（注意：不能将文件夹创建为空文件夹）
 9. 单击“提交”以确认创建占位符文件和 jmeter 文件夹。
 10. 在文件夹结构中，导航到新建的 jmeter 子文件夹 。 单击省略号 (...)，并选择“上传文件” 。
 11. 使用“浏览”选项导航到提取的 zip 文件的位置，并选择 config.yaml 和 quick_test.jmx  。

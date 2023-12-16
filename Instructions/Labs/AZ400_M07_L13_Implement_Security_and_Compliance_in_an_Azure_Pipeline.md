@@ -12,7 +12,7 @@ lab:
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://learn.microsoft.com/azure/devops/server/compatibility)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
+- 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
 
 ## 实验室概述
 
@@ -56,7 +56,7 @@ Azure DevOps 与 Mend Bolt 的集成将使你能够：
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。  在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
     ![导入存储库](images/import-repo.png)
 
@@ -75,21 +75,21 @@ Azure DevOps 与 Mend Bolt 的集成将使你能够：
 
 在此任务中，你将在新生成的 Azure Devops 项目中激活 WhiteSource Bolt。
 
-1. 在实验室计算机上，在显示已打开 eShopOnWeb 项目的 Azure DevOps 门户的 Web 浏览器窗口中，单击市场图标 >“浏览市场”。 
+1. 在实验室计算机上，在显示已打开 eShopOnWeb 项目的 Azure DevOps 门户的 Web 浏览器窗口中，单击市场图标 >“浏览市场”。
 
     ![浏览市场](images/browse-marketplace.png)
 
 2. 在市场上，搜索 Mend Bolt（以前称为 WhiteSource）并打开它。 Mend Bolt 是以前已知的 WhiteSource 工具的免费版本，该工具可扫描所有项目并检测开放源代码组件、许可证和已知漏洞。
 
-    > 警告：请确保选择“Mend Bolt”选项（免费版本）！ 
+    > 警告：请确保选择“Mend Bolt”选项（免费版本）！
 
-3. 在“Mend Bolt (以前称为 WhiteSource)”页上，单击“免费获取”。 
+3. 在“Mend Bolt (以前称为 WhiteSource)”页上，单击“免费获取”。
 
     ![获取 Mend Bolt](images/mend-bolt.png)
 
 4. 在下一页上，选择所需的 Azure DevOps 组织并安装。 安装后转到组织。
 
-5. 在 Azure DevOps 中，导航到“组织设置”，然后在“扩展”下选择“Mend”。   提供你的工作电子邮件地址（实验室个人帐户，例如，使用 AZ400learner@outlook.com 而不是 student@microsoft.com）、公司名称和其他详细信息，然后单击“创建帐户”按钮开始使用免费版本。 
+5. 在 Azure DevOps 中，导航到“组织设置”，然后在“扩展”下选择“Mend”。 提供你的工作电子邮件地址（实验室个人帐户，例如，使用 AZ400learner@outlook.com 而不是 student@microsoft.com）、公司名称和其他详细信息，然后单击“创建帐户”按钮开始使用免费版本。
 
     ![获取 Mend 帐户](images/mend-account.png)
 
@@ -97,11 +97,11 @@ Azure DevOps 与 Mend Bolt 的集成将使你能够：
 
 在此任务中，你将在 Azure DevOps 项目中创建并触发 CI 生成管道。 你将使用 Mend Bolt 扩展来确定此代码中易受攻击的 OSS 组件。
 
-1. 在实验室计算机上，从 eShopOnWeb Azure DevOps 项目的左侧垂直菜单栏中，导航到“管道 > 管道”部分，单击“创建管道”（或“新建管道）”。   
+1. 在实验室计算机上，从 eShopOnWeb Azure DevOps 项目的左侧垂直菜单栏中，导航到“管道 > 管道”部分，单击“创建管道”（或“新建管道）”。
 
-2. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。  
+2. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。
 
-3. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。  提供以下路径 /.ado/eshoponweb-ci-mend.yml，然后单击“继续”。 
+3. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 提供以下路径 /.ado/eshoponweb-ci-mend.yml，然后单击“继续”。
 
     ![选择“管道”](images/select-pipeline.png)
 
@@ -111,7 +111,7 @@ Azure DevOps 与 Mend Bolt 的集成将使你能够：
     - Whitesource 任务（仍保留旧名称），以运行 OSS 库的 Mend 工具分析。
     - 发布项目，运行此管道的代理将上传已发布的 Web 项目。
 
-5. 在执行管道时，请重命名它以便更容易地识别它（因为项目可用于多个实验室）。 转到 Azure DevOps 项目中的“管道/管道”部分，单击正在执行的管道名称（它将获取默认名称），然后在省略号图标上查找“重命名/移动”选项。  将其重命名为 eshoponweb-ci-mend，然后单击“保存”。 
+5. 在执行管道时，请重命名它以便更容易地识别它（因为项目可用于多个实验室）。 转到 Azure DevOps 项目中的“管道/管道”部分，单击正在执行的管道名称（它将获取默认名称），然后在省略号图标上查找“重命名/移动”选项。 将其重命名为 eshoponweb-ci-mend，然后单击“保存”。
 
     ![重命名管道](images/rename-pipeline.png)
 

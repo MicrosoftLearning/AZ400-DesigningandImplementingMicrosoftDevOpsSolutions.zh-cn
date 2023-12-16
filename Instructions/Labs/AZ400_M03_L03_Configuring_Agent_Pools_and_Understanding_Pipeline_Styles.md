@@ -12,7 +12,7 @@ lab:
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/azure/devops/server/compatibility)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
+- 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
 
 - [适用于 Windows 的 Git 下载页面](https://gitforwindows.org/)。 此应用程序将作为本实验室先决条件安装。
 
@@ -51,7 +51,7 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。  选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
 2. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
@@ -74,7 +74,7 @@ lab:
 4. 在“**选择存储库**”窗格中，单击“**EShopOnWeb**”。
 5. 在“**配置管道**”窗格上，选择“**现有 Azure Pipelines YAML 文件**”。
 6. 在“**选择现有 YAML 文件**”上，对“分支”选择“**主**”，对“路径”选择 **/.ado/eshoponweb-ci-pr.yml**。
-7. 单击 **“继续”** 。
+7. 单击“继续” 。
 8. 在“**查看管道 YAML**”窗格中，查看示例管道。 这是一个相当直截了当的 .NET 应用程序生成管道，它可以执行以下操作：
 - 单个阶段：生成
 - 单个作业：生成
@@ -149,7 +149,7 @@ lab:
     | 输入代理池（对于默认内容，按 enter） | **az400m03l03a-pool** |
     | 输入代理名称 | **az400m03-vm0** |
     | 输入工作文件夹（对于 _work，按 enter） | Enter |
-    | （仅在显示时）输入“为每个步骤的任务执行解压缩”。 （按 enter 表示 N） | 警告：仅当显示消息时按 Enter |
+    | （仅在显示时）输入“为每个步骤的任务执行解压缩”。 （按 enter 表示 N） | 警告：仅当显示消息时按 Enter|
     | 输入“将代理作为服务运行?” (Y/N)（按 enter 表示 N） | **是** |
     | 输入 enable SERVICE_SID_TYPE_UNRESTRICTED (Y/N)（按 enter 表示 N） | **是** |
     | 输入要用于服务的用户帐户（按 enter 表示 NT AUTHORITY\NETWORK SERVICE） | Enter |
@@ -179,7 +179,7 @@ lab:
 
 ### 练习 3：删除实验室中使用的资源
 
-1. 通过从命令提示符运行 .config.cmd remove 来停止并删除代理服务。
+1. 通过从命令提示符运行 `.\config.cmd remove` 来停止并删除代理服务。
 2. 删除代理池。
 3. 撤销 PAT 令牌。
 

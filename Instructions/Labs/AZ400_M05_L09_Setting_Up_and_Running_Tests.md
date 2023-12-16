@@ -12,7 +12,7 @@ lab:
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/azure/devops/server/compatibility)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/dotnet/architecture/modern-web-apps-azure/test-asp-net-core-mvc-apps)中的说明创建一个。
+- 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/dotnet/architecture/modern-web-apps-azure/test-asp-net-core-mvc-apps)中的说明创建一个。
 
 ## 实验室概述
 
@@ -48,7 +48,7 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。  选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
 1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
@@ -72,7 +72,7 @@ lab:
 1. 选择“Azure Repos Git (YAML)”。
 1. 选择“eShopOnWeb”存储库。
 1. 选择“现有 Azure Pipelines YAML 文件”。
-1. 选择“/.ado/eshoponweb-ci.yml”文件，然后单击“继续”。 
+1. 选择“/.ado/eshoponweb-ci.yml”文件，然后单击“继续”。
 
     CI 定义由以下任务构成：
     - DotNet 还原：使用 NuGet 包还原，可以安装项目的所有依赖项，而无需将其存储在源代码管理中。
@@ -81,7 +81,7 @@ lab:
     - DotNet 发布：将应用程序及其依赖项发布到文件夹以部署到托管系统。 在本例中，它是 Build.ArtifactStagingDirectory。
     - 发布项目 - 网站：发布（在上一步中创建的）应用项目，并将其作为管道项目提供。
     - 发布项目 - Bicep：发布基础结构项目（Bicep 文件），并将其作为管道项目提供。
-1. 单击“保存”按钮（不是“保存并运行”），保存管道定义。 
+1. 单击“保存”按钮（不是“保存并运行”），保存管道定义。
 
 #### 任务 2：向 CI 管道添加测试
 
