@@ -42,7 +42,7 @@ lab:
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
     - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
     - .github 文件夹容器 YAML GitHub 工作流定义。
-    - src 文件夹包含用于实验室方案的 .NET 6 网站。
+    - src**** 文件夹包含用于实验室方案的 .NET 7 网站。
 
 #### 任务 1：在 GitHub 中创建公共存储库并导入 eShopOnWeb
 
@@ -121,7 +121,7 @@ lab:
 在此任务中，你将修改给定的 GitHub 工作流并执行该工作流，以在自己的订阅中部署解决方案。
 
 1. 在浏览器窗口中，返回到 eShopOnWeb GitHub 存储库。
-2. 在存储库页上，转到“代码”并打开以下文件：eShopOnWeb/.github/workflows/eshoponweb-cicd.yml。 此工作流为给定的 .NET 6 网站代码定义 CI/CD 进程。
+2. 在存储库页上，转到“代码”并打开以下文件：eShopOnWeb/.github/workflows/eshoponweb-cicd.yml。 此工作流为给定的 .NET 7 网站代码定义 CI/CD 进程。
 3. 取消注释 on 部分（删除“#”）。 工作流每次推送到主分支时都会触发，并提供手动触发（“workflow_dispatch”）。
 4. 在 env 部分进行以下更改：
     - 替换 RESOURCE-GROUP 变量中的 NAME。 它应该是在前面步骤中创建的同一资源组。

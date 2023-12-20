@@ -77,7 +77,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
     > **注意**：任何想要连接到此 NuGet 源的用户都必须配置其环境。
 
 4. 返回 Artifacts 中心，单击“连接到源” 。
-5. 在“连接到源”窗格的 NuGet 部分，选择 Visual Studio，然后在 Visual Studio 窗格中复制“源”URL    。 https://pkgs.dev.azure.com/<Azure-DevOps-Org-Name>_packaging/EShopOnWebShared/nuget/v3/index.json)
+5. 在“连接到源”窗格的 NuGet 部分，选择 Visual Studio，然后在 Visual Studio 窗格中复制“源”URL    。 （https://pkgs.dev.azure.com/<Azure-DevOps-Org-Name>_packaging/EShopOnWebShared/nuget/v3/index.json)
 6. 切换回 Visual Studio 窗口。
 7. 在 Visual Studio 窗口中，单击“工具”菜单标题，在下拉菜单中，选择“NuGet 包管理器”，然后在级联菜单中选择“包管理器设置”  。
 8. 在“选项”对话框中，单击“包源”，然后单击加号以添加新的包源 。
@@ -106,7 +106,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
     使“将解决方案和项目放在同一目录中”设置保持启用状态。
 
-4. 单击“下一步”。 接受“.NET 6.0 (长期支持)”作为框架选项。
+4. 单击 “下一步” 。 接受 .NET 7.0**** 作为 Framework 选项。
 5. 按“创建”按钮确认项目创建。
 6. 在 Visual Studio 界面的“解决方案资源管理器”窗格中，右键单击 Class1.cs，在右键菜单中选择“删除”，并在出现确认提示时单击“确定”   。
 7. 按 Ctrl+Shift+B 或右键单击 EShopOnWeb.Shared 项目，然后选择“生成”以生成项目。

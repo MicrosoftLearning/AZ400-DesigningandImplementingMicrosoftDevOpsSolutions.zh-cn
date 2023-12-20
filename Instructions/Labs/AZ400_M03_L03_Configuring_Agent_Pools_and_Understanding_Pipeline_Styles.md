@@ -58,7 +58,7 @@ lab:
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
     - .azure 文件夹包含某些实验室方案中使用的 Bicep & ARM 基础结构即代码模板。
     - .github 文件夹容器 YAML GitHub 工作流定义。
-    - src 文件夹包含实验室方案中使用的 .NET 6 网站。
+    - src**** 文件夹包含实验室方案中使用的 .NET 7 网站。
 
 ### 练习 1：创作基于 YAML 的 Azure Pipelines
 
@@ -97,7 +97,7 @@ lab:
 
 1. 在实验室虚拟机（实验室 VM）或你自己的计算机中，启动 Web 浏览器，导航到 [Azure DevOps 门户](https://dev.azure.com)，并使用与你的 Azure DevOps 组织相关联的 Microsoft 帐户登录。
 
-  > 注意：实验室虚拟机应安装所有必要的必备软件。 如果要在自己的计算机上安装 ，则需要安装生成演示项目所需的 .NET 6.0.x SDK 或更高版本。 请参阅[下载 .NET](https://dotnet.microsoft.com/download/dotnet)。
+  > 注意：实验室虚拟机应安装所有必要的必备软件。 如果要在自己的计算机上安装 ，则需要安装生成演示项目所需的 .NET 7.0.x SDK 或更高版本。 请参阅[下载 .NET](https://dotnet.microsoft.com/download/dotnet)。
 
 1. 在 Azure DevOps 门户中，单击“Azure DevOps”页右上角的“用户设置”图标，根据是否已打开预览功能，你应在菜单中看到“安全”或“个人访问令牌”项，如果你看到“安全”请单击它，然后选择“个人访问令牌”    。 在“个人访问令牌”窗格上，单击“+ 新建令牌” 。
 2. 在“新建个人访问令牌”窗格上，单击“显示所有范围”链接，指定以下设置，然后单击“创建”（将其他设置全部保留为默认值）  ：
