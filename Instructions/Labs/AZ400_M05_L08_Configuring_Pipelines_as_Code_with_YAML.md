@@ -12,11 +12,11 @@ lab:
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/azure/devops/server/compatibility)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
+- 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
-- 验证你是否拥有 Microsoft 帐户或 Microsoft Entra 帐户，并且该帐户在 Azure 订阅中具有所有者角色，在与 Azure 订阅关联的 Microsoft Entra 租户中具有全局管理员角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/azure/active-directory/roles/manage-roles-portal)。
+- 验证你拥有 Microsoft 帐户或 Microsoft Entra 帐户，该帐户在 Azure 订阅中具有所有者角色并且在与 Azure 订阅关联的 Microsoft Entra 租户中具有全局管理员角色。 有关详细信息，请参阅[使用 Azure 门户列出 Azure 角色分配](https://docs.microsoft.com/azure/role-based-access-control/role-assignments-list-portal)和[在 Azure Active Directory 中查看和分配管理员角色](https://docs.microsoft.com/azure/active-directory/roles/manage-roles-portal)。
 
 ## 实验室概述
 
@@ -48,7 +48,7 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb_MultiStageYAML 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。  选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb_MultiStageYAML 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
     ![导入存储库](images/import-repo.png)
 
@@ -57,13 +57,13 @@ lab:
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
     - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
     - .github 文件夹容器 YAML GitHub 工作流定义。
-    - src 文件夹包含用于实验室方案的 .NET 6 网站。
+    - src**** 文件夹包含用于实验室方案的 .NET 7 网站。
 
 #### 任务 2：创建 Azure 资源
 
 在本任务中，你将使用 Azure 门户创建 Azure Web 应用。
 
-1. 从实验室计算机启动 Web 浏览器，导航到 [**Azure 门户**](https://portal.azure.com)，并通过用户帐户登录，该帐户在本实验室将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Microsoft Entra 租户中具有全局管理员角色。
+1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Microsoft Entra 租户中具有全局管理员角色。
 2. 在 Azure 门户的工具栏中，单击搜索文本框右侧的“Cloud Shell”图标。
 3. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
 
@@ -160,7 +160,7 @@ lab:
 
     - 在“Azure 订阅”下拉列表中，选择之前在实验室中已部署 Azure 资源的 Azure 订阅，单击“授权”，然后在出现提示时，使用在 Azure 资源部署期间使用的同一用户帐户进行身份验证 。
     - 在“应用服务名称”下拉列表中，选择之前在实验室中部署的 Web 应用的名称。
-    - 在“包或文件夹”文本框中，将默认值更新为 `$(Build.ArtifactStagingDirectory)/**/Web.zip`。 
+    - 在“包或文件夹”文本框中，将默认值更新为 `$(Build.ArtifactStagingDirectory)/**/Web.zip`。
 7. 单击“添加”按钮，确认“助手”窗格中的设置。
 
     > **注意**：这会自动将部署任务添加到 YAML 管道定义。

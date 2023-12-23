@@ -42,7 +42,7 @@ lab:
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
     - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
     - .github 文件夹容器 YAML GitHub 工作流定义。
-    - src 文件夹包含用于实验室方案的 .NET 6 网站。
+    - src**** 文件夹包含用于实验室方案的 .NET 7 网站。
 
 #### 任务 1：在 GitHub 中创建公共存储库并导入 eShopOnWeb
 
@@ -52,7 +52,7 @@ lab:
 
     ![创建仓库](images/github-new.png)
 
-2. 在“创建新存储库”页上，单击“导入存储库”链接（页面标题下方）。 
+2. 在“创建新存储库”页上，单击“导入存储库”链接（页面标题下方）。
 
     > 注意：还可以在 https://github.com/new/import 直接打开导入网站
 
@@ -67,7 +67,7 @@ lab:
 
 4. 单击“开始导入”并等待存储库准备就绪。
 
-5. 在存储库页上，转到“设置”，单击“操作”>“常规”，然后选择“允许所有操作和可重用工作流”选项。   单击“保存” 。
+5. 在存储库页上，转到“设置”，单击“操作”>“常规”，然后选择“允许所有操作和可重用工作流”选项。 单击“保存” 。
 
     ![启用 GitHub Actions](images/enable-actions.png)
 
@@ -87,7 +87,7 @@ lab:
 
     > 注意：如果这是你第一次打开 Cloud Shell，则需要配置[永久性存储](https://learn.microsoft.com/azure/cloud-shell/persisting-shell-storage)
 
-6. 确保终端在 Bash 模式下运行并执行以下命令，将 SUBSCRIPTION-ID 和 RESOURCE-GROUP 替换为自己的标识符（这两者均可在资源组的“概述”页上找到）：   
+6. 确保终端在 Bash 模式下运行并执行以下命令，将 SUBSCRIPTION-ID 和 RESOURCE-GROUP 替换为自己的标识符（这两者均可在资源组的“概述”页上找到）：
 
     `az ad sp create-for-rbac --name GH-Action-eshoponweb --role contributor --scopes /subscriptions/SUBSCRIPTION-ID/resourceGroups/RESOURCE-GROUP --sdk-auth`
 
@@ -110,7 +110,7 @@ lab:
    az provider register --namespace Microsoft.Web
    ``` 
 10. 在浏览器窗口中，返回到 eShopOnWeb GitHub 存储库。
-11. 在存储库页上，转到“设置”，单击“机密和变量”>“操作”。  单击“新建存储库机密”
+11. 在存储库页上，转到“设置”，单击“机密和变量”>“操作”。 单击“新建存储库机密”
     - 名称：AZURE_CREDENTIALS
     - 机密：粘贴以前复制的 JSON 对象（GitHub 能够以相同的名称保存多个机密，由 [azure/login](https://github.com/Azure/login) 操作使用）
 
@@ -121,16 +121,16 @@ lab:
 在此任务中，你将修改给定的 GitHub 工作流并执行该工作流，以在自己的订阅中部署解决方案。
 
 1. 在浏览器窗口中，返回到 eShopOnWeb GitHub 存储库。
-2. 在存储库页上，转到“代码”并打开以下文件：eShopOnWeb/.github/workflows/eshoponweb-cicd.yml。  此工作流为给定的 .NET 6 网站代码定义 CI/CD 进程。
+2. 在存储库页上，转到“代码”并打开以下文件：eShopOnWeb/.github/workflows/eshoponweb-cicd.yml。 此工作流为给定的 .NET 7 网站代码定义 CI/CD 进程。
 3. 取消注释 on 部分（删除“#”）。 工作流每次推送到主分支时都会触发，并提供手动触发（“workflow_dispatch”）。
 4. 在 env 部分进行以下更改：
-    - 替换 RESOURCE-GROUP 变量中的 NAME。  它应该是在前面步骤中创建的同一资源组。
+    - 替换 RESOURCE-GROUP 变量中的 NAME。 它应该是在前面步骤中创建的同一资源组。
     - （可选）可以为 LOCATION 选择离你最近的 [azure 区域](https://azure.microsoft.com/explore/global-infrastructure/geographies)。 例如，“eastus”、“eastasia”、“westus”等。
-    - 替换 SUBSCRIPTION-ID 中的 YOUR-SUBS-ID。 
-    - 将 WEBAPP-NAME 中的 NAME 替换为一些唯一别名。  它将用于使用 Azure 应用服务创建全局唯一网站。
+    - 替换 SUBSCRIPTION-ID 中的 YOUR-SUBS-ID。
+    - 将 WEBAPP-NAME 中的 NAME 替换为一些唯一别名。 它将用于使用 Azure 应用服务创建全局唯一网站。
 5. 请仔细阅读工作流，并提供注释以帮助理解。
 
-6. 单击“开始提交”和“提交更改”保留默认值（更改主分支）。  工作流将自动执行。
+6. 单击“开始提交”和“提交更改”保留默认值（更改主分支）。 工作流将自动执行。
 
 #### 任务 3：查看 GitHub 工作流执行
 
@@ -153,22 +153,22 @@ lab:
 
 在此任务中，你将使用 GitHub 环境在工作流的部署作业上执行定义的操作之前请求手动批准。
 
-1. 在存储库页上，转到“代码”并打开以下文件：eShopOnWeb/.github/workflows/eshoponweb-cicd.yml。 
-2. 在“部署作业”部分中，可以找到对一个名为“开发”的环境的引用。   GitHub 使用的[环境](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)为目标添加保护规则（和机密）。
+1. 在存储库页上，转到“代码”并打开以下文件：eShopOnWeb/.github/workflows/eshoponweb-cicd.yml。
+2. 在“部署作业”部分中，可以找到对一个名为“开发”的环境的引用。 GitHub 使用的[环境](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)为目标添加保护规则（和机密）。
 
-3. 在存储库页上，转到“设置”，打开“环境”，然后单击“新建环境”。  
-4. 将环境命名为“开发”，然后单击“配置环境”。 
+3. 在存储库页上，转到“设置”，打开“环境”，然后单击“新建环境”。
+4. 将环境命名为“开发”，然后单击“配置环境”。
 
-    > 注意：如果“环境”列表中已存在名为“开发”的环境，则单击该环境名称打开其配置。   
+    > 注意：如果“环境”列表中已存在名为“开发”的环境，则单击该环境名称打开其配置。  
     
-5. 在“配置开发”选项卡中，选中“必需审阅者”选项和作为审阅者的 GitHub 帐户。  单击“保存保护规则”。
-6. 现在，让我们测试保护规则。 在存储库页上，转到“操作”，单击“eShopOnWeb 生成和测试”工作流，然后单击“运行工作流”>“运行工作流”手动执行。  
+5. 在“配置开发”选项卡中，选中“必需审阅者”选项和作为审阅者的 GitHub 帐户。 单击“保存保护规则”。
+6. 现在，让我们测试保护规则。 在存储库页上，转到“操作”，单击“eShopOnWeb 生成和测试”工作流，然后单击“运行工作流”>“运行工作流”手动执行。
 
     ![手动触发器工作流](images/gh-manual-run.png)
 
 7. 单击工作流的开始执行，并等待 buildandtest 作业完成。 到达 deploy 作业后，你将看到评审请求。
 
-8. 单击“查看部署”，选中“开发”，然后单击“批准和部署”。  
+8. 单击“查看部署”，选中“开发”，然后单击“批准和部署”。
 
     ![审批](images/gh-approve.png)
 

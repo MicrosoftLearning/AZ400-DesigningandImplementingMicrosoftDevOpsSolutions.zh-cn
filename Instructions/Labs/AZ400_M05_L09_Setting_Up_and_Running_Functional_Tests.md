@@ -12,7 +12,7 @@ lab:
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/azure/devops/server/compatibility?view=azure-devops)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
+- 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://docs.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
@@ -53,7 +53,7 @@ lab:
 3. 如果需要，在“Azure DevOps 演示生成器”页面上，单击“接受”以接受访问 Azure DevOps 订阅的权限请求 。
 4. 在“新建项目”页面上的页面的“新建项目名称”文本框中，键入“设置和运行功能测试”，在“选择组织”下拉列表中选择你的 Azure DevOps 组织，然后单击“选择模板”    。
 5. 在模板列表中，单击工具栏中的“DevOps 实验室”，选择“Selenium”模板并单击“选择模板”  。
-6. 返回“新建项目”页面，单击“创建项目” 
+6. 返回“新建项目”页面，单击“创建项目”
 
     > **注意**：等待此过程完成。 这大约需要 2 分钟。 如果该过程失败，请导航到你的 DevOps 组织，删除项目并重试。
 
@@ -76,7 +76,7 @@ lab:
     | 区域 | 你想要在本实验室中用于部署 Azure 资源的 Azure 区域的名称 |
     | 虚拟机名称 | az40011bvm |
 
-6. 依次单击“查看 + 创建”、“创建”。 
+6. 依次单击“查看 + 创建”、“创建”。
 
     > **注意**：等待此过程完成。 该操作需要约 15 分钟。
 
@@ -165,7 +165,7 @@ lab:
    - **Selenium 测试执行**：通过在发布过程中执行 UI 测试可以检测到意外更改。 设置基于浏览器的自动测试可提高应用程序的质量，免去了手动进行测试。 在此阶段，我们将对已部署的 Web 应用程序执行 Selenium 测试。 后续任务描述了如何使用 Selenium 在发布管道中测试网站。
 
      - **Visual Studio 测试平台安装程序**：[Visual Studio 测试平台安装程序](https://docs.microsoft.com/azure/devops/pipelines/tasks/tool/vstest-platform-tool-installer?view=vsts)任务将从 nuget.org 或指定源获取 Microsoft 测试平台，并将其添加到工具缓存。 它满足 vstest 要求，因此无需在代理计算机上完整安装 Visual Studio 即可运行生成或发布管道中的任何后续 Visual Studio 测试任务。
-     - 运行 Selenium UI 测试：此[任务](https://github.com/Microsoft/azure-pipelines-tasks/blob/master/Tasks/VsTestV2/README.md)使用 vstest.console.exe 在代理计算机上执行 Selenium 测试用例。 
+     - 运行 Selenium UI 测试：此[任务](https://github.com/Microsoft/azure-pipelines-tasks/blob/master/Tasks/VsTestV2/README.md)使用 vstest.console.exe 在代理计算机上执行 Selenium 测试用例。
 
 6. 在“所有管道”>“Selenium”窗格上，单击“IIS 部署”阶段，然后在“代理作业”窗格上，验证是否选中默认代理池   。
 7. 对“SQL 部署”和“Selenium 测试执行”阶段重复上述步骤 。 如有需要，单击“保存”以保存更改。

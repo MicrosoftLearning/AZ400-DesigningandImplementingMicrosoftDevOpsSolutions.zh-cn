@@ -12,7 +12,7 @@ lab:
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://learn.microsoft.com/azure/devops/server/compatibility)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
+- 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
@@ -54,7 +54,7 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。  在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
     ![导入存储库](images/import-repo.png)
 
@@ -63,14 +63,14 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
     - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
     - .github 文件夹容器 YAML GitHub 工作流定义。
-    - src 文件夹包含用于实验室方案的 .NET 6 网站。
+    - src**** 文件夹包含用于实验室方案的 .NET 7 网站。
 
 ### 练习 1：设置 CI 管道以生成 eShopOnWeb 容器
 
 设置 CI YAML 管道，用于：
 
 - 创建 Azure 容器注册表以保留容器映像
-- 使用 Docker Compose 生成和推送 eshoppublicapi 和 eshopwebmvc 容器映像。  将仅部署 eshopwebmvc 容器。
+- 使用 Docker Compose 生成和推送 eshoppublicapi 和 eshopwebmvc 容器映像。 将仅部署 eshopwebmvc 容器。
 
 #### 任务 1：（如果已完成，请跳过此任务）创建服务主体
 
@@ -100,7 +100,7 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
     > **注意**：将两个值都复制到文本文件中。 稍后将在本实验室用到它们。
 
-5. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体（将 myServicePrincipalName 替换为任意由字母和数字组成的唯一字符串）和 mySubscriptionID（替换为你的 Azure subscriptionId）：   
+5. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体（将 myServicePrincipalName 替换为任意由字母和数字组成的唯一字符串）和 mySubscriptionID（替换为你的 Azure subscriptionId）：
 
     ```bash
     az ad sp create-for-rbac --name myServicePrincipalName \
@@ -110,18 +110,18 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
     > **注意**：此命令将生成 JSON 输出。 将输出复制到文本文件中。 本实验室中稍后会用到它。
 
-6. 接下来，从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 单击“项目设置 > 服务连接”（在“管道”下）和“新建服务连接”。 
+6. 接下来，从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 单击“项目设置 > 服务连接”（在“管道”下）和“新建服务连接”。
 
     ![新建服务连接](images/new-service-connection.png)
 
-7. 在“新建服务连接”边栏选项卡上，选择“Azure 资源管理器”和“下一步”（可能需要向下滚动）。  
+7. 在“新建服务连接”边栏选项卡上，选择“Azure 资源管理器”和“下一步”（可能需要向下滚动）。
 
-8. 选择“服务主体(手动)”并单击“下一步”。 
+8. 选择“服务主体(手动)”并单击“下一步”。
 
 9. 使用在前面的步骤中收集的信息填写空字段：
     - 订阅 ID 和名称。
     - 服务主体 ID (appId)、服务主体密钥（密码）和租户 ID（租户）。
-    - 在“服务连接名称”中，键入 azure subs。  需要 Azure DevOps 服务连接来与 Azure 订阅通信时，将在 YAML 管道中引用此名称。
+    - 在“服务连接名称”中，键入 azure subs。 需要 Azure DevOps 服务连接来与 Azure 订阅通信时，将在 YAML 管道中引用此名称。
 
     ![Azure 服务连接](images/azure-service-connection.png)
 
@@ -131,30 +131,30 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 在此任务中，你将导入现有的 CI YAML 管道定义、修改并运行它。 它将创建新的 Azure 容器注册表 (ACR) 并生成/发布 eShopOnWeb 容器映像。
 
-1. 从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 转到“管道 > 管道”，然后单击“创建管道”（或“新建管道”）。  
+1. 从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 转到“管道 > 管道”，然后单击“创建管道”（或“新建管道”）。
 
-2. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。  
+2. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。
 
-3. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。  提供以下路径 /.ado/eshoponweb-ci-dockercompose.yml，然后单击“继续”。 
+3. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 提供以下路径 /.ado/eshoponweb-ci-dockercompose.yml，然后单击“继续”。
 
     ![选择“管道”](images/select-ci-container-compose.png)
 
-4. 在 YAML 管道定义中，通过替换 AZ400-EWebShop-NAME 中的 NAME 来自定义资源组名称，并将 YOUR-SUBSCRIPTION-ID 替换为你自己的 Azure subscriptionId。  
+4. 在 YAML 管道定义中，通过替换 AZ400-EWebShop-NAME 中的 NAME 来自定义资源组名称，并将 YOUR-SUBSCRIPTION-ID 替换为你自己的 Azure subscriptionId。
 
 5. 单击“保存并运行”，等待管道成功执行。
 
     > **注意**：此生成可能需要花费几分钟时间完成。 生成定义由以下任务构成：
-    - AzureResourceManagerTemplateDeployment 使用 bicep 部署 Azure 容器注册表。 
+    - AzureResourceManagerTemplateDeployment 使用 bicep 部署 Azure 容器注册表。
     - PowerShell 任务获取 bicep 输出（ACR 登录服务器）并创建管道变量。
     - DockerCompose 任务生成 eShopOnWeb 的容器映像并将其推送到 Azure 容器注册表。
 
-6. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-ci-dockercompose，然后单击“保存”。 
+6. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-ci-dockercompose，然后单击“保存”。
 
-7. 执行完成后，在 Azure 门户中打开以前定义的资源组，应找到 Azure 容器注册表 (ACR)，其中包含创建的容器映像 eshoppublicapi 和 eshopwebmvc。  仅在部署阶段使用 eshopwebmvc。
+7. 执行完成后，在 Azure 门户中打开以前定义的资源组，应找到 Azure 容器注册表 (ACR)，其中包含创建的容器映像 eshoppublicapi 和 eshopwebmvc。 仅在部署阶段使用 eshopwebmvc。
 
     ![ACR 中的容器映像](images/azure-container-registry.png)
 
-8. 单击“访问密钥”并复制密码值，该值将用于以下任务，因为我们会在 Azure 密钥保管库中将其保留为机密。 
+8. 单击“访问密钥”并复制密码值，该值将用于以下任务，因为我们会在 Azure 密钥保管库中将其保留为机密。
 
     ![ACR 密码](images/acr-password.png)
 
@@ -164,9 +164,9 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 对于本实验室场景，我们将有一个 Azure 容器实例 (ACI)，用于拉取并运行存储在 Azure 容器注册表 (ACR) 中的容器映像。 我们打算将 ACR 的密码作为机密存储到密钥保管库中。
 
-1. 在 Azure 门户中的“搜索资源、服务和文档”文本框中，键入“密钥保管库”，然后按 Enter 键。  
-2. 选择“密钥保管库”边栏选项卡，单击“创建 > 密钥保管库”。 
-3. 在“创建密钥保管库”边栏选项卡的“基本信息”选项卡中，指定以下设置，然后单击“下一步”：  
+1. 在 Azure 门户中的“搜索资源、服务和文档”文本框中，键入“密钥保管库”，然后按 Enter 键。
+2. 选择“密钥保管库”边栏选项卡，单击“创建 > 密钥保管库”。
+3. 在“创建密钥保管库”边栏选项卡的“基本信息”选项卡中，指定以下设置，然后单击“下一步”：
 
     | 设置 | 值 |
     | --- | --- |
@@ -182,18 +182,18 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
     > **注意**：你需要保护对密钥保管库的访问，只允许得到授权的应用程序和用户进行访问。 若要从保管库访问数据，你需要提供对先前创建的服务主体的读取（获取/列出）权限，以便在管道中进行身份验证。 
 
-    1. 在“权限”边栏选项卡上“机密权限”的下方，选中“获取”和“列出”权限。    单击“下一步”。
-    2. 在“主体”边栏选项卡上，使用给定的“ID”或“名称”搜索以前创建的服务主体，并从列表中选择它。  单击“下一步”、“下一步”、“创建”（访问策略）  。
-    3. 在“查看 + 创建”边栏选项卡上，单击“创建”。 
+    1. 在“权限”边栏选项卡上“机密权限”的下方，选中“获取”和“列出”权限。 单击“下一步”。
+    2. 在“主体”边栏选项卡上，使用给定的“ID”或“名称”搜索以前创建的服务主体，并从列表中选择它。 单击“下一步”、“下一步”、“创建”（访问策略）  。
+    3. 在“查看 + 创建”边栏选项卡上，单击“创建”。
 
-5. 返回到“创建密钥保管库”边栏选项卡，单击“查看 + 创建”>“创建” 
+5. 返回到“创建密钥保管库”边栏选项卡，单击“查看 + 创建”>“创建”
 
     > 注意：等待预配 Azure 密钥保管库。 此过程应该会在 1 分钟内完成。
 
-6. 在“部署完成”边栏选项卡上，单击“转到资源”。 
+6. 在“部署完成”边栏选项卡上，单击“转到资源”。
 7. 在“Azure 密钥保管库”(ewebshop-kv-NAME) 边栏选项卡左侧垂直菜单中的“对象”部分，单击“机密” 。
-8. 在“机密”边栏选项卡上，单击“生成/导入”。 
-9. 在“创建机密”边栏选项卡上，指定以下设置并单击“创建”（将其他设置保留为默认值）： 
+8. 在“机密”边栏选项卡上，单击“生成/导入”。
+9. 在“创建机密”边栏选项卡上，指定以下设置并单击“创建”（将其他设置保留为默认值）：
 
     | 设置 | 值 |
     | --- | --- |
@@ -218,7 +218,7 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
     | Azure 订阅 | 可用 Azure 服务连接 > Azure 订阅 |
     | 密钥保管库名称 | 你的密钥保管库名称|
 
-4. 在“变量”下，单击“+ 添加”，然后选择 acr-secret 机密。   单击“确定”。
+4. 在“变量”下，单击“+ 添加”，然后选择 acr-secret 机密。 单击“确定”。
 5. 单击“保存” 。
 
     ![变量组创建](images/vg-create.png)
@@ -227,17 +227,17 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 在此任务中，你将导入一个 CD 管道，对其进行自定义并运行，以部署之前在 Azure 容器实例中创建的容器映像。
 
-1. 从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 转到“管道 > 管道”，然后单击“新建管道”。 
+1. 从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 转到“管道 > 管道”，然后单击“新建管道”。
 
-2. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。  
+2. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。
 
-3. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。  提供以下路径 /.ado/eshoponweb-cd-aci.yml，然后单击“继续”。 
+3. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 提供以下路径 /.ado/eshoponweb-cd-aci.yml，然后单击“继续”。
 
 4. 在 YAML 管道定义中，自定义：
 
     - YOUR-SUBSCRIPTION-ID，替换为你的 Azure 订阅 ID。
     - az400eshop-NAME，替换 NAME 使其全局唯一。
-    - YOUR-ACR.azurecr.io 和 ACR-USERNAME 与 ACR 登录服务器（这两者都需要 ACR 名称，可以在“ACR > 访问密钥”上查看）。 
+    - YOUR-ACR.azurecr.io 和 ACR-USERNAME 与 ACR 登录服务器（这两者都需要 ACR 名称，可以在“ACR > 访问密钥”上查看）。
     - AZ400-EWebShop-NAME，其中包含之前在实验室中定义的资源组名称。
 
 5. 单击“保存并运行”。
@@ -247,10 +247,10 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
     > 注意：部署可能需要几分钟才能完成。 CD 定义由以下任务构成：
     - 资源：已准备好根据 CI 管道完成自动触发。 它还会下载 bicep 文件的存储库。
-    - 变量（对于部署阶段）连接到变量组，以使用 Azure 密钥保管库机密 acr-secret 
+    - 变量（对于部署阶段）连接到变量组，以使用 Azure 密钥保管库机密 acr-secret
     - AzureResourceManagerTemplateDeployment 使用 bicep 模板部署 Azure 容器实例 (ACI)，并提供 ACR 登录参数以允许 ACI 从 Azure 容器注册表 (ACR) 下载以前创建的容器映像。
 
-7. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-cd-aci，然后单击“保存”。 
+7. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-cd-aci，然后单击“保存”。
 
 ### 练习 2：删除 Azure 实验室资源
 

@@ -12,7 +12,7 @@ lab:
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://learn.microsoft.com/azure/devops/server/compatibility)。
 
--               设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization?view=azure-devops)中的说明创建一个。
+- 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization?view=azure-devops)中的说明创建一个。
 
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
@@ -41,20 +41,20 @@ lab:
 
 在此任务中，你将创建一个 eShopOnWeb Azure DevOps 项目，供多个实验室使用。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。   单击“创建”。
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。 单击“创建”。
 
 #### 任务 2：（如果已完成，请跳过此任务）导入 eShopOnWeb Git 存储库
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。  在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”： 
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
 2. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
     - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
     - .github 文件夹容器 YAML GitHub 工作流定义。
-    - src 文件夹包含用于实验室方案的 .NET 6 网站。
+    - src**** 文件夹包含用于实验室方案的 .NET 7 网站。
 
 #### 任务 3：（如果已完成，请跳过此任务）将主分支设置为默认分支
 
@@ -75,9 +75,9 @@ lab:
 3. 选择“Azure Repos Git (YAML)”。
 4. 选择“eShopOnWeb”存储库。
 5. 选择“现有 Azure Pipelines YAML 文件”。
-6. 选择“/.ado/eshoponweb-ci.yml”文件，然后单击“继续”。 
+6. 选择“/.ado/eshoponweb-ci.yml”文件，然后单击“继续”。
 7. 单击“运行”按钮以运行管道。
-8. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-ci，然后单击“保存”。 
+8. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-ci，然后单击“保存”。
 
 #### 任务 2：管理服务连接
 
@@ -100,7 +100,7 @@ lab:
 
    >**注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
 
-4. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以检索 Azure 订阅 ID 属性的值： 
+4. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以检索 Azure 订阅 ID 属性的值：
 
     ```sh
     subscriptionName=$(az account show --query name --output tsv)
@@ -111,7 +111,7 @@ lab:
 
     > **注意**：将两个值都复制到文本文件中。 稍后将在本实验室用到它们。
 
-5. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体： 
+5. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体：
 
     ```sh
     az ad sp create-for-rbac --name sp-az400-azdo --role contributor --scopes /subscriptions/$subscriptionId
@@ -119,16 +119,16 @@ lab:
 
     > **注意**：此命令将生成 JSON 输出。 将输出复制到文本文件中。 本实验室中稍后会用到它。
 
-6. 接下来，从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 单击“项目设置 > 服务连接”（在“管道”下）和“新建服务连接”。 
+6. 接下来，从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 单击“项目设置 > 服务连接”（在“管道”下）和“新建服务连接”。
 
-7. 在“新建服务连接”边栏选项卡上，选择“Azure 资源管理器”和“下一步”（可能需要向下滚动）。  
+7. 在“新建服务连接”边栏选项卡上，选择“Azure 资源管理器”和“下一步”（可能需要向下滚动）。
 
-8. 选择“服务主体(手动)”并单击“下一步”。 
+8. 选择“服务主体(手动)”并单击“下一步”。
 
 9. 使用在前面的步骤中收集的信息填写空字段：
     - 订阅 ID 和名称
     - 服务主体 ID（或 clientId）、密钥（或密码）和 TenantId。
-    - 在“服务连接名称”中，键入 azure subs。  需要 Azure DevOps 服务连接来与 Azure 订阅通信时，将在 YAML 管道中引用此名称。
+    - 在“服务连接名称”中，键入 azure subs。 需要 Azure DevOps 服务连接来与 Azure 订阅通信时，将在 YAML 管道中引用此名称。
 
 10. 单击“验证并保存”。
 
@@ -141,7 +141,7 @@ lab:
 3. 选择“Azure Repos Git (YAML)”。
 4. 选择“eShopOnWeb”存储库。
 5. 选择“现有 Azure Pipelines YAML 文件”。
-6. 选择“/.ado/eshoponweb-cd-webapp-code.yml”文件，然后单击“继续”。 
+6. 选择“/.ado/eshoponweb-cd-webapp-code.yml”文件，然后单击“继续”。
 7. 在 YAML 管道定义中，自定义：
    - YOUR-SUBSCRIPTION-ID，替换为你的 Azure 订阅 ID。
    - az400eshop-NAME，替换 NAME 使其全局唯一。
@@ -155,7 +155,7 @@ lab:
     - 资源：它已准备好根据 CI 管道完成自动触发。 它还会下载 bicep 文件的存储库。
     - AzureResourceManagerTemplateDeployment：使用 bicep 模板部署 Azure Web 应用。
 
-9. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-cd-webapp-code，然后单击“保存”。 
+9. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-cd-webapp-code，然后单击“保存”。
 
 ### 练习 2：管理 Azure 应用程序配置
 
@@ -174,16 +174,16 @@ lab:
     - 位置。
     - 唯一名称，例如 appcs-NAME-REGION。
     - 选择“免费”定价层。
-3. 单击“查看 + 创建”，然后单击“创建”。 
-4. 创建应用程序配置服务后，转到“概述”并复制/保存“终结点”的值。 
+3. 单击“查看 + 创建”，然后单击“创建”。
+4. 创建应用程序配置服务后，转到“概述”并复制/保存“终结点”的值。
 
 #### 任务 2：启用托管标识
 
 1. 转到使用管道部署的 Web 应用（应命名为 az400-webapp-NAME）。
-2. 在“设置”部分中，单击“标识”，在“系统分配”部分中将状态切换为“开”，单击“保存”>“是”，然后等待几秒钟，等待操作完成。    
-3. 返回到应用程序配置服务，单击“访问控制”，然后单击“添加角色分配”。 
-4. 在“角色”部分中，选择“应用程序配置数据读取者”。 
-5. 在“成员”部分中，选中“管理标识”，然后选择 Web 应用的托管标识（它们应具有相同的名称）。 
+2. 在“设置”部分中，单击“标识”，在“系统分配”部分中将状态切换为“开”，单击“保存”>“是”，然后等待几秒钟，等待操作完成。
+3. 返回到应用程序配置服务，单击“访问控制”，然后单击“添加角色分配”。
+4. 在“角色”部分中，选择“应用程序配置数据读取者”。
+5. 在“成员”部分中，选中“管理标识”，然后选择 Web 应用的托管标识（它们应具有相同的名称）。
 6. 单击“查看并分配”。
 
 #### 任务 3：配置 Web 应用
@@ -191,7 +191,7 @@ lab:
 为了确保网站访问应用程序配置，需要更新其配置。
 
 1. 返回到 Web 应用。
-2. 在“设置”部分中，单击“配置”。 
+2. 在“设置”部分中，单击“配置”。
 3. 添加两个新的应用程序设置：
     - 第一个应用设置
         - 名称：UseAppConfig
@@ -200,16 +200,16 @@ lab:
         - 名称：AppConfigEndpoint
         - 值：以前从应用程序配置终结点保存/复制的值。它应类似于 https://appcs-NAME-REGION.azconfig.io
 
-4. 单击“确定”，然后单击“保存”并等待更新设置。 
-5. 转到“概述”并单击“浏览” 
+4. 单击“确定”，然后单击“保存”并等待更新设置。
+5. 转到“概述”并单击“浏览”
 6. 在此步骤中，你将看不到网站中的任何更改，因为应用程序配置不包含任何数据。 这是你将在后续任务中执行的操作。
 
 #### 任务 4：测试配置管理
 
-1. 在网站中的“品牌”下拉列表中选择“Visual Studio”，然后单击箭头按钮 (>)。  
+1. 在网站中的“品牌”下拉列表中选择“Visual Studio”，然后单击箭头按钮 (>)。
 2. 你将看到一条消息，指出“没有与你的搜索匹配的结果”。 本实验室的目标是在不更新网站代码或重新部署代码的情况下更新该值。
 3. 若要尝试此操作，请返回到应用程序配置。
-4. 在“操作”部分中，选择“配置资源管理器”。 
+4. 在“操作”部分中，选择“配置资源管理器”。
 5. 单击“创建 > 键值”，然后添加：
     - 键：eShopWeb:Settings:NoResultsMessage
     - 值：键入自定义消息
