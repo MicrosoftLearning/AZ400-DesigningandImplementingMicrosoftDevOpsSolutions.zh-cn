@@ -172,7 +172,7 @@ lab:
 5. 获取服务主体 ID 和角色名称后，通过运行此命令创建角色分配（将 rg-az400-container-NAME 替换为资源组名称）
 
     ```sh
-    az role assignment create --assignee $spId --role $roleName --resource-group "rg-az400-container-NAME"
+    az role assignment create --assignee $spId --role $roleName --scope /subscriptions/$subscriptionId/resourceGroups/**g-az400-container-NAME**
     ```
 
 现在应会看到 JSON 输出，用于确认命令运行是否成功。
