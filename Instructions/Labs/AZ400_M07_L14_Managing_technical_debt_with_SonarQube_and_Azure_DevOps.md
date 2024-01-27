@@ -136,7 +136,7 @@ lab:
 
     > **注意**：接下来，在新创建的组织中，你将创建 SonarCloud 项目，该项目与 Azure DevOps 项目 SonarExamples 完全相同。
 
-11. 在“分析项目 - 选择存储库”页的 Azure DevOps 项目列表中，选中“eshoponweb / eshoponweb”项旁边的复选框，然后单击“设置”。
+11. 在“分析项目 - 选择存储库”页的 Azure DevOps 项目列表中，选中“eshoponweb / eshoponweb”项旁边的复选框，然后单击“设置”。************
 12. 在“选择分析方法”页上，单击“使用 Azure DevOps 管道”磁贴。
 
     ![使用 Azure DevOps 管道 ](images/sonar-setup.png)

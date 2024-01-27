@@ -77,7 +77,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
     > **注意**：任何想要连接到此 NuGet 源的用户都必须配置其环境。
 
 4. 返回 Artifacts 中心，单击“连接到源” 。
-5. 在“连接到源”窗格的 NuGet 部分，选择 Visual Studio，然后在 Visual Studio 窗格中复制“源”URL    。 （https://pkgs.dev.azure.com/<Azure-DevOps-Org-Name>_packaging/EShopOnWebShared/nuget/v3/index.json)
+5. 在“连接到源”窗格的 NuGet 部分，选择 Visual Studio，然后在 Visual Studio 窗格中复制“源”URL    。 (https://pkgs.dev.azure.com/<Azure-DevOps-Org-Name>_packaging/EShopOnWebShared/nuget/v3/index.json)
 6. 切换回 Visual Studio 窗口。
 7. 在 Visual Studio 窗口中，单击“工具”菜单标题，在下拉菜单中，选择“NuGet 包管理器”，然后在级联菜单中选择“包管理器设置”  。
 8. 在“选项”对话框中，单击“包源”，然后单击加号以添加新的包源 。
