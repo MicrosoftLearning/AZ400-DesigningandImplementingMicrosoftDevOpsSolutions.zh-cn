@@ -4,7 +4,7 @@ lab:
   module: 'Module 09: Implement continuous feedback'
 ---
 
-# 使用 Application Insights 和 Azure 负载测试监视应用程序性能
+# 使用 Azure 负载测试监视应用程序性能
 
 ## 学生实验室手册
 
