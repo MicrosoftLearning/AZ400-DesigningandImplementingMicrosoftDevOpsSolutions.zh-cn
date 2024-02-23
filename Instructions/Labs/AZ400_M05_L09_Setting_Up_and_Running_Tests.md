@@ -48,12 +48,12 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
 
 1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
-    - .azure 文件夹包含某些实验室方案中使用的 Bicep & ARM 基础结构即代码模板。
+    - infra 文件夹包含某些实验室方案中使用的 Bicep 和 ARM 基础结构即代码模板。****
     - .github 文件夹容器 YAML GitHub 工作流定义。
     - src 文件夹包含实验室方案中使用的 .NET 网站。
 
@@ -115,7 +115,7 @@ lab:
 
     > 功能测试从用户角度编写，可基于其要求验证系统的正确性。 该测试不同于集成测试，后者从开发者角度编写，用于验证系统的一些组件是否能共同正常运行。
 
-16. 单击“保存”，在“保存”窗格上，再次单击“保存”，以直接将更改提交到主分支  。
+1. 单击“保存”，在“保存”窗格上，再次单击“保存”，以直接将更改提交到主分支  。
 
 #### 任务 4：检查测试摘要
 
