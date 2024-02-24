@@ -10,12 +10,13 @@ lab:
 
 ## 创建 Azure DevOps 组织的说明（只需执行此操作一次）
 
-### 如果你没有 Azure 订阅，请此这里开始：
+### 如果没有 Azure 订阅，请从此处开始
+
 1. 从讲师或其他来源获取新的“Azure Pass 促销代码”。
 1. 使用专用浏览器会话从以下链接获取新的“个人 Microsoft 帐户(MSA)”：[https://account.microsoft.com](https://account.microsoft.com)。
 1. 使用相同的浏览器会话，转到 [https://www.microsoftazurepass.com](https://www.microsoftazurepass.com)，然后使用 Microsoft 帐户 (MSA) 兑换 Azure Pass。 有关详细信息，请参阅[兑换 Microsoft Azure Pass](https://www.microsoftazurepass.com/Home/HowTo?Length=5)。 按照说明进行兑换。
 
-### 如果你有 Azure 订阅，请此这里开始：
+### 如果已有 Azure 订阅，请从此处开始
 
 1. 打开浏览器并导航到 [https://portal.azure.com](https://portal.azure.com)，然后在 Azure 门户屏幕顶部搜索“Azure DevOps”。 在结果页面中，单击“Azure DevOps 组织”。
 1. 接下来，单击标记为“我的 Azure DevOps 组织”的链接或者直接导航到 [https://aex.dev.azure.com](https://aex.dev.azure.com)。
@@ -57,7 +58,7 @@ lab:
     - 高级：版本控制：Git
     - 高级：工作项流程：Scrum
 
-2. 单击“创建”。
+1. 单击“创建”。
 
     ![创建项目](images/create-project.png)
 
@@ -65,15 +66,15 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
 
     ![导入存储库](images/import-repo.png)
 
-2. 存储库按以下方式组织：
+1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
-    - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
+    - **infra** 文件夹包含某些实验室方案中使用的 Bicep 和 ARM 基础结构即代码模板。
     - .github 文件夹容器 YAML GitHub 工作流定义。
-    - src**** 文件夹包含用于实验室方案的 .NET 7 网站。
+    - **src** 文件夹包含用于实验室方案的 .NET 8 网站。
 
 现在，你已完成必要的先决条件步骤，可以继续练习本 AZ-400 课程的其他实验室。

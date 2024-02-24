@@ -51,16 +51,16 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
 
     ![导入存储库](images/import-repo.png)
 
 1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
-    - .azure 文件夹包含某些实验室方案中使用的 Bicep&ARM 基础结构即代码模板。
+    - **infra** 文件夹包含某些实验室方案中使用的 Bicep 和 ARM 基础结构即代码模板。
     - .github 文件夹容器 YAML GitHub 工作流定义。
-    - src**** 文件夹包含用于实验室方案的 .NET 7 网站。
+    - **src** 文件夹包含用于实验室方案的 .NET 8 网站。
 
 ### 练习 1：了解 Azure Bicep 模板并使用可重用模块对其进行简化
 
@@ -233,13 +233,14 @@ lab:
 1. 单击“验证并保存”。
 
 #### 任务 2：通过 YAML 管道将资源部署到 Azure
+
 1. 导航回“管道”中心的“管道”窗格 。
 1. 在“创建首个管道”窗口中，单击“创建管道” 。
 
     > 注意：我们将使用向导并基于项目创建新的 YAML 管道定义。
 
 1. 在“你的代码在哪里?”窗格上，单击“Azure Repos Git (YAML)”选项 。
-1. 在“**选择存储库**”窗格中，单击“**EShopOnWeb**”。
+1. 在“选择存储库”窗格中，单击“eShopOnWeb”。
 1. 在“配置管道”窗格上，向下滚动并选择“现有 Azure Pipelines YAML 文件” 。
 1. 在“选择现有 YAML 文件”边栏选项卡中，指定以下参数：
    - 分支：main
