@@ -14,13 +14,13 @@ lab:
 
 - 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照 [AZ-400 实验室先决条件](https://microsoftlearning.github.io/AZ400-DesigningandImplementingMicrosoftDevOpsSolutions/Instructions/Labs/AZ400_M00_Validate_lab_environment.html)中的说明创建一个。
 
-- 设置示例 eShopOnWeb 项目：**** 如果还没有可用于本实验室的示例 EShopOnWeb 项目，请按照 [AZ-400 实验室先决条件](https://microsoftlearning.github.io/AZ400-DesigningandImplementingMicrosoftDevOpsSolutions/Instructions/Labs/AZ400_M00_Validate_lab_environment.html)中的说明创建一个。
+- **设置示例 eShopOnWeb 项目：** 如果还没有可用于本实验室的示例 EShopOnWeb 项目，请按照 [AZ-400 实验室先决条件](https://microsoftlearning.github.io/AZ400-DesigningandImplementingMicrosoftDevOpsSolutions/Instructions/Labs/AZ400_M00_Validate_lab_environment.html)中的说明创建一个。
 
 - 可从 [Visual Studio 下载页面](https://visualstudio.microsoft.com/downloads/)获得 Visual Studio 2022 Community Edition。 Visual Studio 2022 安装应包括“ASP<nolink>.NET 和 Web 开发”、“Azure 开发”和“NET Core 跨平台开发”工作负载。
 
-- .NET Core SDK：****[下载并安装 .NET Core SDK (2.1.400+)](https://go.microsoft.com/fwlink/?linkid=2103972)
+- **.NET Core SDK：**[下载并安装 .NET Core SDK (2.1.400+)](https://go.microsoft.com/fwlink/?linkid=2103972)
 
-- Azure Artifacts 凭据提供程序：****[下载并安装凭据提供程序](https://go.microsoft.com/fwlink/?linkid=2099625)。
+- **Azure Artifacts 凭据提供程序：**[下载并安装凭据提供程序](https://go.microsoft.com/fwlink/?linkid=2099625)。
 
 ## 实验室概述
 
@@ -41,13 +41,13 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
 ### 练习 0：配置实验室先决条件
 
-在此提醒，在本练习中，需要验证实验室先决条件，既要准备好 Azure DevOps 组织，也要创建 EShopOnWeb 项目。 请参阅上面的说明了解详细信息。
+特此提醒，在本练习中，需要验证实验室先决条件，既要准备好 Azure DevOps 组织，也要创建 EShopOnWeb 项目。 请参阅上面的说明了解详细信息。
 
 #### 任务 1：在 Visual Studio 中配置 eShopOnWeb 解决方案
 
 在此任务中，你将配置 Visual Studio，以便为实验室做准备。
 
-1. 确保你正在 Azure DevOps 门户上查看 eShopOnWeb 团队。****
+1. 确保你正在 Azure DevOps 门户上查看“eShopOnWeb”团队项目。****
 
     > **注意**：可通过导航到 [https://dev.azure.com/`<your-Azure-DevOps-account-name>`/EShopOnWeb](https://dev.azure.com/`<your-Azure-DevOps-account-name>`/eShopOnWeb) URL 直接访问项目页，其中 `<your-Azure-DevOps-account-name>` 占位符表示 Azure DevOps 组织名称。
 
@@ -76,7 +76,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
     > **注意**：此源将是可供组织内用户使用的 NuGet 包的集合，并且将作为对等方与公共 NuGet 源并置。 本实验室中的方案将重点放在使用 Azure Artifacts 的工作流上，因此实际的体系结构和开发决策纯粹是说明性的。  此源将包含可以在该组织中的各个项目之间共享的通用功能。
 
-1. 在“创建新源”窗格的“名称”文本框中键入 eShopOnWebShared，在“范围”部分中选择“组织”选项，并将其他设置保留为默认值，然后单击“创建”。************************
+1. 在“创建新源”窗格的“名称”文本框中键入“eShopOnWebShared”，在“范围”部分中选择“组织”选项，并将其他设置保留为默认值，然后单击“创建”。************************
 
     > **注意**：任何想要连接到此 NuGet 源的用户都必须配置其环境。
 
@@ -85,7 +85,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 1. 切换回 Visual Studio 窗口。
 1. 在 Visual Studio 窗口中，单击“工具”菜单标题，在下拉菜单中，选择“NuGet 包管理器”，然后在级联菜单中选择“包管理器设置”  。
 1. 在“选项”对话框中，单击“包源”，然后单击加号以添加新的包源 。
-1. 在对话框底部的“名称”文本框中将“包源”替换为 eShopOnWebShared，然后在“源”文本框中粘贴在 Azure DevOps 门户中复制的 URL。****************
+1. 在对话框底部的“名称”文本框中将“包源”替换为“eShopOnWebShared”，然后在“源”文本框中粘贴在 Azure DevOps 门户中复制的 URL。****************
 1. 单击“更新”，然后单击“确定”以完成添加 。
 
     > **注意**：Visual Studio 现已连接到新源。
@@ -103,10 +103,10 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
     | 设置 | 值 |
     | --- | --- |
-    | 项目名称 | eShopOnWeb.Shared**** |
+    | 项目名称 | **eShopOnWeb.Shared** |
     | 位置 | 接受默认值 |
     | 解决方案 | **创建新解决方案** |
-    | 解决方案名称 | eShopOnWeb.Shared**** |
+    | 解决方案名称 | **eShopOnWeb.Shared** |
 
     选中复选框，以便在同一目录中放置解决方案和项目。****
 
@@ -121,7 +121,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
     cd c:\eShopOnWeb\eShopOnWeb.Shared
     ```
 
-    > **注意**：eShopOnWeb.Shared 文件夹是 eShopOnWeb.Shared.csproj 文件的位置。******** 如果选择了其他位置，请改为导航到该位置。
+    > **注意**：eShopOnWeb.Shared 文件夹是 eShopOnWeb.Shared.csproj 文件所在的位置。******** 如果选择了其他位置，请改为导航到该位置。
 
 1. 运行以下命令，从项目创建一个 .nupkg 文件。
 
@@ -133,7 +133,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
     > **注意**：忽略“管理员: Windows PowerShell”窗口中显示的任何警告。
 
-    > 注意：dotnet 包会根据其从项目中识别的信息生成一个最小的包。**** 例如，请注意名称为 eShopOnWeb.Shared.1.0.0.nupkg。**** 该版本号是从程序集中检索的。
+    > **注**：dotnet 包会根据其从项目中识别的信息生成一个最小的包。 例如，请注意名称为 eShopOnWeb.Shared.1.0.0.nupkg。**** 该版本号是从程序集中检索的。
 
 1. 在 PowerShell 窗口中，运行以下命令以打开 bin\Release 文件夹：****
 
@@ -141,7 +141,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
     cd .\bin\Release
     ```
 
-1. 运行以下命令，将该包发布到 eShopOnWebShared 源：****
+1. 运行以下命令，将该包发布到“eShopOnWebShared”源：****
 
     > **重要说明**：需要为操作系统安装凭据提供程序才能使用 Azure DevOps 进行身份验证。 可以在 [Azure Artifacts 凭据提供程序](https://go.microsoft.com/fwlink/?linkid=2099625)中找到安装说明。 可以通过在 PowerShell 窗口中运行以下命令进行安装：`iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"`
 
@@ -151,19 +151,19 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
     dotnet nuget push --source "eShopOnWebShared" --api-key az eShopOnWeb.Shared.1.0.0.nupkg
     ```
 
-    > **注意**：如果未显示提示，可以将 --interactive 参数添加到该命令。****
+    > **注意**：如果没有出现提示，可以将 --interactive 参数添加到该命令。****
 
 1. 等待确认包推送操作成功。
 1. 切换到显示 Azure DevOps 门户的 Web 浏览器窗口，然后在垂直导航窗格中选择 Artifacts。
-1. 在“项目”中心窗格上，单击左上角的下拉列表，然后在源列表中选择“eShopOnWebShared”条目。********
+1. 在“Artifacts”中心窗格上，单击左上角的下拉列表，然后在源列表中选择“eShopOnWebShared”条目。********
 
-    > **注意**：eShopOnWebShared 源应该包括新发布的 NuGet 包。****
+    > **注意**：“eShopOnWebShared”源应该包括新发布的 NuGet 包。****
 
 1. 单击 NuGet 包以显示其详细信息。
 
 #### 任务 3：将开源的 NuGet 包导入 Azure DevOps 包源
 
-除了开发自己的包之外，是不是也可以使用开源 NuGet (<https://www.nuget.org>) DotNet 包库呢？ 由于有几百万个包可用，总会有一些对你的应用程序有用的包。
+除了开发自己的包之外，是不是也可以使用开放源代码 NuGet (<https://www.nuget.org>) DotNet 包库呢？ 由于有几百万个包可用，总会有一些对你的应用程序有用的包。
 
 在此任务中，我们将使用通用的“Newtonsoft.Json”示例包，但你可以对库中的其他包使用相同的方法。
 
@@ -204,14 +204,14 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
     log  : Restored c:\eShopOnWeb\eShopOnWeb.Shared\eShopOnWeb.Shared.csproj (in 294 ms).
     ```
 
-1. Newtonsoft.Json 包作为 Newtonsoft.Json 安装在包中。**** 在 Visual Studio 解决方案资源管理器中，导航到 eShopOnWeb.Shared 项目，展开“依赖项”，并注意“包”下的 Newtonsoft.Json。************ 单击“包”左侧的小箭头，打开文件夹和文件列表。
+1. Newtonsoft.Json 包作为 Newtonsoft.Json 已安装在包中。**** 在 Visual Studio 解决方案资源管理器中，导航到 eShopOnWeb.Shared 项目，展开依赖项，并注意包下的 Newtonsoft.Json。************ 单击包左侧的小箭头，打开文件夹和文件列表。
 
 #### 任务 4：将开源的 NuGet 包上传到 Azure Artifacts
 
 我们将此包视为一个“已批准”的包，可供我们的 DevOps 团队重复使用，方法是将其上传到之前创建的 Azure Artifacts 包源。
 
 1. 在 Visual Studio 中，右键单击新的 Newtonsoft.Json 包，然后从关联菜单中选择“在文件资源管理器中打开文件夹”。******** 你将看到扩展名为 .nupkg 的新 Newtonsoft.Json 包。********
-2. 从文件资源管理器窗口的地址栏复制完整路径。
+2. 从文件资源管理器窗口的地址栏中复制完整路径。
 3. 在 PowerShell 窗口中执行以下命令，将路径替换为复制的路径：
 
     ```powershell
@@ -230,8 +230,8 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 1. 单击“搜索上游源”
 1. 在“转到上游包”窗口中，选择“NuGet”作为“包类型”，然后在搜索字段中输入“Newtonsoft.Json”。************
 1. 按“搜索”按钮进行确认。
-1. 这会生成所有 Newtonsoft.Json 包的可用版本列表。
-1. 单击向左箭头键以返回到 eShopOnWebShared 源。********
+1. 这会生成所有 Newtonsoft.Json 包的不同可用版本列表。
+1. 单击向左箭头键以返回到“eShopOnWebShared”源。********
 1. 单击齿轮，打开“源设置”。 在“源设置”页中，选择“上游源”。
 1. 注意到不同开发语言的不同上游包管理器。 从列表中选择“NuGet 库”。 按“删除”按钮，然后按“保存”按钮。
 
