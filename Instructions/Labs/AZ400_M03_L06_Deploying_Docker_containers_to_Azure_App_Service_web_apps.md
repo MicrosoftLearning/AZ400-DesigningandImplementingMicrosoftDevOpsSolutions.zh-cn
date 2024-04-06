@@ -125,7 +125,7 @@ lab:
 #### 任务 1：导入并运行 CI 管道
 
 1. 转到“管道 > 管道”
-1. 单击“新建管道”按钮
+1. 单击“新管道”按钮（如果之前没有创建其他管道，则单击“创建管道”）********
 1. 选择“Azure Repos Git (YAML)”
 1. 选择 eShopOnWeb 存储库
 1. 选择**现有 Azure Pipelines YAML 文件**
@@ -174,7 +174,7 @@ lab:
 1. 获取服务主体 ID 和角色名称后，通过运行此命令创建角色分配（将 rg-az400-container-NAME 替换为资源组名称）
 
     ```sh
-    az role assignment create --assignee $spId --role $roleName --scope /subscriptions/$subscriptionId/resourceGroups/**rg-az400-container-NAME**
+    az role assignment create --assignee $spId --role $roleName --scope /subscriptions/$subscriptionId/resourceGroups/<rg-az400-container-NAME>
     ```
 
 现在应会看到 JSON 输出，用于确认命令运行是否成功。
