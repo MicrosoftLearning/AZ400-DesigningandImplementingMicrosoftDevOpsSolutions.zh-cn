@@ -65,7 +65,7 @@ lab:
 1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
-    - **infra** 文件夹包含某些实验室方案中使用的 Bicep 和 ARM 基础结构即代码模板。
+    - infra 文件夹包含某些实验室方案中使用的 Bicep 和 ARM 基础结构即代码模板。****
     - .github 文件夹容器 YAML GitHub 工作流定义。
     - **src** 文件夹包含用于实验室方案的 .NET 8 网站。
 
@@ -153,7 +153,7 @@ lab:
 
 1. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。
 
-1. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 提供路径 /.ado/eshoponweb-sonar-ci.yml，然后单击“继续”。 根据下一步中提到的详细信息检查管道（某些设置应进行替换）
+1. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 选择分支：“主分支”，提供以下路径：/.ado/eshoponweb-sonar-ci.yml，然后单击“继续”。************ 根据下一步中提到的详细信息检查管道（某些设置应进行替换）
 
 1. 返回到 Sonarcloud 网站，在“使用 Azure Pipelines 分析项目”页上的“配置 Azure Pipelines”部分中，单击“.NET”。 这将显示“准备分析配置”、“运行代码分析”和“发布 Quality Gate 结果”所需执行的一系列步骤  。 需要这些说明才能修改上一步中提供的 YAML 管道上的“准备分析配置”任务。
 

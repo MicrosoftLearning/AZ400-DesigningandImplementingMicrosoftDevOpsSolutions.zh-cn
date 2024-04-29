@@ -63,7 +63,7 @@ Azure DevOps 与 Mend Bolt 的集成将使你能够：
 1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
-    - **infra** 文件夹包含某些实验室方案中使用的 Bicep 和 ARM 基础结构即代码模板。
+    - infra 文件夹包含某些实验室方案中使用的 Bicep 和 ARM 基础结构即代码模板。****
     - .github 文件夹容器 YAML GitHub 工作流定义。
     - **src** 文件夹包含用于实验室方案的 .NET 8 网站。
 
@@ -101,7 +101,7 @@ Azure DevOps 与 Mend Bolt 的集成将使你能够：
 
 1. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。
 
-1. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 提供以下路径 /.ado/eshoponweb-ci-mend.yml，然后单击“继续”。
+1. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 选择分支：“主分支”，提供以下路径 /.ado/eshoponweb-ci-mend.yml，然后单击“继续”。************
 
     ![选择“管道”](images/select-pipeline.png)
 
