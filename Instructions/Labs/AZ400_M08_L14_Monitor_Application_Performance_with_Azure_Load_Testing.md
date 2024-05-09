@@ -105,7 +105,62 @@ lab:
 
 在本练习中，你将在 Azure DevOps 中使用 YAML 将 CI/CD 管道配置为代码。
 
-#### 任务 1：添加 YAML 生成和部署定义
+#### 任务 1：（如果完成则跳过）创建用于部署的服务连接
+
+在此任务中，你将使用 Azure CLI 创建服务主体，这将允许 Azure DevOps：
+
+- 在 Azure 订阅上部署资源。
+- 对稍后创建的密钥保管库机密具有读取访问权限。
+
+> 注意：如果你已有一个服务主体，则可以直接进行下一个任务。
+
+你需要一个服务主体从 Azure Pipelines 部署 Azure 资源。 由于我们要检索管道中的机密，因此创建 Azure 密钥保管库时，我们需要为该服务授予权限。
+
+从管道定义内部连接到 Azure 订阅或从项目设置页面（自动选项）新建服务连接时，Azure Pipelines 会自动创建服务主体。 你也可以从门户或使用 Azure CLI 手动创建服务主体，然后在项目中重复使用。
+
+1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Microsoft Entra 租户中具有全局管理员角色。
+1. 在 Azure 门户中，单击页面顶部搜索文本框右侧的 Cloud Shell 图标。
+1. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
+
+   >**注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
+
+1. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以检索 Azure 订阅 ID 和订阅名称属性的值 ：
+
+    ```bash
+    az account show --query id --output tsv
+    az account show --query name --output tsv
+    ```
+
+    > **注意**：将两个值都复制到文本文件中。 稍后将在本实验室用到它们。
+
+1. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体（将 myServicePrincipalName 替换为任意由字母和数字组成的唯一字符串）和 mySubscriptionID（替换为你的 Azure subscriptionId）：
+
+    ```bash
+    az ad sp create-for-rbac --name myServicePrincipalName \
+                         --role contributor \
+                         --scopes /subscriptions/mySubscriptionID
+    ```
+
+    > **注意**：此命令将生成 JSON 输出。 将输出复制到文本文件中。 本实验室中稍后会用到它。
+
+1. 接下来，从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 单击“项目设置 > 服务连接”（在“管道”下）和“新建服务连接”。
+
+    ![新建服务连接](images/new-service-connection.png)
+
+1. 在“新建服务连接”边栏选项卡上，选择“Azure 资源管理器”和“下一步”（可能需要向下滚动）。
+
+1. 选择“服务主体(手动)”并单击“下一步”。
+
+1. 使用在前面的步骤中收集的信息填写空字段：
+    - 订阅 ID 和名称。
+    - 服务主体 ID (appId)、服务主体密钥（密码）和租户 ID（租户）。
+    - 在“服务连接名称”中，键入 azure subs。 需要 Azure DevOps 服务连接来与 Azure 订阅通信时，将在 YAML 管道中引用此名称。
+
+    ![Azure 服务连接](images/azure-service-connection.png)
+
+1. 单击“验证并保存”。
+
+#### 任务 2：添加 YAML 生成和部署定义
 
 在此任务中，你将向现有项目添加 YAML 生成定义。
 
@@ -188,7 +243,7 @@ lab:
 1. 单击门户右侧的“显示助手”。**** 在任务列表中，搜索并选择“Azure 应用服务部署”任务。****
 1. 在“Azure 应用服务部署”窗格中，指定以下设置，并单击“添加”：
 
-    - 在“Azure 订阅”下拉列表中，选择之前在实验室中已部署 Azure 资源的 Azure 订阅，- 如果需要（仅当这是你创建的第一个管道时），单击“授权”，然后在出现提示时，使用在 Azure 资源部署期间使用的同一用户帐户进行身份验证。********
+    - 在“Azure 订阅”下拉列表中，选择刚刚创建的服务连接****。
     - 验证“应用服务类型”**** 指向 Windows 上的 Web 应用。
     - 在“应用服务名称”下拉列表中，选择你之前在实验室中部署的 Web 应用的名称 (**az400eshoponweb...)。****
     - 在“包或文件夹”文本框中，将默认值更新为 `$(Build.ArtifactStagingDirectory)/**/Web.zip`。
@@ -203,7 +258,7 @@ lab:
         - task: AzureRmWebAppDeployment@4
           inputs:
             ConnectionType: 'AzureRM'
-            azureSubscription: 'AZURE SUBSCRIPTION HERE (b999999abc-1234-987a-a1e0-27fb2ea7f9f4)'
+            azureSubscription: 'SERVICE CONNECTION NAME'
             appType: 'webApp'
             WebAppName: 'az400eshoponWeb369825031'
             packageForLinux: '$(Build.ArtifactStagingDirectory)/**/Web.zip'
