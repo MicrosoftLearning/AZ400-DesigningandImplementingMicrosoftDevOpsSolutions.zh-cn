@@ -13,7 +13,6 @@ lab:
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://learn.microsoft.com/azure/devops/server/compatibility)。
 
 - 设置 Azure DevOps 组织：如果还没有可用于本实验室的 Azure DevOps 组织，请按照[创建组织或项目集合](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization)中的说明创建一个。
-
 - 标识现有的 Azure 订阅或创建一个新的 Azure 订阅。
 
 ## 实验室概述
@@ -137,7 +136,7 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 1. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。
 
-1. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 提供以下路径 /.ado/eshoponweb-ci-dockercompose.yml，然后单击“继续”。
+1. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 选择分支：“主分支”，提供以下路径：/.ado/eshoponweb-ci-dockercompose.yml，然后单击“继续”。************
 
     ![选择“管道”](images/select-ci-container-compose.png)
 
@@ -235,7 +234,7 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 1. 在“你的代码在哪里?”窗口中，选择“Azure Repos Git (YAML)”并选择“eShopOnWeb”存储库。
 
-1. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 提供以下路径 /.ado/eshoponweb-cd-aci.yml，然后单击“继续”。
+1. 在“配置”部分，选择“现有 Azure Pipelines YAML 文件”。 选择分支：“主分支”，提供以下路径：/.ado/eshoponweb-cd-aci.yml，然后单击“继续”。************
 
 1. 在 YAML 管道定义中，自定义：
 

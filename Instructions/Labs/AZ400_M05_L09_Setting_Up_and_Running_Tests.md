@@ -72,7 +72,7 @@ lab:
 1. 选择“Azure Repos Git (YAML)”。
 1. 选择“eShopOnWeb”存储库。
 1. 选择“现有 Azure Pipelines YAML 文件”。
-1. 选择“/.ado/eshoponweb-ci.yml”文件，然后单击“继续”。
+1. 选择主分支和 /.ado/eshoponweb-ci.yml 文件，然后单击“继续”。************
 
     CI 定义由以下任务构成：
     - DotNet 还原：使用 NuGet 包还原，可以安装项目的所有依赖项，而无需将其存储在源代码管理中。

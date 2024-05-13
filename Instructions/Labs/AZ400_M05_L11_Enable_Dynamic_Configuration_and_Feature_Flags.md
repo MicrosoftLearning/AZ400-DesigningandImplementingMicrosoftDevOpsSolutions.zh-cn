@@ -52,9 +52,9 @@ lab:
 1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
     - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
-    - **infra** 文件夹包含某些实验室方案中使用的 Bicep 和 ARM 基础结构即代码模板。
+    - infra 文件夹包含某些实验室方案中使用的 Bicep 和 ARM 基础结构即代码模板。****
     - .github 文件夹容器 YAML GitHub 工作流定义。
-    - **src** 文件夹包含用于实验室方案的 .NET 8 网站。
+    - src 文件夹包含用于实验室方案的 .NET 8 网站。****
 
 #### 任务 3：（如果已完成，请跳过此任务）将主分支设置为默认分支
 
@@ -75,7 +75,7 @@ lab:
 1. 选择“Azure Repos Git (YAML)”。
 1. 选择“eShopOnWeb”存储库。
 1. 选择“现有 Azure Pipelines YAML 文件”。
-1. 选择“/.ado/eshoponweb-ci.yml”文件，然后单击“继续”。
+1. 选择主分支和 /.ado/eshoponweb-ci.yml 文件，然后单击“继续”。************
 1. 单击“运行”按钮以运行管道。
 1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道 > 管道”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-ci，然后单击“保存”。
 
@@ -141,7 +141,7 @@ lab:
 1. 选择“Azure Repos Git (YAML)”。
 1. 选择“eShopOnWeb”存储库。
 1. 选择“现有 Azure Pipelines YAML 文件”。
-1. 选择“/.ado/eshoponweb-cd-webapp-code.yml”文件，然后单击“继续”。
+1. 选择主分支和 /.ado/eshoponweb-cd-webapp-code.yml 文件，然后单击“继续”。************
 1. 在 YAML 管道定义中，自定义：
    - YOUR-SUBSCRIPTION-ID，替换为你的 Azure 订阅 ID。
    - az400eshop-NAME，替换 NAME 使其全局唯一。

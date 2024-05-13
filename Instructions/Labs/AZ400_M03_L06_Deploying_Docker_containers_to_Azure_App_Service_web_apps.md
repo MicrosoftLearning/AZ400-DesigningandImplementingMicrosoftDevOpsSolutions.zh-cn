@@ -129,7 +129,7 @@ lab:
 1. 选择“Azure Repos Git (YAML)”
 1. 选择 eShopOnWeb 存储库
 1. 选择**现有 Azure Pipelines YAML 文件**
-1. 选择 /.ado/eshoponweb-ci-docker.yml 文件，然后单击“继续”
+1. 选择主分支和 /.ado/eshoponweb-ci-docker.yml 文件，然后单击“继续”************
 1. 在 YAML 管道定义中，自定义：
    - YOUR-SUBSCRIPTION-ID，替换为你的 Azure 订阅 ID。
    - rg-az400-container-NAME，其中包含将由管道创建的资源组名称（它可能也是现有资源组）。
@@ -188,7 +188,7 @@ lab:
 1. 选择“Azure Repos Git (YAML)”
 1. 选择 eShopOnWeb 存储库
 1. 选择“现有 Azure Pipelines YAML 文件”
-1. 选择 /.ado/eshoponweb-cd-webapp-docker.yml 文件，然后单击“继续”
+1. 选择主分支和 /.ado/eshoponweb-cd-webapp-docker.yml 文件，然后单击“继续”************
 1. 在 YAML 管道定义中，自定义：
    - YOUR-SUBSCRIPTION-ID，替换为你的 Azure 订阅 ID。
    - rg-az400-container-NAME，其中包含之前在实验室中定义的资源组名称。
