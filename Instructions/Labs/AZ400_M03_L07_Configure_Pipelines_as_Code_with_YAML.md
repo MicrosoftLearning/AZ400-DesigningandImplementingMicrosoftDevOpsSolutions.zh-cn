@@ -59,6 +59,10 @@ lab:
    - .github 文件夹容器 YAML GitHub 工作流定义。
    - src 文件夹包含用于实验室方案的 .NET 8 网站。****
 
+1. 转到“Repos”>“分支”。
+1. 将鼠标指针悬停在主分支上，然后单击列右侧的省略号。
+1. 单击“设置为默认分支”。
+
 #### 任务 2：创建 Azure 资源
 
 在本任务中，你将使用 Azure 门户创建 Azure Web 应用。
@@ -197,7 +201,7 @@ lab:
 1. 添加的代码片段应如下所示：
 
    ```yaml
-   - task: DownloadBuildArtifacts@0
+   - task: DownloadBuildArtifacts@1
      inputs:
        buildType: "current"
        downloadType: "single"
@@ -386,7 +390,7 @@ YAML 管道即代码并不像 Azure DevOps 经典发布管道那样具有发布/
            runOnce:
              deploy:
                steps:
-                 - task: DownloadBuildArtifacts@0
+                 - task: DownloadBuildArtifacts@1
                    inputs:
                      buildType: "current"
                      downloadType: "single"
