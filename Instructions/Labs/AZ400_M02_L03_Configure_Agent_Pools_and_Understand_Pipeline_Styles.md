@@ -86,9 +86,10 @@ lab:
 
    - 单个阶段：生成
    - 单个作业：生成
-   - 生成作业中的 3 个任务：
+   - 生成作业中的 4 个任务：
    - Dotnet Restore
    - Dotnet Build
+   - DotNet 测试
    - Dotnet Publish
 
 1. 在“**查看管道 YAML**”窗格上，单击“**保存**”按钮旁边方向朝下的插入符号，单击“**保存**”。
@@ -196,7 +197,7 @@ lab:
 1. 撤销 PAT 令牌。
 1. 从 Repos/.ado/eshoponweb-ci-pr.yml 导航到 eshoponweb-ci-pr.yml 文件，选择“编辑”并移除第 13-15 行（代理池代码片段），更改回 `vmImage: ubuntu-latest`（原始状态），从而还原该文件中的更改。******** （这是因为你在将来的实验室练习中将使用相同的示例管道文件。）
 
-![将管道池还原回 vmImage 设置](images/m3/eshoponweb-ci-pr-vmimage_v1.png)
+![将管道池还原回 vmImage 设置](images/m3/eshoponweb-ci-pr-vmimage_v2.png)
 
 ## 审阅
 
