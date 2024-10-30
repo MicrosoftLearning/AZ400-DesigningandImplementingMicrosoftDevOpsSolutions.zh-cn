@@ -6,8 +6,6 @@ lab:
 
 # 使用 Azure Artifacts 进行包管理
 
-## 学生实验室手册
-
 ## 实验室要求
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/azure/devops/server/compatibility)。
@@ -41,9 +39,38 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
 ### 练习 0：配置实验室先决条件
 
-在此提醒，在本练习中，需要验证实验室先决条件，既要准备好 Azure DevOps 组织，也要创建 EShopOnWeb 项目。 请参阅上面的说明了解详细信息。
+在本练习中，你将设置实验室先决条件。
 
-#### 任务 1：在 Visual Studio 中配置 eShopOnWeb 解决方案
+#### 任务 1：（如果已完成，请跳过此任务）创建和配置团队项目
+
+在此任务中，你将创建一个 eShopOnWeb Azure DevOps 项目，供多个实验室使用。
+
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，并将其他字段保留默认值。 单击“创建”。
+
+    ![“创建新项目”面板的屏幕截图。](images/create-project.png)
+
+#### 任务 2：（如果已完成，请跳过此任务）导入 eShopOnWeb Git 存储库
+
+在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
+
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“**Repos > 文件**”，然后单击“**导入存储库**”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
+
+    ![“导入存储库”面板的屏幕截图。](images/import-repo.png)
+
+1. 存储库按以下方式组织：
+    - .ado 文件夹包含 Azure DevOps YAML 管道。
+    - 设置 .devcontainer 文件夹容器，使用容器（在 VS Code 或 GitHub Codespaces 中本地进行）开发。
+    - infra 文件夹包含某些实验室方案中使用的 Bicep 和 ARM 基础结构即代码模板。****
+    - .github 文件夹容器 YAML GitHub 工作流定义。
+    - src 文件夹包含用于实验室方案的 .NET 8 网站。****
+
+#### 任务 3：（如果已完成，请跳过此任务）将主分支设置为默认分支
+
+1. 转到“**Repos > 分支**”。
+1. 将鼠标指针悬停在主分支上，然后单击列右侧的省略号。
+1. 单击“设置为默认分支”。
+
+#### 任务 4：在 Visual Studio 中配置 eShopOnWeb 解决方案
 
 在此任务中，你将配置 Visual Studio，以便为实验室做准备。
 
@@ -76,7 +103,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
     > **注意**：此源将是可供组织内用户使用的 NuGet 包的集合，并且将作为对等方与公共 NuGet 源并置。 本实验室中的方案将重点放在使用 Azure Artifacts 的工作流上，因此实际的体系结构和开发决策纯粹是说明性的。  此源将包含可以在该组织中的各个项目之间共享的通用功能。
 
-1. 在“创建新源”窗格的“名称”文本框中键入 eShopOnWebShared，在“范围”部分中选择“组织”选项，并将其他设置保留为默认值，然后单击“创建”。************************
+1. 在“**创建新源**”窗格的“**名称**”文本框中键入“**`eShopOnWebShared`**”，在“**范围**”部分中选择“**组织**”选项，并将其他设置保留为默认值，然后单击“**创建**”。
 
     > **注意**：任何想要连接到此 NuGet 源的用户都必须配置其环境。
 
@@ -129,7 +156,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
     dotnet pack .\eShopOnWeb.Shared.csproj
     ```
 
-    > **注意**：dotnet pack 命令会生成项目，并在 bin\Release 文件夹中创建 NuGet 包。********
+    > **注意**：dotnet pack 命令会生成项目，并在 bin\Release 文件夹中创建 NuGet 包。******** 如果没有 **Release** 文件夹，则可以改用 **Debug** 文件夹。
 
     > **注意**：忽略“管理员: Windows PowerShell”窗口中显示的任何警告。
 
@@ -228,7 +255,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
 1. 导航到 Azure DevOps 门户，浏览到“项目”，然后选择“eShopOnWebShared”源。********
 1. 单击“搜索上游源”
-1. 在“转到上游包”窗口中，选择“NuGet”作为“包类型”，然后在搜索字段中输入“Newtonsoft.Json”。************
+1. 在“**转到上游包**”窗口中，选择“**NuGet**”作为“包类型”，然后在搜索字段中输入“**`Newtonsoft.Json`**”。
 1. 按“搜索”按钮进行确认。
 1. 这会生成所有 Newtonsoft.Json 包的可用版本列表。
 1. 单击向左箭头键以返回到 eShopOnWebShared 源。********
