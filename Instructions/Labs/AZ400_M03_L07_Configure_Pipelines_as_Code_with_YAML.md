@@ -6,8 +6,6 @@ lab:
 
 # 使用 YAML 将管道配置为代码
 
-## 学生实验室手册
-
 ## 实验室要求
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/azure/devops/server/compatibility)。
@@ -28,13 +26,13 @@ lab:
 
 - 在 Azure DevOps 中使用 YAML 将 CI/CD 管道配置为代码。
 
-## 预计用时：60 分钟
+## 预计用时：45 分钟
 
 ## 说明
 
 ### 练习 0：配置实验室先决条件
 
-在本练习中，你将设置实验室先决条件，其中包括设置新的 Azure DevOps 项目，该项目的存储库基于 [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb)。
+在本练习中，将设置实验室先决条件。
 
 #### 任务 1：（如果已完成，请跳过此任务）创建和配置团队项目
 
@@ -42,15 +40,15 @@ lab:
 
 1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb_MultiStageYAML，并将其他字段保留默认值。 单击“创建”。
 
-   ![创建项目](images/create-project.png)
+   ![“创建新项目”面板的屏幕截图。](images/create-project.png)
 
 #### 任务 2：（如果已完成，请跳过此任务）导入 eShopOnWeb Git 存储库
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb_MultiStageYAML 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb_MultiStageYAML 项目。 单击“**Repos > 文件**”、“**导入存储库**”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
-   ![导入存储库](images/import-repo.png)
+   ![“导入存储库”面板的屏幕截图。](images/import-repo.png)
 
 1. 存储库按以下方式组织：
    - .ado 文件夹包含 Azure DevOps YAML 管道。
@@ -59,11 +57,11 @@ lab:
    - .github 文件夹容器 YAML GitHub 工作流定义。
    - src 文件夹包含用于实验室方案的 .NET 8 网站。****
 
-1. 转到“Repos”>“分支”。
+1. 转到“**Repos > 分支**”。
 1. 将鼠标指针悬停在主分支上，然后单击列右侧的省略号。
 1. 单击“设置为默认分支”。
 
-#### 任务 2：创建 Azure 资源
+#### 任务 3：创建 Azure 资源
 
 在本任务中，你将使用 Azure 门户创建 Azure Web 应用。
 
@@ -73,7 +71,7 @@ lab:
 
    > **注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
 
-   > 注意：若要获取区域及其别名的列表，请从 Azure Cloud Shell - Bash 运行以下命令：
+   > **备注**：若要获取区域及其别名的列表，请从 Azure Cloud Shell - Bash 运行以下命令：
 
    ```bash
    az account list-locations -o table
@@ -86,14 +84,14 @@ lab:
    ```
 
    ```bash
-   RESOURCEGROUPNAME='az400m05l11-RG'
+   RESOURCEGROUPNAME='az400m03l07-RG'
    az group create --name $RESOURCEGROUPNAME --location $LOCATION
    ```
 
 1. 若要创建 Windows 应用服务计划，请运行以下命令：
 
    ```bash
-   SERVICEPLANNAME='az400m05l11-sp1'
+   SERVICEPLANNAME='az400m03l07-sp1'
    az appservice plan create --resource-group $RESOURCEGROUPNAME --name $SERVICEPLANNAME --sku B3
    ```
 
@@ -151,7 +149,7 @@ lab:
      jobs:
        - job: Deploy
          pool:
-           vmImage: "windows-2019"
+           vmImage: "windows-latest"
          steps:
    ```
 
@@ -195,7 +193,7 @@ lab:
 1. 为此任务指定以下参数：
    - 下载以下作业生成的项目：当前生成
    - 下载类型：特定项目
-   - 项目名称：**从列表中选择“网站”** （或如果它未自动显示在列表中，则直接 **键入“网站”** ）
+   - 项目名称：**从列表中选择“网站”**（或如果未自动显示在列表中，则直接**键入“`Website`”**）
    - 目标目录：$(Build.ArtifactStagingDirectory)
 1. 单击“添加”。
 1. 添加的代码片段应如下所示：
@@ -297,7 +295,7 @@ lab:
     jobs:
     - job: Deploy
       pool:
-        vmImage: 'windows-2019'
+        vmImage: 'windows-latest'
       steps:
       - task: DownloadBuildArtifacts@0
         inputs:
@@ -316,7 +314,7 @@ lab:
 
    ```
 
-#### 任务 4：查看已部署的站点
+#### 任务 3：查看已部署的站点
 
 1. 切换回显示 Azure 门户的 Web 浏览器窗口，导航到显示 Azure Web 应用的属性的边栏选项卡。
 1. 在 Azure Web 应用边栏选项卡上，单击“概述”，然后在“概述”边栏选项卡上，单击“浏览”以在新的 Web 浏览器选项卡中打开站点 。
@@ -333,11 +331,10 @@ YAML 管道即代码并不像 Azure DevOps 经典发布管道那样具有发布/
 1. 在 Azure DevOps 项目 eShopOnWeb_MultiStageYAML 中****，导航到“管道”****。
 1. 在左侧的“管道菜单”下，选择“环境”。
 1. 单击“创建环境”。
-1. 在“新建环境”窗格中，为环境添加一个名称“approvals”。
+1. 在“**新建环境**”窗格中，为环境添加一个名称，称为 **`approvals`**。
 1. 在“资源”下，选择“无”。
 1. 单击“创建”按钮确认设置。
-1. 环境创建完成后，单击“添加资源”按钮旁边的“省略号”(...)。
-1. 选择“审批和检查”。
+1. 创建环境后，从新的**审批**环境中选择“**审批和检查**”选项卡。
 1. 在“添加你的第一个检查”中，选择“审批”。
 1. 将 Azure DevOps 用户帐户名称添加到“approvers”字段。
 
@@ -360,12 +357,12 @@ YAML 管道即代码并不像 Azure DevOps 经典发布管道那样具有发布/
      - job: Deploy
        environment: approvals
        pool:
-         vmImage: "windows-2019"
+         vmImage: "windows-latest"
    ```
 
 1. 由于环境是部署阶段的特定设置，因此“jobs”不能使用它。 我们必须对当前的作业定义进行一些额外的更改。
 1. 在第 60 行，将“- job: Deploy”重命名为“- deployment: Deploy”
-1. 接下来，在第 63 行 (vmImage: Windows-2019) 下，添加一个新的空行。
+1. 接下来，在第 **63** 行 (vmImage: windows-latest) 下，添加一个新的空行。
 1. 粘贴以下 YAML 代码片段：
 
    ```yaml
@@ -385,7 +382,7 @@ YAML 管道即代码并不像 Azure DevOps 经典发布管道那样具有发布/
        - deployment: Deploy
          environment: approvals
          pool:
-           vmImage: "windows-2019"
+           vmImage: "windows-latest"
          strategy:
            runOnce:
              deploy:
@@ -420,30 +417,8 @@ YAML 管道即代码并不像 Azure DevOps 经典发布管道那样具有发布/
 
    > 注意：虽然本示例仅使用了审批，但也需要了解，Azure Monitor、REST API 等其他检查也可以采用类似的方式
 
-### 练习 3：删除 Azure 实验室资源
-
-在本练习中，你将删除在本实验室中预配的 Azure 资源，避免产生意外费用。
-
-> **注意**：记得删除所有不再使用的新建 Azure 资源。 删除未使用的资源可确保不会出现意外费用。
-
-#### 任务 1：删除 Azure 实验室资源
-
-在此任务中，你将使用 Azure Cloud Shell 删除在本实验室中预配的 Azure 资源，避免产生不必要的费用。
-
-1. 在 Azure 门户中，在 Cloud Shell 窗格中打开 Bash Shell 会话 。
-1. 运行以下命令，列出在本模块各实验室中创建的所有资源组：
-
-   ```sh
-   az group list --query "[?starts_with(name,'az400m05l11-RG')].name" --output tsv
-   ```
-
-1. 通过运行以下命令，删除在此模块的实验室中创建的所有资源组：
-
-   ```sh
-   az group list --query "[?starts_with(name,'az400m05l11-RG')].[name]" --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
-   ```
-
-   > **注意**：该命令以异步方式执行（由 --nowait 参数确定），因此，尽管可立即在同一 Bash 会话中运行另一个 Azure CLI 命令，但实际上要花几分钟才能删除资源组。
+   > [!IMPORTANT]
+   > 请记住删除在 Azure 门户中创建的资源，以避免不必要的费用。
 
 ## 审阅
 
