@@ -40,7 +40,7 @@ lab:
 
 ### 练习 0：配置实验室先决条件
 
-在本练习中，你将设置实验室先决条件。
+在本练习中，将设置实验室先决条件。
 
 #### 任务 1：（如果已完成，请跳过此任务）创建和配置团队项目
 
@@ -48,13 +48,13 @@ lab:
 
 1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。 单击“创建”。
 
-    ![“创建新项目”面板屏幕截图。](images/create-project.png)
+    ![“创建新项目”面板的屏幕截图。](images/create-project.png)
 
 #### 任务 2：（如果已完成，请跳过此任务）导入 eShopOnWeb Git 存储库
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“**Repos > 文件**”，然后单击“**导入**”。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“**Repos > 文件**”、“**导入**”。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
 
     ![“导入存储库”面板的屏幕截图。](images/import-repo.png)
 

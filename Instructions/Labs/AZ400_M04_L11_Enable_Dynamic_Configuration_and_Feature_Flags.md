@@ -31,7 +31,7 @@ lab:
 
 ## 说明
 
-### 练习 0：（如已完成，则跳过）配置实验室先决条件
+### 练习 0：（如果已完成，请跳过此任务）配置实验室先决条件
 
 在本练习中，你将设置实验室先决条件，其中包括设置新的 Azure DevOps 项目，该项目的存储库基于 [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb)。
 
@@ -45,7 +45,7 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件存储”****、“导入”****。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“**Repos > 文件**”、“**导入**”。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
 
 1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
@@ -56,7 +56,7 @@ lab:
 
 #### 任务 3：（如果已完成，请跳过此任务）将主分支设置为默认分支
 
-1. 转到“Repos”>“分支”****。
+1. 转到“**Repos > 分支**”。
 1. 将鼠标指针悬停在主分支上，然后单击列右侧的省略号。
 1. 单击“设置为默认分支”。
 
@@ -68,20 +68,20 @@ lab:
 
 让我们首先导入名为 [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml) 的 CI 管道。
 
-1. 转到 **“管道”>“管道”**。
+1. 转到“**管道 > 管道**”。
 1. 单击“创建管道”按钮（如果没有管道）或“新建管道”按钮（如果已有已创建的管道） 。
 1. 选择“Azure Repos Git (YAML)”。
 1. 选择“eShopOnWeb”存储库。
 1. 选择“现有 Azure Pipelines YAML 文件”。
 1. 选择主分支和 /.ado/eshoponweb-ci.yml 文件，然后单击“继续”。************
 1. 单击“运行”按钮以运行管道。
-1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道”>“管道”****，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-ci，然后单击“保存”。
+1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“**管道 > 管道**”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-ci，然后单击“保存”。
 
 #### 任务 2：导入并运行 CD 管道
 
 让我们导入名为 [eshoponweb-cd-webapp-code.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-cd-webapp-code.yml) 的 CD 管道。
 
-1. 转到 **“管道”>“管道”**。
+1. 转到“**管道 > 管道**”。
 1. 单击“新建管道”按钮。
 1. 选择“Azure Repos Git (YAML)”。
 1. 选择“eShopOnWeb”存储库。
@@ -100,7 +100,7 @@ lab:
     - 资源：它已准备好根据 CI 管道完成自动触发。 它还会下载 bicep 文件的存储库。
     - AzureResourceManagerTemplateDeployment：使用 bicep 模板部署 Azure Web 应用。
 
-1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“管道”>“管道”****，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-cd-webapp-code，然后单击“保存”。
+1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“**管道 > 管道**”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-cd-webapp-code，然后单击“保存”。
 
 ### 练习 2：管理 Azure 应用程序配置
 
@@ -175,7 +175,7 @@ lab:
 1. 可以在应用程序配置中禁用此功能，然后会看到图像消失。
 
    > [!IMPORTANT]
-   > 请记住删除在 Azure 门户中创建的资源，以避免不必要的费用。 请务必禁用 eshoponweb-cd-webapp-code**** 管道，否则它将在下一次运行 eshoponweb-ci**** 后重新创建已删除的资源组和关联的资源。
+   > 请记住删除在 Azure 门户中创建的资源，以避免不必要的费用。 请务必禁用 **eshoponweb-cd-webapp-code** 管道，否则它将在下一次运行 **eshoponweb-ci** 后重新创建已删除的资源组和关联的资源。
 
 ## 审阅
 

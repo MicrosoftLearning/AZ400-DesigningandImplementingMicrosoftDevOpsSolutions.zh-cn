@@ -45,7 +45,7 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“**Repos > 文件**”，然后单击“**导入存储库**”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“**Repos > 文件**”、“**导入存储库**”。 选择“**导入**”。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
 
 1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
@@ -130,7 +130,7 @@ lab:
 
 让我们首先导入名为 [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml) 的 CI 管道。
 
-1. 转到 **“管道”>“管道”**。
+1. 转到“**管道 > 管道**”。
 1. 单击“新建管道”按钮。
 1. 选择“Azure Repos Git (YAML)”。
 1. 选择“eShopOnWeb”存储库。
