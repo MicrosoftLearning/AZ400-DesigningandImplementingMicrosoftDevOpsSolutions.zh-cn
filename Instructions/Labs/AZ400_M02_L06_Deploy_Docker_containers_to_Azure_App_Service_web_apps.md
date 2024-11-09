@@ -74,7 +74,7 @@ lab:
 1. 选择**现有 Azure Pipelines YAML 文件**
 1. 选择主分支和 /.ado/eshoponweb-ci-docker.yml 文件，然后单击“继续”************
 1. 在 YAML 管道定义中，自定义：
-   - **YOUR-SUBSCRIPTION-ID**，替换为 Azure 订阅 ID。
+   - **YOUR-SUBSCRIPTION-ID**，替换为你的 Azure 订阅 ID。
    - 将 **resourceGroup** 替换为在创建服务连接期间使用的资源组名称，例如 **AZ400-RG1**。
 
 1. 查看管道定义。 CI 定义由以下任务构成：

@@ -47,7 +47,7 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
 
 1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，并将其他字段保留默认值。 单击“创建”。
 
-    ![“创建新项目”面板屏幕截图。](images/create-project.png)
+    ![“创建新项目”面板的屏幕截图。](images/create-project.png)
 
 #### 任务 2：（如果已完成，请跳过此任务）导入 eShopOnWeb Git 存储库
 
