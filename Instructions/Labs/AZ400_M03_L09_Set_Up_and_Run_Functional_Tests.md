@@ -6,6 +6,8 @@ lab:
 
 # 设置和运行功能测试
 
+## 学生实验室手册
+
 ## 实验室要求
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/azure/devops/server/compatibility)。
@@ -28,11 +30,11 @@ lab:
 - 集成测试
 - 功能测试
 
-## 预计用时：20 分钟
+## 预计用时：60 分钟
 
 ## 说明
 
-### 练习 0：（如果已完成，请跳过此任务）配置实验室先决条件
+### 练习 0：配置实验室先决条件
 
 在本练习中，你将设置实验室先决条件，其中包括设置新的 Azure DevOps 项目，该项目的存储库基于 [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb)。
 
@@ -46,7 +48,7 @@ lab:
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“**Repos > 文件**”、“**导入存储库**”。 选择“**导入**”。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件”，然后单击“导入存储库”。 选择“导入”  。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
 
 1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道。
@@ -57,7 +59,7 @@ lab:
 
 #### 任务 3：（如果已完成，请跳过此任务）将主分支设置为默认分支
 
-1. 转到“**Repos > 分支**”。
+1. 转到“Repos”>“分支”。
 1. 将鼠标指针悬停在主分支上，然后单击列右侧的省略号。
 1. 单击“设置为默认分支”。
 
@@ -71,7 +73,7 @@ lab:
 
 让我们首先导入名为 [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml) 的 CI 管道。
 
-1. 转到“**管道 > 管道**”。
+1. 转到“管道”>“管道”。
 1. 单击“新建管道”按钮。
 1. 选择“Azure Repos Git (YAML)”。
 1. 选择“eShopOnWeb”存储库。
@@ -121,7 +123,7 @@ lab:
 
 1. 单击“保存”，在“保存”窗格上，再次单击“保存”，以直接将更改提交到主分支  。
 
-#### 任务 3：检查测试摘要
+#### 任务 4：检查测试摘要
 
 1. 单击“运行”，然后在“运行管道”选项卡中再次单击“运行”  。
 
@@ -129,13 +131,13 @@ lab:
 
 1. 完成后，“测试”选项卡将显示为管道运行的一部分。 单击它以检查摘要。 如下所示：
 
-    ![测试摘要的屏幕截图。](images/AZ400_M05_L09_Tests_Summary.png)
+    ![测试摘要](images/AZ400_M05_L09_Tests_Summary.png)
 
 1. 有关更多详细信息，该表在页面底部会显示不同运行测试的列表。
 
-    > 注意：如果表为空，则需要重置筛选器，以显示测试运行的所有相关详细信息。
+    >注意：如果表为空，则需要重置筛选器，以显示测试运行的所有相关详细信息。
 
-    ![测试表的屏幕截图。](images/AZ400_M05_L09_Tests_Table.png)
+    ![测试表](images/AZ400_M05_L09_Tests_Table.png)
 
 ## 审阅
 
