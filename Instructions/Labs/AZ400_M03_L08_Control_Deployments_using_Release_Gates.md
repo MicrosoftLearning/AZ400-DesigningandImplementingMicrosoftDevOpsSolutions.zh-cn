@@ -121,7 +121,7 @@ lab:
    > **注意**：可以通过运行以下命令找到可能的位置，使用 `<region>` 上的“Name”：`az account list-locations -o table`
 
    ```bash
-   REGION='centralus'
+   REGION='<region>'
    RESOURCEGROUPNAME='az400m03l08-RG'
    az group create -n $RESOURCEGROUPNAME -l $REGION
    ```
