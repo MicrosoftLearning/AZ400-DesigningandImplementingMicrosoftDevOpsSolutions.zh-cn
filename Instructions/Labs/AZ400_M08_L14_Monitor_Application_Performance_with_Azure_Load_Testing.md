@@ -6,6 +6,8 @@ lab:
 
 # 使用 Azure 负载测试监视应用程序性能
 
+## 学生实验室手册
+
 ## 实验室要求
 
 - 本实验室需要使用 Microsoft Edge 或[支持 Azure DevOps 的浏览器](https://docs.microsoft.com/azure/devops/server/compatibility)。
@@ -40,7 +42,7 @@ lab:
 
 ### 练习 0：配置实验室先决条件
 
-在本练习中，将设置实验室先决条件。
+在本练习中，你将设置实验室先决条件，其中包括设置新的 Azure DevOps 项目，该项目的存储库基于 [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb)。
 
 #### 任务 1：（如果已完成，请跳过此任务）创建和配置团队项目
 
@@ -48,15 +50,15 @@ lab:
 
 1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织。 单击“新建项目”。 将项目命名为 eShopOnWeb，然后在“工作项进程”下拉列表中选择“Scrum”。 单击“创建”。
 
-    ![“创建新项目”面板的屏幕截图。](images/create-project.png)
+    ![创建项目](images/create-project.png)
 
 #### 任务 2：（如果已完成，请跳过此任务）导入 eShopOnWeb Git 存储库
 
 在此任务中，你将导入将由多个实验室使用的 eShopOnWeb Git 存储库。
 
-1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos”>“文件存储”****、“导入”****。 在“导入 Git 存储库”窗口中，粘贴以下 URL <https://github.com/MicrosoftLearning/eShopOnWeb.git> 并单击“导入”：
+1. 在实验室计算机上，在浏览器窗口中打开 Azure DevOps 组织和以前创建的 eShopOnWeb 项目。 单击“Repos > 文件”、“导入”。 在“导入 Git 存储库”窗口中，粘贴以下 URL https://github.com/MicrosoftLearning/eShopOnWeb.git 并单击“导入”：
 
-    ![“导入存储库”面板的屏幕截图。](images/import-repo.png)
+    ![导入存储库](images/import-repo.png)
 
 1. 存储库按以下方式组织：
     - .ado 文件夹包含 Azure DevOps YAML 管道
@@ -65,25 +67,23 @@ lab:
     - .github 文件夹容器 YAML GitHub 工作流定义。
     - src 文件夹包含用于实验室方案的 .NET 8 网站。****
 
-#### 任务 3：（如果已完成，请跳过此任务）将主分支设置为默认分支
-
-1. 转到“Repos”>“分支”****。
+1. 转到“Repos”>“分支”。
 1. 将鼠标指针悬停在主分支上，然后单击列右侧的省略号。
 1. 单击“设置为默认分支”。
 
-#### 任务 4：创建 Azure 资源
+#### 任务 3：创建 Azure 资源
 
 在本任务中，你将在 Azure 门户中使用 Cloud Shell 创建 Azure Web 应用。
 
-1. 从实验室计算机中启动 Web 浏览器，导航到“[**Azure 门户**](https://portal.azure.com)”，然后登录。
+1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Microsoft Entra 租户中具有全局管理员角色。
 1. 在 Azure 门户的工具栏中，单击搜索文本框右侧的“Cloud Shell”图标。
 1. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
-    > **注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
+    >**注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
 
 1. 在 Cloud Shell 窗格中的 Bash 提示符下，运行以下命令以创建资源组（将 `<region>` 占位符替换为离你最近的 Azure 区域的名称，例如“eastus”） 。
 
     ```bash
-    RESOURCEGROUPNAME='az400m08l14-RG'
+    RESOURCEGROUPNAME='az400m09l16-RG'
     LOCATION='<region>'
     az group create --name $RESOURCEGROUPNAME --location $LOCATION
     ```
@@ -91,7 +91,7 @@ lab:
 1. 若要创建 Windows 应用服务计划，请运行以下命令：
 
     ```bash
-    SERVICEPLANNAME='az400l14-sp'
+    SERVICEPLANNAME='az400l16-sp'
     az appservice plan create --resource-group $RESOURCEGROUPNAME \
         --name $SERVICEPLANNAME --sku B3
     ```
@@ -109,7 +109,62 @@ lab:
 
 在本练习中，你将在 Azure DevOps 中使用 YAML 将 CI/CD 管道配置为代码。
 
-#### 任务 1：添加 YAML 生成和部署定义
+#### 任务 1：（如果完成则跳过）创建用于部署的服务连接
+
+在此任务中，你将使用 Azure CLI 创建服务主体，这将允许 Azure DevOps：
+
+- 在 Azure 订阅上部署资源。
+- 对稍后创建的密钥保管库机密具有读取访问权限。
+
+> 注意：如果你已有一个服务主体，则可以直接进行下一个任务。
+
+你需要一个服务主体从 Azure Pipelines 部署 Azure 资源。 由于我们要检索管道中的机密，因此创建 Azure 密钥保管库时，我们需要为该服务授予权限。
+
+从管道定义内部连接到 Azure 订阅或从项目设置页面（自动选项）新建服务连接时，Azure Pipelines 会自动创建服务主体。 你也可以从门户或使用 Azure CLI 手动创建服务主体，然后在项目中重复使用。
+
+1. 从实验室计算机启动 Web 浏览器，导航到 [Azure 门户](https://portal.azure.com)，并使用用户帐户登录，该帐户在本实验室将使用的 Azure 订阅中具有所有者角色，并在与此订阅关联的 Microsoft Entra 租户中具有全局管理员角色。
+1. 在 Azure 门户中，单击页面顶部搜索文本框右侧的 Cloud Shell 图标。
+1. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
+
+   >**注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
+
+1. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以检索 Azure 订阅 ID 和订阅名称属性的值 ：
+
+    ```bash
+    az account show --query id --output tsv
+    az account show --query name --output tsv
+    ```
+
+    > **注意**：将两个值都复制到文本文件中。 稍后将在本实验室用到它们。
+
+1. 在 Bash 提示符的 Cloud Shell 窗格中，运行以下命令以创建服务主体（将 myServicePrincipalName 替换为任意由字母和数字组成的唯一字符串）和 mySubscriptionID（替换为你的 Azure subscriptionId）：
+
+    ```bash
+    az ad sp create-for-rbac --name myServicePrincipalName \
+                         --role contributor \
+                         --scopes /subscriptions/mySubscriptionID
+    ```
+
+    > **注意**：此命令将生成 JSON 输出。 将输出复制到文本文件中。 本实验室中稍后会用到它。
+
+1. 接下来，从实验室计算机启动 Web 浏览器，导航到 Azure DevOps eShopOnWeb 项目。 单击“项目设置 > 服务连接”（在“管道”下）和“新建服务连接”。
+
+    ![新建服务连接](images/new-service-connection.png)
+
+1. 在“新建服务连接”边栏选项卡上，选择“Azure 资源管理器”和“下一步”（可能需要向下滚动）。
+
+1. 选择“服务主体(手动)”并单击“下一步”。
+
+1. 使用在前面的步骤中收集的信息填写空字段：
+    - 订阅 ID 和名称。
+    - 服务主体 ID (appId)、服务主体密钥（密码）和租户 ID（租户）。
+    - 在“服务连接名称”中，键入 azure subs。 需要 Azure DevOps 服务连接来与 Azure 订阅通信时，将在 YAML 管道中引用此名称。
+
+    ![Azure 服务连接](images/azure-service-connection.png)
+
+1. 单击“验证并保存”。
+
+#### 任务 2：添加 YAML 生成和部署定义
 
 在此任务中，你将向现有项目添加 YAML 生成定义。
 
@@ -196,7 +251,7 @@ lab:
     - 验证“应用服务类型”**** 指向 Windows 上的 Web 应用。
     - 在“应用服务名称”下拉列表中，选择你之前在实验室中部署的 Web 应用的名称 (**az400eshoponweb...)。****
     - 在“包或文件夹”文本框中，将默认值更新为 `$(Build.ArtifactStagingDirectory)/**/Web.zip`。
-    - 展开“**“应用程序和配置设置**”，然后在“应用设置”文本框中添加以下键值对：`-UseOnlyInMemoryDatabase true -ASPNETCORE_ENVIRONMENT Development`。
+    - 展开“应用程序和配置设置”**** 并添加值 `-UseOnlyInMemoryDatabase true -ASPNETCORE_ENVIRONMENT Development`
 1. 单击“添加”按钮，确认“助手”窗格中的设置。
 
     > **注意**：这会自动将部署任务添加到 YAML 管道定义。
@@ -216,7 +271,7 @@ lab:
 
     > **注意**：在本实验室的上下文中，packageForLinux 参数具有误导性，但是对于 Windows 或 Linux，它是有效的。
 
-1. 保存对 yml-file 的更新之前，请为它提供一个更清晰的名称。 在 yaml 编辑器窗口顶部，它会显示 EShopOnweb/azure-pipelines-#.yml。**** （其中 # 是一个数字，通常为 1，但在你的设置中可能有所不同）。选择**该文件名**，并将其重命名为 **m08l14-pipeline.yml**
+1. 保存对 yml-file 的更新之前，请为它提供一个更清晰的名称。 在 yaml 编辑器窗口顶部，它会显示 EShopOnweb/azure-pipelines-#.yml。**** （其中 # 是一个数字，通常为 1，但在你的设置中可能有所不同）。选择该文件名****，并将其重命名为 m09l16-pipeline.yml****
 
 1. 单击“保存”，在“保存”窗格上，再次单击“保存”，以直接将更改提交到主分支  。
 
@@ -224,9 +279,9 @@ lab:
 
 1. 在 Azure DevOps 左侧菜单中，导航到“管道”，然后再次选择“管道”。 接下来，选择“所有”**** 以打开所有管道定义，而不仅仅是最近的定义。
 
-    > 注意：如果你保留了以前实验室练习的所有管道，此新管道可能已重复使用了管道的默认 eShopOnWeb (#) 序列名称，如以下屏幕截图所示。******** 选择一个管道（很可能是序列号最高的管道，选择“编辑”并验证它指向 m08l14-pipeline.yml 代码文件）。
+    > 注意：如果你保留了以前实验室练习的所有管道，此新管道可能已重复使用了管道的默认 eShopOnWeb (#) 序列名称，如以下屏幕截图所示。******** 选择一个管道（很可能是序列号最高的管道，选择“编辑”并验证它指向 m09l16-pipeline.yml 代码文件）。
 
-    ![显示有 eShopOnWeb 运行的 Azure Pipelines 的屏幕截图。](images/m3/eshoponweb-m9l16-pipeline.png)
+    ![显示有 eShopOnWeb 运行的 Azure Pipelines 的屏幕截图](images/m3/eshoponweb-m9l16-pipeline.png)
 
 1. 通过在显示的窗格中单击“运行”并再次单击“运行”进行确认，来确认运行此管道。********
 1. 请注意，此时出现了两个不同的阶段，即“生成 .Net Core 解决方案”和“部署到 Azure Web 应用”。
@@ -260,13 +315,13 @@ lab:
 在此任务中，将 Azure 负载测试资源部署到 Azure 订阅中。
 
 1. 在 Azure 门户 (<https://portal.azure.com>) 中，导航到“创建 Azure 资源”****。
-1. 在“搜索服务和市场”搜索字段中，输入“**`Azure Load Testing`**”。
+1. 在“搜索服务和市场”搜索字段中，输入“Azure 负载测试”。
 1. 从搜索结果中选择 Microsoft 发布的“Azure 负载测试”。
 1. 在“Azure 负载测试”页中，单击“创建”以启动部署过程。
 1. 在“创建负载测试资源”页中，提供资源部署所需的详细信息：
    - 订阅：选择自己的 Azure 订阅
    - 资源组：选择在前面的练习中用于部署 Web 应用服务的资源组
-   - **名称**：`eShopOnWebLoadTesting`
+   - 名称****：eShopOnWebLoadTesting
    - 区域：选择一个靠近你所在区域的区域
 
     > 注意：Azure 负载测试服务并非在所有 Azure 区域中都可用。
@@ -282,8 +337,7 @@ lab:
 
 在此任务中，使用不同的负载配置设置创建不同的“Azure 负载测试”测试。
 
-1. 在 Azure 负载测试 **eShopOnWebLoadTesting** 的“资源”边栏选项卡中，导航到“**测试**”下的“**测试**”。 单击“**+创建**”菜单选项，然后选择“**创建基于 URL 的测试**”。
-1. 取消选中“**启用高级设置**”复选框，以显示高级设置。
+1. 在 Azure 负载测试“eShopOnWebLoadTesting”的“资源”边栏选项卡中，导航到“测试”。******** 单击“+创建”菜单选项，然后选择“创建基于 URL 的测试”。********
 1. 完成以下参数和设置以创建负载测试：
    - **** 测试 URL：输入你在上一练习中部署的 Azure 应用服务的 URL (az400eshoponweb...azurewebsites.net)，包括 https://****
    - 指定负载：虚拟用户
@@ -328,24 +382,27 @@ lab:
 
 完成本练习后，便有了一个 CI/CD 工作流，该工作流配置为使用 Azure 负载测试运行负载测试。
 
-#### 任务 1：标识 Azure DevOps 服务连接详细信息
+#### 任务 1：标识 ADO 服务连接详细信息
 
-在此任务中，向 Azure DevOps 服务连接授予所需的权限。
+在此任务中，向 Azure DevOps 服务连接的服务主体授予所需的权限。
 
-1. 从 Azure DevOps 门户导航到 eShopOnWeb 项目****<https://aex.dev.azure.com>****。
+1. 从 Azure DevOps 门户导航到 eShopOnWeb 项目****<https://dev.azure.com>****。
 1. 在左下角，选择“项目设置”。
 1. 在“管道”部分下，选择“服务连接” 。
 1. 请注意服务连接，其中包含在实验室练习开始时用于部署 Azure 资源的 Azure 订阅的名称。
-1. 选择“服务连接”。 在“**概述**”选项卡中，导航到“**详细信息**”，然后选择“**管理服务连接角色**”。
-1. 这会将你重定向到 Azure 门户，可以从中打开访问控制 (IAM) 边栏选项卡中的资源组详细信息。
+1. 选择“服务连接”。 在“概述”选项卡中，导航到“详细信息”，然后选择“管理服务主体”  。
+1. 这可重定向到 Azure 门户，可从其中打开标识对象的“服务主体”详细信息。
+1. 将“显示名称”值（格式类似于 Name_of_ADO_Organization_eShopOnWeb_-b86d9ae1-7552-4b75-a1e0-27fb2ea7f9f4）复制到一边，因为后续步骤中需要使用此值****。
 
-#### 任务 2：向 Azure 负载测试资源授予权限
+#### 任务 2：向服务主体授予权限
 
-Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活动的权限。 要从 CI/CD 管道运行负载测试，请将**负载测试参与者**角色授予 Azure DevOps 服务连接。
+Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活动的权限。 若要从 CI/CD 管道运行负载测试，请将负载测试参与者角色授予服务主体。
 
-1. 选择“+添加”和“添加角色分配”********。
+1. 在 Azure 门户中，转到你的 Azure 负载测试资源 。
+1. 选择“访问控制(IAM)”>“添加”>“添加角色分配”。
 1. 在“角色”选项卡中，选择作业功能角色列表中的“负载测试参与者” 。
-1. 在“**成员”选项卡**上，选择“**选择成员**”，查找并选择你的用户帐户，然后单击“**选择**”。
+1. 在“成员”选项卡中，选择“选择成员”，然后使用之前复制的显示名称搜索服务主体  。
+1. 选择服务主体，然后选择“选择” 。
 1. 在“查看 + 分配”选项卡中，选择“查看 + 分配”，以添加角色分配。
 
 现在可以使用 Azure Pipelines 工作流定义中的服务连接来访问 Azure 负载测试资源。
@@ -365,7 +422,7 @@ Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活�
    - config.yaml：负载测试 YAML 配置文件。 你将在 CI/CD 工作流定义中引用此文件。
    - quick_test.jmx：JMeter 测试脚本
 
-1. 将所有提取的输入文件提交到源代码管理存储库。 为此，请导航到 Azure DevOps 门户**** (<https://aex.dev.azure.com/>)，然后导航到“eShopOnWeb”DevOps 项目****。
+1. 将所有提取的输入文件提交到源代码管理存储库。 为此，请导航到 Azure DevOps 门户**** (<https://dev.azure.com>)，然后导航到“eShopOnWeb”DevOps 项目****。
 1. 选择“Repos”。 在源代码文件夹结构中，请注意 tests 子文件夹。 请注意省略号 (...)，然后选择“新建”>“文件夹”。
 1. 将 jmeter 指定为文件夹名称，并将 placeholder.txt 指定为文件名（注意：不能将文件夹创建为空文件夹）
 1. 单击“提交”以确认创建占位符文件和 jmeter 文件夹。
@@ -374,6 +431,8 @@ Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活�
 1. 单击“提交”确认文件上传到源代码管理。
 
 #### 任务 4：更新 CI/CD 工作流 YAML 定义文件
+
+在此任务中，导入 Azure 负载测试 - Azure DevOps 市场扩展，并使用 AzureLoadTest 任务更新现有的 CI/CD 管道。
 
 1. 为了创建和运行负载测试，Azure Pipelines 工作流定义使用 Azure DevOps 市场中的 Azure 负载测试任务扩展。 打开 Azure DevOps 市场中的 [Azure 负载测试任务扩展](https://marketplace.visualstudio.com/items?itemName=AzloadTest.AzloadTesting)，然后选择“免费获取”。
 1. 选择你的 Azure DevOps 组织，然后选择“安装”以安装扩展。
@@ -384,7 +443,7 @@ Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活�
    - Azure 订阅：选择运行 Azure 资源的订阅
    - 负载测试文件：“$(Build.SourcesDirectory)/tests/jmeter/config.yaml”
    - 负载测试资源组：保存 Azure 负载测试资源的资源组
-   - 负载测试资源名称：`eShopOnWebLoadTesting`
+   - 负载测试资源名称：ESHopOnWebLoadTesting
    - 负载测试运行名称：ado_run
    - 负载测试运行说明：从 ADO 进行负载测试
 
@@ -395,7 +454,7 @@ Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活�
     ```yml
          - task: AzureLoadTest@1
           inputs:
-            azureSubscription: 'AZURE DEMO SUBSCRIPTION'
+            azureSubscription: 'AZURE DEMO SUBSCRIPTION(b86d9ae1-1234-4b75-a8e7-27fb2ea7f9f4)'
             loadTestConfigFile: '$(Build.SourcesDirectory)/tests/jmeter/config.yaml'
             resourceGroup: 'az400m05l11-RG'
             loadTestResource: 'eShopOnWebLoadTesting'
@@ -506,12 +565,34 @@ Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活�
 
 1. 请注意负载测试输出的最后一行显示 ##[error]TestResult: 失败；由于我们定义的 FailCriteria 为平均响应时间 > 300，或者错误百分比 > 20，而现在的平均响应时间超过了 300，因此任务被标记为失败 。
 
-    > **注意**：假设在现实应用场景中，你将验证应用服务的性能，如果性能低于特定阈值（通常意味着 Web 应用上有更多负载），则可以触发到其他 Azure 应用服务的新部署。 由于我们无法控制 Azure 实验室环境的响应时间，因此我们决定还原逻辑来保证失败。
+    > 注意：假设在现实场景中，你将验证应用服务的性能，如果性能低于特定阈值（通常意味着 Web 应用上有更多负载），则可以触发到其他Azure 应用服务的新部署。 由于我们无法控制 Azure 实验室环境的响应时间，因此我们决定还原逻辑来保证失败。
 
 1. 管道任务的“失败”状态实际上反映了 Azure 负载测试要求条件验证的成功。
 
-   > [!IMPORTANT]
-   > 请记得删除在 Azure 门户中创建的资源，以避免不必要的费用。
+### 练习 3：删除 Azure 实验室资源
+
+在本练习中，你将删除在本实验室中预配的 Azure 资源，避免产生意外费用。
+
+> **注意**：记得删除所有不再使用的新建 Azure 资源。 删除未使用的资源可确保不会出现意外费用。
+
+#### 任务 1：删除 Azure 实验室资源
+
+在此任务中，你将使用 Azure Cloud Shell 删除在本实验室中预配的 Azure 资源，避免产生不必要的费用。
+
+1. 在 Azure 门户中，在 Cloud Shell 窗格中打开 Bash Shell 会话 。
+1. 运行以下命令，列出在本模块各实验室中创建的所有资源组：
+
+    ```sh
+    az group list --query "[?starts_with(name,'az400m09l16')].name" --output tsv
+    ```
+
+1. 通过运行以下命令，删除在此模块的实验室中创建的所有资源组：
+
+    ```sh
+    az group list --query "[?starts_with(name,'az400m09l16')].[name]" --output tsv | xargs -L1 bash -c 'az group delete --name $0 --no-wait --yes'
+    ```
+
+    >**注意**：该命令以异步方式执行（由 --nowait 参数确定），因此，尽管可立即在同一 Bash 会话中运行另一个 Azure CLI 命令，但实际上要花几分钟才能删除资源组。
 
 ## 审阅
 
