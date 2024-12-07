@@ -97,7 +97,7 @@ Azure Key Vault 可安全存储和管理敏感数据，例如密钥、密码和�
     - PowerShell 任务获取 bicep 输出（ACR 登录服务器）并创建管道变量。
     - DockerCompose 任务生成 eShopOnWeb 的容器映像并将其推送到 Azure 容器注册表。
 
-1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“**管道 > 管道**”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 eshoponweb-ci-dockercompose，然后单击“保存”。
+1. 管道将采用基于项目名称的名称。 让我们重命名它，以便更好地识别管道。 转到“**管道 > 管道**”，然后单击最近创建的管道。 单击省略号和“重命名/删除”选项。 将其命名为 **`eshoponweb-ci-dockercompose`**，然后单击“**保存**”。
 
 1. 执行完成后，在 Azure 门户中打开以前定义的资源组，应找到 Azure 容器注册表 (ACR)，其中包含创建的容器映像 eshoppublicapi 和 eshopwebmvc。 仅在部署阶段使用 eshopwebmvc。
 

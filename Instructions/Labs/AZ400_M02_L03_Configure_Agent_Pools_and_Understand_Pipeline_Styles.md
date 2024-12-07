@@ -216,7 +216,7 @@ lab:
    - 接受默认代理工作文件夹 (_work)。
    - 输入 **Y** 将代理配置为作为服务运行。
    - 输入 **Y** 为代理服务启用 SERVICE_SID_TYPE_UNRESTRICTED。
-   - 输入 **NT AUTHORITY\SYSTEM** 以设置服务的安全性上下文。
+   - 输入 **`NT AUTHORITY\SYSTEM`** 以设置服务的安全性上下文。
 
    > [!IMPORTANT]
    > 通常，配置服务安全性上下文时，应遵循最低特权原则。

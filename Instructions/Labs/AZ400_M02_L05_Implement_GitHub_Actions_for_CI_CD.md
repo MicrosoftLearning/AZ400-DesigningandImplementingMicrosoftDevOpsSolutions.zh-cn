@@ -113,7 +113,7 @@ lab:
 
 1. 在浏览器窗口中，返回到 eShopOnWeb GitHub 存储库。
 1. 在存储库页上，转到“设置”，单击“机密和变量”>“操作”。 单击“新建存储库机密”
-    - 名称：AZURE_CREDENTIALS
+    - 名称：**`AZURE_CREDENTIALS`**
     - 机密：粘贴以前复制的 JSON 对象（GitHub 能够以相同的名称保存多个机密，由 [azure/login](https://github.com/Azure/login) 操作使用）
 
 1. 单击“添加机密”。 现在，GitHub Actions 将能够使用存储库机密来引用服务主体。
@@ -159,7 +159,7 @@ lab:
 1. 在“deploy”作业节中，可以找到对一个名为“Development”的环境的引用。************ GitHub 使用的[环境](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)为目标添加保护规则（和机密）。
 
 1. 在存储库页上，转到“设置”，打开“环境”，然后单击“新建环境”。
-1. 将环境命名为“开发”，然后单击“配置环境”。
+1. 将其命名为 **`Development`**，然后单击“**配置环境**”。
 
     > **注意**：如果“**环境**”列表中已存在名为“**开发**”的环境，则单击该环境名称打开其配置。  
 
