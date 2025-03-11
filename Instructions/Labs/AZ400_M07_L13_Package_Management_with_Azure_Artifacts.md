@@ -144,23 +144,23 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 1. 在实验室工作站中，打开“开始”菜单，然后搜索“Windows PowerShell”。 接下来，在级联菜单中，单击“以管理员身份打开 Windows PowerShell”。
 1. 在“管理员:**** Windows PowerShell”窗口中，通过执行以下命令导航到 eShopOnWeb.Shared 文件夹：
 
-   ```text
+   ```powershell
    cd c:\eShopOnWeb\eShopOnWeb.Shared
    ```
 
    > **注意**：eShopOnWeb.Shared 文件夹是 eShopOnWeb.Shared.csproj 文件的位置。******** 如果选择了其他位置或项目名称，请改为导航到该位置。
 
-1. 运行以下命令，从项目创建一个 .nupkg 文件。
+1. 运行以下命令，从项目创建 **.nupkg** 文件（使用唯一字符串更改`XXXXXX`占位符的值）。
 
    ```powershell
-   dotnet pack .\eShopOnWeb.Shared.csproj
+   dotnet pack .\eShopOnWeb.Shared.csproj -p:PackageId=eShopOnWeb-XXXXX.Shared
    ```
 
    > **注意**：dotnet pack 命令会生成项目，并在 bin\Release 文件夹中创建 NuGet 包。******** 如果没有 **Release** 文件夹，则可以改用 **Debug** 文件夹。
 
    > **注意**：忽略“管理员: Windows PowerShell”窗口中显示的任何警告。
 
-   > 注意：dotnet 包会根据其从项目中识别的信息生成一个最小的包。**** 例如，请注意名称为 eShopOnWeb.Shared.1.0.0.nupkg。**** 该版本号是从程序集中检索的。
+   > 注意：dotnet 包会根据其从项目中识别的信息生成一个最小的包。**** 该参数`-p:PackageId=eShopOnWeb-XXXXXX.Shared`允许使用项目中包含的名称创建具有特定名称的包。 例如，如果将字符串`12345`替换为`XXXXXX`占位符，则包的名称将为 **eShopOnWeb-12345.Shared.1.0.0.nupkg**。 该版本号是从程序集中检索的。
 
 1. 在 PowerShell 窗口中，运行以下命令以打开 bin\Release 文件夹：****
 
