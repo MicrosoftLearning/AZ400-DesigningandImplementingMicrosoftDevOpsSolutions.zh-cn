@@ -58,7 +58,7 @@ lab:
 
     | 字段 | 值 |
     | --- | --- |
-    | 旧存储库的克隆 URL| <https://github.com/MicrosoftLearning/eShopOnWeb> |
+    | 源存储库的 URL| <https://github.com/MicrosoftLearning/eShopOnWeb> |
     | 所有者 | 帐户别名 |
     | 存储库名称 | eShopOnWeb |
     | 隐私 | **公共** |
@@ -83,7 +83,7 @@ lab:
 1. 在“创建资源组”选项卡上，为资源组提供以下名称：rg-eshoponweb-NAME（将 NAME 替换为某个独一无二的别名）********。 单击“**查看 + 创建 > 创建**”。
 1. 在 Azure 门户中，打开 Cloud Shell（搜索栏旁边）。
 
-    > **注意**：如果这是你第一次打开 Cloud Shell，则需要配置[永久性存储](https://learn.microsoft.com/azure/cloud-shell/persisting-shell-storage)
+    > 注意：如果 Azure 门户要求你创建存储，你可以选择“不需要存储帐户”选项，选择订阅并单击“应用”按钮************
 
 1. 确保终端在 Bash 模式下运行并执行以下命令，将 SUBSCRIPTION-ID 和 RESOURCE-GROUP 替换为自己的标识符（这两者均可在资源组的“概述”页上找到）：
 
@@ -132,7 +132,7 @@ lab:
     - 将 WEBAPP-NAME 中的 NAME 替换为一些唯一别名。 它将用于使用 Azure 应用服务创建全局唯一网站。
 1. 请仔细阅读工作流，并提供注释以帮助理解。
 
-1. 单击“开始提交”和“提交更改”保留默认值（更改主分支）。 工作流将自动执行。
+1. 单击右上方的“提交更改...”，“提交更改”将保留默认值（更改主分支）。******** 工作流将自动执行。
 
 #### 任务 3：查看 GitHub 工作流执行
 
