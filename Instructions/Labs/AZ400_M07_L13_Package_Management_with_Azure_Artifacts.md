@@ -125,7 +125,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
    > **注意**：现在，我们将创建一个共享程序集，该程序集将以 NuGet 包的形式发布，以便其他团队可以集成该程序集并保持同步，而不必直接使用项目源。
 
-1. 在“新建项目”窗格的“最新项目模板”页面上，使用搜索文本框找到“类库”模板，选择 C# 模板，然后单击“下一步”   。
+1. 在“新建项目”窗格中，使用搜索文本框找到“类库”模板，选择面向 .NET 或 .NET Standard 的 C# 模板，然后单击“下一步”。************
 1. 在“新建项目”窗格的“类库”页面上，指定以下设置，然后单击“创建”：
 
    | 设置       | 值                    |
@@ -153,7 +153,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 1. 运行以下命令，从项目创建 **.nupkg** 文件（使用唯一字符串更改`XXXXXX`占位符的值）。
 
    ```powershell
-   dotnet pack .\eShopOnWeb.Shared.csproj -p:PackageId=eShopOnWeb-XXXXX.Shared
+   dotnet pack .\eShopOnWeb.Shared.csproj -p:PackageId=eShopOnWeb-XXXXXX.Shared
    ```
 
    > **注意**：dotnet pack 命令会生成项目，并在 bin\Release 文件夹中创建 NuGet 包。******** 如果没有 **Release** 文件夹，则可以改用 **Debug** 文件夹。
@@ -171,10 +171,10 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 1. 运行以下命令，将该包发布到 **eShopOnWebShared** 源。 将源替换为之前从 Visual Studio **源** URL `https://pkgs.dev.azure.com/Azure-DevOps-Org-Name/_packaging/eShopOnWebShared/nuget/v3/index.json` 复制的 URL 
 
    ```powershell
-   dotnet nuget push --source "https://pkgs.dev.azure.com/Azure-DevOps-Org-Name/_packaging/eShopOnWebShared/nuget/v3/index.json" --api-key az "eShopOnWeb.Shared.1.0.0.nupkg"
+   dotnet nuget push --source "https://pkgs.dev.azure.com/Azure-DevOps-Org-Name/_packaging/eShopOnWebShared/nuget/v3/index.json" --api-key az "eShopOnWeb-XXXXXX.Shared.1.0.0.nupkg"
    ```
 
-   > **重要说明**：需要为操作系统安装凭据提供程序才能使用 Azure DevOps 进行身份验证。 可以在 [Azure Artifacts 凭据提供程序](https://go.microsoft.com/fwlink/?linkid=2099625)中找到安装说明。 可以通过在 PowerShell 窗口中运行以下命令进行安装：`iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"`
+   > **重要说明**：如果收到授权错误（401 未授权），则需要为操作系统安装凭据提供程序才能使用 Azure DevOps 进行身份验证。 可以在 [Azure Artifacts 凭据提供程序](https://go.microsoft.com/fwlink/?linkid=2099625)中找到安装说明。 可以通过在 PowerShell 窗口中运行以下命令进行安装：`iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"`
 
    > **注意**：你需要提供一个 API 密钥，该密钥可以是任何非空字符串。 我们在这里使用 az。**** 当系统出现提示时，登录到 Azure DevOps 组织。
 
@@ -194,7 +194,7 @@ Azure Artifacts 有助于在 Azure DevOps 中发现、安装和发布 NuGet、np
 
 在此任务中，我们将使用通用的“Newtonsoft.Json”示例包，但你可以对库中的其他包使用相同的方法。
 
-1. 在上个任务用于推送新包的同一 PowerShell 窗口中，导航回 **eShopOnWeb.Shared** 文件夹 (`cd..`)，运行以下 **dotnet** 命令以安装示例包：
+1. 在上个任务用于推送新包的同一 PowerShell 窗口中，导航回 **eShopOnWeb.Shared** 文件夹 (`cd ../..`)，运行以下 **dotnet** 命令以安装示例包：
 
    ```powershell
    dotnet add package Newtonsoft.Json

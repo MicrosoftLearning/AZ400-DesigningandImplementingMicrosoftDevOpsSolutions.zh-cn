@@ -114,7 +114,7 @@ lab:
 1. 在 Azure 门户中，单击页面顶部搜索文本框右侧的 Cloud Shell 图标。
 1. 如果系统提示选择“Bash”或“PowerShell”，请选择“Bash”。
 
-   > **注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
+   > **注意**：如果这是你第一次启动 Cloud Shell，并看到消息“未装载任何存储”，请选择你将在本实验室中使用的订阅，然后单击“应用”************。
 
 1. 在 Cloud Shell 窗格中的 Bash 提示符下，运行以下命令以创建资源组（将 `<region>` 变量占位符替换为将托管两个 Azure Web 应用的 Azure 区域的名称，例如“westeurope”、“centralus”或你选择的任何其他可用区域）：
 
@@ -142,6 +142,8 @@ lab:
    ```
 
    > 注意：记录 DevTest Web 应用的名称。 本实验室中稍后会用到它。
+
+   > **注意**：如果遇到错误“订阅未注册为使用命名空间'Microsoft.Web'”，请运行以下命令来注册 Microsoft.Web 资源提供程序 `az provider register --namespace Microsoft.Web`，并等待注册完成，然后再创建 Web 应用。
 
 1. 请等待 Web 应用服务器资源预配过程完成，然后关闭 Cloud Shell 窗格。
 

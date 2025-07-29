@@ -76,7 +76,7 @@ lab:
 
 1. 选择“创建”按钮。
 
-1. 选择**具有预设配置的 Azure 虚拟机**。
+1. 选择“预设”****。
 
     ![创建具有预设配置的虚拟机的屏幕截图。](images/create-virtual-machine-preset.png)
 
@@ -143,6 +143,8 @@ lab:
 
    > **备注**：按照安装说明安装代理。
 
+   > **注意**：使用“下载”按钮下载的 zip 文件的名称应类似于下面的 `vsts-agent-win-x64-X.YYY.Z.zip`（在编写本实验室时，文件名为 `vsts-agent-win-x64-4.255.0.zip`）。**** 稍后将在其中一个智能体安装命令中使用该文件名。
+
 1. 启动 PowerShell 会话并运行以下命令创建名为 **agent** 的文件夹。
 
    ```powershell
@@ -154,10 +156,12 @@ lab:
 1. 运行以下命令以提取下载的代理安装程序文件的内容：
 
    ```powershell
-   Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-3.245.0.zip", "$PWD")
+   Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-4.255.0.zip", "$PWD")
    ```
 
    > **备注**：如果将代理下载到其他位置（或下载的版本不同），请相应地调整上述命令。
+
+   > **注意**：请确保 `ExtractToDirectory` 命令中指定的 zip 文件名与之前下载的 zip 文件名相同。
 
 #### 任务 4：创建 PAT 令牌
 
@@ -208,7 +212,7 @@ lab:
 
 1. 若要配置代理，请在出现提示时执行以下操作：
 
-   - 以“`https://aex.dev.azure.com`{你的组织名称}”格式输入 Azure DevOps 组织的 URL（**服务器 URL**）。
+   - 输入 Azure DevOps 组织的 URL（服务器 URL****），格式为 `https://dev.azure.com/{your organization name}`。
    - 接受默认身份验证类型 (**`PAT`**)。
    - 输入你在上一步中创建的 PAT 令牌的值。
    - 输入在本练习前面创建的代理池名称 **`eShopOnWebSelfPool`**。
@@ -240,7 +244,7 @@ lab:
    > [!IMPORTANT]
    > 为了使代理能够从 Azure DevOps 管道生成和部署 Azure 资源（你将在接下来的实验室中逐步完成这部分），需要在托管代理的 Azure VM 的操作系统中安装 Azure CLI。
 
-1. 启动 Web 浏览器并导航到[在 Windows 上安装 Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli-windows?tabs=azure-cli#install-or-update) 页面。
+1. 启动 Web 浏览器并导航到页面 `https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli&pivots=msi#install-or-update`。
 
 1. 下载并安装 Azure CLI。
 
@@ -306,7 +310,7 @@ lab:
     ![显示 YAML 池语法的屏幕截图。](images/eshoponweb-ci-pr-agent-pool.png)
 
 1. 在“eShopOnWeb”编辑窗格上，在窗格右上角单击“验证并保存”********。 然后单击**保存**。
-1. 在“eShopOnWeb”**** 编辑窗格上，在窗格右上角单击“运行管道”****。
+1. 在“eShopOnWeb”**** 编辑窗格中，在窗格右上角单击“运行”****。
 
     > **备注**：管道将在上一练习中创建的自托管代理池上运行。
 1. 打开管道运行并监视作业，直到作业成功完成。
