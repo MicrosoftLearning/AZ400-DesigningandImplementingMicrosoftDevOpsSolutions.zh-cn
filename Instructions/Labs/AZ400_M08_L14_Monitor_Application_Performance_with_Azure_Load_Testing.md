@@ -204,7 +204,7 @@ lab:
 1. 添加到编辑器的代码片段应如下所示，它反映了 azureSubscription 和 WebappName 参数的名称：
 
    ```yml
-   - task: AzureRmWebAppDeployment@4
+   - task: AzureRmWebAppDeployment@5
      inputs:
        ConnectionType: "AzureRM"
        azureSubscription: "SERVICE CONNECTION NAME"
@@ -228,7 +228,7 @@ lab:
 
    ![显示有 eShopOnWeb 运行的 Azure Pipelines 的屏幕截图。](images/m3/eshoponweb-m9l16-pipeline.png)
 
-1. 通过在显示的窗格中单击“运行”并再次单击“运行”进行确认，来确认运行此管道。********
+1. 通过在显示的窗格中单击“运行”管道并再次单击“运行”进行确认，来确认运行此管道。********
 1. 请注意，此时出现了两个不同的阶段，即“生成 .Net Core 解决方案”和“部署到 Azure Web 应用”。
 1. 等待管道启动。
 
@@ -389,8 +389,8 @@ Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活�
 1. 为了创建和运行负载测试，Azure Pipelines 工作流定义使用 Azure DevOps 市场中的 Azure 负载测试任务扩展。 打开 Azure DevOps 市场中的 [Azure 负载测试任务扩展](https://marketplace.visualstudio.com/items?itemName=AzloadTest.AzloadTesting)，然后选择“免费获取”****。
 1. 选择你的 Azure DevOps 组织，然后选择“安装”以安装扩展。
 1. 在 Azure DevOps 门户和项目中，导航到“管道”并选择在本练习开始时创建的管道。 单击 **“编辑”** 。
-1. 在 YAML 脚本中，导航到第 56 行，然后按 Enter/RETURN 添加新的空行。 （这就在 YAML 文件的部署阶段之前）。
-1. 在第 57 行，选择右侧的“任务助手”，然后搜索“Azure 负载测试”。
+1. 在 YAML 脚本中，导航到第 64 行，然后按 Enter/RETURN 添加新的空行****。 （这就在 YAML 文件的部署阶段之前）。
+1. 在第 65 行，选择右侧的任务助手，并搜索“Azure 负载测试”（确保将光标定位在上一任务级别的缩进处）。****
 1. 使用方案的正确设置完成图形窗格：
 
    - Azure 订阅：选择运行 Azure 资源的订阅
@@ -424,12 +424,12 @@ Azure 负载测试使用 Azure RBAC 授予对负载测试资源执行特定活�
    ```
 
 1. 如果 YAML 代码片段的缩进导致错误（红色波浪线条），请通过添加 2 个空格或制表符来正确定位代码片段，以修复这些错误。
-1. 将这两个代码片段添加到 CI/CD 管道后，保存更改。
+1. 将这两个代码片段添加到 CI/CD 管道后，单击“验证并保存”，然后单击“保存所做的更改”********。
 1. 保存后，单击“运行”以触发管道。
 1. 确认分支（主分支）并单击“运行”按钮启动管道运行。
-1. 在管道状态页中，单击“生成”阶段以打开管道中不同任务的详细日志记录详细信息。
-1. 等待管道启动生成阶段，并到达管道流中的 AzureLoadTest 任务。
-1. 在任务运行时，浏览到 Azure 门户中的 Azure 负载测试，并查看管道如何创建名为 adoloadtest1 的新 RunTest 。 可以选择它以显示 TestRun 作业的结果值。
+1. 在管道状态页中，单击“部署”阶段以打开管道中不同任务的详细日志记录详细信息****。
+1. 等待管道启动部署阶段，并到达管道流中的 AzureLoadTest 任务****。
+1. 在任务运行时，浏览到 Azure 门户中的 Azure 负载测试，并查看管道如何创建名为 ado_load_test 的新 RunTest********。 可以选择它以显示 TestRun 作业的结果值。
 1. 导航回 Azure DevOps CI/CD 管道运行视图，其中 AzureLoadTest 任务已成功完成。 在详细日志记录输出中，负载测试的结果值也可见：
 
    ```text
